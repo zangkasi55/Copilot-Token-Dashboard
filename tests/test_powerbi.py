@@ -30,7 +30,7 @@ def test_measures_use_explicit_unknowns_and_no_boolean_max():
     definitions = {item["name"]: item["expression"] for item in measures()}
     assert "MAX(Settings[IsDemo])" not in "\n".join(definitions.values())
     assert "not reported" not in definitions["My Uncached Input Tokens"].lower()
-    assert "IF([My Cache Coverage Gaps]=0" in definitions["My Uncached Input Tokens"]
+    assert "IF([My Cache Coverage Gaps]=0 && [My Cache Write Coverage Gaps]=0" in definitions["My Uncached Input Tokens"]
     assert "IF" in definitions["My Cache Hit Ratio"]
     assert "user01@example.com" in definitions["Viewer UPN"]
     assert "USERPRINCIPALNAME()" in definitions["Viewer UPN"]

@@ -182,7 +182,9 @@ async function main() {
   ]) {
     const content = blocks(fs.readFileSync(path.join(root, "docs", file), "utf8"));
     const base = path.join(destination, `Copilot Token Dashboard - Installation ${suffix}`);
-    fs.writeFileSync(base + ".docx", await Packer.toBuffer(document(content, font)));
+    if (process.argv.includes("--docx")) {
+      fs.writeFileSync(base + ".docx", await Packer.toBuffer(document(content, font)));
+    }
     fs.writeFileSync(base + ".html", html(content, language), "utf8");
     console.log("Built public manual: " + suffix);
   }

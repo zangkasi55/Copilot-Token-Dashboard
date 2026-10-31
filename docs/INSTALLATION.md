@@ -62,7 +62,7 @@ In Power BI Desktop:
 2. Select Refresh if the data is not yet loaded.
 3. Confirm the synthetic-demo banner and data-through date.
 4. Visit all ten report pages.
-5. Use the Agent selector or drill-through configuration for a single agent.
+5. Use the selector on Agent Detail to review a single agent.
 6. Open Modeling > View as and test the Viewer role with an example UPN.
 
 The example people use the reserved `example.com` domain. The sample prices are
@@ -215,4 +215,3 @@ This is not a legal-compliance certification or an employee-performance tool.
 
 The accompanying administrator and source-capability manuals provide detailed
 operating boundaries.
-

@@ -4,11 +4,14 @@ Initial independently authored public preview release.
 
 - Ten Power BI pages, editable model and explicit synthetic data.
 - Separate self-only personal facts and privacy-filtered organization aggregates.
+- Billing-only personal contributions also respect the cohort minimum;
+  privacy-restricted people are excluded from organization aggregate facts.
 - Current GitHub client/model token metrics, net billed amounts and distinct
   premium-request/AI-credit units.
 - Microsoft 365 v2 period/activity collection and minimal Entra export.
 - Metadata imports for owned gateway, credit, audit and FOCUS exports.
 - Explicit unknown cache/price/attribution states.
+- Uncached-input derivation requires reported cache-read and cache-write coverage.
 - Tenant-scoped Fabric provisioning with safe model/report binding and operation
   polling; manual RLS/credential/refresh steps remain explicit.
 - English and Thai installation manuals plus administrator, capability,

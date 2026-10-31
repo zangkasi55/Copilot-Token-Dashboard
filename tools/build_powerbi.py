@@ -149,10 +149,15 @@ def measures() -> list[dict]:
             'VAR u=[Viewer UPN] RETURN CALCULATE(COUNTROWS(UsageDaily),KEEPFILTERS(People[UPN]=u),'
             'NOT ISBLANK(UsageDaily[InputTokens]),ISBLANK(UsageDaily[CachedInputTokens]),'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "#,0", "Personal"),
+        "My Cache Write Coverage Gaps": (
+            'VAR u=[Viewer UPN] RETURN CALCULATE(COUNTROWS(UsageDaily),KEEPFILTERS(People[UPN]=u),'
+            'NOT ISBLANK(UsageDaily[InputTokens]),ISBLANK(UsageDaily[CacheWriteTokens]),'
+            'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "#,0", "Personal"),
         "My Cache Hit Ratio": (
             'IF([My Cache Coverage Gaps]=0,DIVIDE([My Cached Input Tokens],[My Input Tokens]))', "0.0%", "Personal"),
         "My Uncached Input Tokens": (
-            'IF([My Cache Coverage Gaps]=0,[My Input Tokens]-[My Cached Input Tokens]-[My Cache Write Tokens])',
+            'IF([My Cache Coverage Gaps]=0 && [My Cache Write Coverage Gaps]=0,'
+            '[My Input Tokens]-[My Cached Input Tokens]-[My Cache Write Tokens])',
             "#,0", "Personal"),
         "My Token Requests": (
             'VAR u=[Viewer UPN] RETURN CALCULATE(SUM(UsageDaily[Requests]),KEEPFILTERS(People[UPN]=u),'
@@ -239,7 +244,7 @@ def measures() -> list[dict]:
         "Agent Cost per Run": ("DIVIDE([Agent Spend],[Agent Runs])", '"USD "#,0.00', "Agents"),
         "Agent Tokens per Run": ("DIVIDE([Agent Input Tokens]+[Agent Output Tokens],[Agent Runs])", "#,0", "Agents"),
         "Agent Cache Ratio": ("DIVIDE([Agent Cached Input],[Agent Input Tokens])", "0.0%", "Agents"),
-        "Agent Name": ('SELECTEDVALUE(Agents[Name],"Select one agent or use Drill through")', "", "Agents"),
+        "Agent Name": ('SELECTEDVALUE(Agents[Name],"Select one agent on this page")', "", "Agents"),
         "Agent User Growth": (
             'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[UserGrowth]),'
             'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)', "0.0%", "Agents"),
@@ -534,7 +539,7 @@ def generate_report(folder: Path) -> list[dict]:
     p.cards([("Active agents", "Active Agents"), ("Known agent spend", "Agent Spend"),
              ("Reported runs", "Agent Runs"), ("Known cost per run", "Agent Cost per Run"),
              ("Eligible agent users", "Agent Users"), ("Spend-spike agents", "Spend Spike Agents")])
-    p.table("Agent portfolio: right-click an agent for detail",
+    p.table("Agent portfolio: use the selector on Agent Detail",
             [("Agents", "Name", False), ("Agents", "Type", False), ("Agents", "Status", False),
              ("Measures", "Agent Spend", True), ("Measures", "Agent Runs", True),
              ("Measures", "Agent Cost per Run", True), ("Measures", "Agent Users", True)], 306, 350)

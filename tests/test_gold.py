@@ -105,3 +105,23 @@ def test_unknown_token_prices_do_not_become_free_usage(demo):
     }])[0]
     assert row["Amount"] is None
     assert row["CostBasis"] == "not reported"
+
+
+def test_billing_only_personal_amounts_are_suppressed(demo):
+    _, tables, inputs = demo
+    builder = GoldBuilder(inputs)
+    row = copy.deepcopy(tables["UsageDaily"][0])
+    row["ActivityObserved"] = False
+    row["Amount"] = 73.5
+    metric = builder.metrics([row], "demo-root")
+    assert metric["PrivacySuppressed"] is True
+    assert metric["Amount"] is None
+    assert metric["ActiveUsers"] is None
+
+
+def test_privacy_restricted_people_are_excluded_from_scope_facts(demo):
+    _, tables, inputs = demo
+    builder = GoldBuilder(inputs)
+    row = copy.deepcopy(tables["UsageDaily"][0])
+    builder.people_by_key[str(row["PersonKey"])]["IsPrivacyRestricted"] = True
+    assert builder.rows_for_scope([row], "demo-root") == []

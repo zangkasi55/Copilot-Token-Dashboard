@@ -8,6 +8,11 @@ tables without person identifiers. The pipeline publishes only eligible fixed
 scopes, erases numeric facts on suppressed rows, and the Viewer role rejects
 those rows again.
 
+The cohort check also applies to billing-only personal contributions; a record
+without an activity signal cannot turn a one-person billed amount into an
+unsuppressed organization fact. Privacy-restricted people are excluded from
+organization aggregate facts.
+
 The default minimum is six. Changing group structure or policy requires a new
 validated data generation and a data-protection review. This is not differential
 privacy and does not eliminate all inference risks across overlapping scopes.
@@ -95,4 +100,3 @@ Collect software version, sanitized HTTP status/request ID, source name,
 schema error location, dataset refresh result and the failed installation stage.
 Do not attach raw prompts, full presigned URLs, tokens, employee exports or
 unreviewed screenshots to public GitHub issues.
-

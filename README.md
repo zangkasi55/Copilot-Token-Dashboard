@@ -79,3 +79,8 @@ python tools\publication_check.py
 The Power BI template compiler uses the declared optional pbi-tools **core**
 build utility. That utility is not bundled. The generated PBIT is inspected for
 the required package parts and complete page/model counts before release.
+
+With the official core compiler restored to the declared tool location, run
+`.\tools\Build-PowerBI.ps1`. Each build uses a new ignored scratch folder,
+validates the official report schemas, serializes the semantic model, compiles
+the PBIT, and checks its actual report/model contents.

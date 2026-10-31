@@ -239,7 +239,15 @@ class GoldBuilder:
 
     def is_suppressed(self, rows: list[Row], scope: str) -> bool:
         active = len(self.active_people(rows, scope))
-        return len(self.members[scope]) < self.minimum or 0 < active < self.minimum
+        contributors = {
+            str(row["PersonKey"]) for row in rows
+            if str(row["PersonKey"]) in self.members[scope]
+        }
+        return (
+            len(self.members[scope]) < self.minimum
+            or 0 < active < self.minimum
+            or 0 < len(contributors) < self.minimum
+        )
 
     def metrics(self, rows: list[Row], scope: str) -> Row:
         suppressed = self.is_suppressed(rows, scope)
@@ -258,7 +266,14 @@ class GoldBuilder:
         return result
 
     def rows_for_scope(self, rows: list[Row], scope: str) -> list[Row]:
-        return [row for row in rows if scope in self.ancestors(str(row["ScopeKey"]))]
+        result = []
+        for row in rows:
+            person = self.people_by_key.get(str(row["PersonKey"]), {})
+            if person.get("IsPrivacyRestricted") and not person.get("IsService"):
+                continue
+            if scope in self.ancestors(str(row["ScopeKey"])):
+                result.append(row)
+        return result
 
     def scope_daily(self, rows: list[Row]) -> list[Row]:
         result = []

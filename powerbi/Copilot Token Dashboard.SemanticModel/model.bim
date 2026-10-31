@@ -2049,6 +2049,12 @@
             "formatString": "#,0"
           },
           {
+            "name": "My Cache Write Coverage Gaps",
+            "expression": "VAR u=[Viewer UPN] RETURN CALCULATE(COUNTROWS(UsageDaily),KEEPFILTERS(People[UPN]=u),NOT ISBLANK(UsageDaily[InputTokens]),ISBLANK(UsageDaily[CacheWriteTokens]),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
+            "displayFolder": "Personal",
+            "formatString": "#,0"
+          },
+          {
             "name": "My Cache Hit Ratio",
             "expression": "IF([My Cache Coverage Gaps]=0,DIVIDE([My Cached Input Tokens],[My Input Tokens]))",
             "displayFolder": "Personal",
@@ -2056,7 +2062,7 @@
           },
           {
             "name": "My Uncached Input Tokens",
-            "expression": "IF([My Cache Coverage Gaps]=0,[My Input Tokens]-[My Cached Input Tokens]-[My Cache Write Tokens])",
+            "expression": "IF([My Cache Coverage Gaps]=0 && [My Cache Write Coverage Gaps]=0,[My Input Tokens]-[My Cached Input Tokens]-[My Cache Write Tokens])",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
@@ -2289,7 +2295,7 @@
           },
           {
             "name": "Agent Name",
-            "expression": "SELECTEDVALUE(Agents[Name],\"Select one agent or use Drill through\")",
+            "expression": "SELECTEDVALUE(Agents[Name],\"Select one agent on this page\")",
             "displayFolder": "Agents"
           },
           {

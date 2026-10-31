@@ -4,7 +4,7 @@
   "pageCount": 10,
   "visualCount": 146,
   "tableCount": 22,
-  "measureCount": 100,
+  "measureCount": 101,
   "roles": [
     "Viewer"
   ],
@@ -1660,9 +1660,9 @@
           }
         },
         {
-          "id": "8de978a2db212f0533c8",
+          "id": "0a857c2aa598e8d8a774",
           "type": "tableEx",
-          "title": "Agent portfolio: right-click an agent for detail",
+          "title": "Agent portfolio: use the selector on Agent Detail",
           "roles": {
             "Values": [
               [

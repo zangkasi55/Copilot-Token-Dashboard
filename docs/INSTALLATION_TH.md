@@ -57,7 +57,7 @@ Set-Location C:\CopilotTokenDashboard
 1. รอให้โปรเจกต์เปิดเสร็จ แล้วกด Refresh ถ้ายังไม่มีข้อมูล
 2. ตรวจป้ายข้อมูลสมมติและวันที่ Data through
 3. เปิดตรวจรายงานครบทั้ง 10 หน้า
-4. เลือก agent ในหน้า Agent Detail หรือใช้ drill-through ที่ตั้งค่าไว้
+4. เลือก agent ด้วยตัวเลือกในหน้า Agent Detail
 5. ใช้ Modeling > View as ทดสอบ role Viewer กับ UPN ตัวอย่าง
 
 บุคคลตัวอย่างใช้โดเมน `example.com` และราคาตัวอย่างเป็นราคาสมมติ
@@ -201,4 +201,3 @@ credentials ไม่ได้รวมอยู่ในโมเดล
 | Item เดิมมีอยู่แล้ว | ตรวจปลายทางก่อนใช้ Update |
 | Refresh ล้มเหลว | ตรวจ credentials, gateway และ folder permission |
 | Operation timeout | ตรวจ workspace ก่อนสร้าง item ซ้ำ |
-
