@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -52,10 +53,13 @@ def build(root: Path) -> dict:
     archive_check = inspect(root, [archive_path])
     if archive_check["errors"]:
         raise ValueError("The release archive failed public-safety validation")
-    artifacts = [archive_path, template] + [
-        root / "docs" / "manuals" / f"Copilot Token Dashboard - Installation {suffix}.{extension}"
-        for suffix in ("EN", "TH") for extension in ("pdf",)
-    ]
+    manual_assets = []
+    for suffix in ("EN", "TH"):
+        source = root / "docs" / "manuals" / f"Copilot Token Dashboard - Installation {suffix}.pdf"
+        target = destination / f"Copilot-Token-Dashboard-Installation-{suffix}.pdf"
+        shutil.copyfile(source, target)
+        manual_assets.append(target)
+    artifacts = [archive_path, template] + manual_assets
     checksums = []
     for file in artifacts:
         checksums.append(hashlib.sha256(file.read_bytes()).hexdigest() + "  " + file.name)
