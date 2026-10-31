@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Synthetic-only illustrated companion for the Copilot Token Dashboard manuals.">
+<title>Copilot Token Dashboard - Synthetic Sample</title>
+@@THEME@@
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; }
+a { color: var(--cp-link); }
+button, select, input { font: inherit; color: var(--cp-text); background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: .625rem; }
+button { cursor: pointer; }
+button:hover { border-color: var(--cp-accent); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 3px; }
+.skip { position: absolute; top: -60px; padding: 12px; background: var(--cp-surface); z-index: 3; }
+.skip:focus { top: 8px; }
+.shell { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: 100vh; }
+aside { min-width: 0; background: var(--cp-bg-elevated); border-right: 1px solid var(--cp-border); padding: 24px 16px; }
+.brand { font-size: 20px; font-weight: 700; line-height: 1.25; }
+.brand span { display: block; color: var(--cp-accent); }
+.aside-note { font-size: 12px; color: var(--cp-text-muted); margin: 16px 0 24px; }
+nav { display: grid; gap: 6px; }
+nav a { border-radius: .625rem; padding: 10px 12px; text-decoration: none; color: var(--cp-text-muted); }
+nav a:hover { background: var(--cp-surface-soft); color: var(--cp-text); }
+nav a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 600; }
+.aside-bottom { margin-top: 28px; border-top: 1px solid var(--cp-border); padding-top: 16px; font-size: 12px; line-height: 1.5; color: var(--cp-text-muted); }
+.workspace { min-width: 0; padding: 24px 28px; }
+header { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+.eyebrow { color: var(--cp-accent); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+h1 { margin: 0; font-size: 30px; line-height: 1.2; letter-spacing: -.02em; }
+.subtitle { color: var(--cp-text-muted); margin: 8px 0 0; }
+.badge { display: inline-block; padding: 6px 10px; border-radius: .625rem; color: var(--cp-accent); background: var(--cp-accent-soft); font-size: 11px; font-weight: 700; }
+.date { text-align: right; font-size: 12px; color: var(--cp-text-muted); }
+.date strong { display: block; color: var(--cp-text); font-size: 16px; margin-top: 6px; }
+.provenance { padding: 12px 16px; background: var(--cp-accent-soft); border: 1px solid var(--cp-border); border-radius: .625rem; margin: 20px 0; font-size: 12px; line-height: 1.5; }
+.controls { display: flex; align-items: end; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; }
+select { min-height: 38px; padding: 8px 28px 8px 10px; min-width: 180px; }
+#scope { min-width: 270px; }
+#theme-toggle { height: 38px; padding: 8px 14px; margin-left: auto; }
+.muted { color: var(--cp-text-muted); }
+.cards { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.card, .panel { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; min-width: 0; }
+.card { padding: 16px 14px; min-height: 108px; }
+.card .label { color: var(--cp-text-muted); font-size: 12px; min-height: 30px; }
+.card .value { font-size: 27px; font-weight: 700; margin-top: 8px; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.card .unit { color: var(--cp-text-soft); font-size: 11px; margin-top: 4px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-bottom: 18px; }
+.panel { padding: 18px; margin-bottom: 18px; }
+.grid .panel { margin-bottom: 0; }
+.panel h2 { margin: 0 0 4px; font-size: 16px; font-weight: 650; }
+.panel .context { margin: 0 0 16px; color: var(--cp-text-muted); font-size: 12px; }
+.plot { display: block; width: 100%; height: 208px; }
+.plot .gridline { stroke: var(--cp-border); }
+.plot .series { stroke: var(--cp-accent); stroke-width: 3; fill: none; }
+.plot .point { fill: var(--cp-accent); }
+.plot text { fill: var(--cp-text-muted); font: 12px "Segoe UI", sans-serif; }
+.bar-list { display: grid; gap: 16px; margin: 18px 0; }
+.bar-label { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; margin-bottom: 6px; }
+.bar-label strong { font-weight: 600; }
+.bar-track { height: 12px; border-radius: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); overflow: hidden; }
+.bar-fill { height: 100%; background: var(--cp-accent); }
+.bar-fill.secondary { background: var(--cp-border-strong); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; color: var(--cp-text-muted); background: var(--cp-surface-soft); font-weight: 600; }
+td, th { padding: 10px 10px; border-bottom: 1px solid var(--cp-border); vertical-align: top; }
+td:first-child { font-weight: 500; }
+.status { border-radius: .625rem; display: inline-block; padding: 3px 7px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 11px; }
+.empty { padding: 24px 8px; color: var(--cp-text-muted); line-height: 1.6; }
+.callout { background: var(--cp-surface); border-left: 4px solid var(--cp-accent); padding: 14px 18px; border-radius: .625rem; font-size: 12px; line-height: 1.6; margin-bottom: 18px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.step { background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: .625rem; padding: 16px; }
+.step strong { display: block; margin-bottom: 8px; font-size: 14px; }
+.step p { margin: 0; color: var(--cp-text-muted); font-size: 12px; line-height: 1.6; }
+footer { font-size: 11px; color: var(--cp-text-muted); border-top: 1px solid var(--cp-border); padding-top: 14px; line-height: 1.6; }
+#rate-control input { width: 160px; accent-color: var(--cp-accent); }
+#agent-control select { min-width: 235px; }
+[hidden] { display: none !important; }
+@media (max-width: 1100px) { .cards { grid-template-columns: repeat(3, 1fr); } .grid { grid-template-columns: 1fr; } .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .shell { grid-template-columns: minmax(0, 1fr); } aside { border-right: 0; border-bottom: 1px solid var(--cp-border); padding: 16px; } nav { display: flex; overflow-x: auto; margin-top: 12px; } nav a { flex: 0 0 auto; white-space: nowrap; } .aside-note,.aside-bottom { display: none; } .workspace { padding: 20px 16px; } .cards { grid-template-columns: repeat(2, 1fr); } header { flex-wrap: wrap; } .date { text-align: left; } .controls label, select { width: 100%; } #theme-toggle { margin-left: 0; } .steps { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to sample dashboard</a>
+<div class="shell" id="sample-dashboard">
+  <aside>
+    <div class="brand">Copilot Token<span>Dashboard</span></div>
+    <p class="aside-note">Illustrated manual companion<br>Public preview · sample data only</p>
+    <nav aria-label="Sample report pages" id="navigation"></nav>
+    <div class="aside-bottom"><strong>Not a Power BI session</strong><br>This standalone sample needs no sign-in and makes no API calls. It does not enforce production RLS or accept customer data.</div>
+  </aside>
+  <div class="workspace">
+    <header>
+      <div><div class="eyebrow">Synthetic sample · illustrated guide</div><h1 id="title"></h1><p class="subtitle" id="subtitle"></p></div>
+      <div class="date"><span class="badge">SYNTHETIC DEMO · NOT LIVE DATA</span><strong id="anchor"></strong><span>Source: shipped sample CSVs</span></div>
+    </header>
+    <div class="provenance" id="provenance"></div>
+    <div class="controls">
+      <label>Sample period<select id="period"></select></label>
+      <label id="scope-control">Sample reporting scope<select id="scope"></select></label>
+      <label id="agent-control" hidden>Example agent<select id="agent"></select></label>
+      <label id="rate-control" hidden>Scenario hourly rate: <span id="rate-value">USD 20</span><input id="rate" type="range" min="0" max="200" value="20"></label>
+      <button id="theme-toggle" type="button">Toggle theme</button>
+    </div>
+    <main id="main" tabindex="-1" aria-label="Synthetic dashboard page"></main>
+    <footer>Browser-rendered illustration, not a verified Power BI screenshot. Layout and styling differ from Power BI Desktop. Dates, sample identities and sample prices are fictional. Costs are known subtotals, not invoices. Activity and value scenarios are not employee-performance measures.</footer>
+  </div>
+</div>
+<script id="sample-data" type="application/json">@@DATA@@</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("sample-data").textContent);
+if (DATA.isSynthetic !== true) throw new Error("Only synthetic documentation data is allowed.");
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+const known = value => typeof value === "number" && Number.isFinite(value);
+const fmt = (value, kind="number") => {
+  if (!known(value)) return "Not reported";
+  if (kind === "money") return DATA.currency + " " + value.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (kind === "percent") return (value * 100).toFixed(1) + "%";
+  if (kind === "decimal") return value.toLocaleString("en-US",{maximumFractionDigits:2});
+  return value.toLocaleString("en-US",{maximumFractionDigits:0});
+};
+const add = values => { const reported=values.filter(known); return reported.length ? reported.reduce((a,b)=>a+b,0) : null; };
+const ratio = (numerator,denominator) => known(numerator)&&known(denominator)&&denominator!==0 ? numerator/denominator : null;
+const totalTokens = row => known(row.InputTokens)||known(row.OutputTokens) ? (row.InputTokens??0)+(row.OutputTokens??0) : null;
+const card = (label,value,kind="number",unit="",id="") => `<section class="card"${id ? ` data-metric="${esc(id)}"` : ""}><div class="label">${esc(label)}</div><div class="value">${esc(fmt(value,kind))}</div>${unit ? `<div class="unit">${esc(unit)}</div>` : ""}</section>`;
+const cards = list => `<div class="cards">${list.join("")}</div>`;
+const panel = (title,content,context="") => `<section class="panel"><h2>${esc(title)}</h2>${context?`<p class="context">${esc(context)}</p>`:""}${content}</section>`;
+const table = (headers,rows) => `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th scope="col">${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.length ? rows.map(row=>`<tr>${row.map(value=>`<td>${esc(value)}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${headers.length}" class="empty">No reported records for this selected example scope and period.</td></tr>`}</tbody></table></div>`;
+const notice = text => `<div class="callout">${esc(text)}</div>`;
+function bars(rows,key,kind="money") {
+  const max=Math.max(1,...rows.map(row=>known(row[key]) ? row[key] : 0));
+  return `<div class="bar-list">${rows.map((row,index)=>`<div><div class="bar-label"><strong>${esc(row.name)}</strong><span>${esc(fmt(row[key],kind))}</span></div><div class="bar-track"><div class="bar-fill${index%2?" secondary":""}" style="width:${known(row[key]) ? Math.max(0,row[key]/max*100) : 0}%"></div></div></div>`).join("")}</div>`;
+}
+function line(rows,key,dateKey="WeekStart") {
+  const width=660,height=200,left=58,top=18,bottom=34;
+  const max=Math.max(1,...rows.map(row=>known(row[key])?row[key]:0));
+  const x=index=>left+index*(width-left-16)/Math.max(1,rows.length-1);
+  const y=value=>top+(height-top-bottom)*(1-value/max);
+  const segments=[]; let current=[];
+  rows.forEach((row,index)=>{ if(known(row[key])) current.push(`${x(index)},${y(row[key])}`); else if(current.length){segments.push(current);current=[];} });
+  if(current.length)segments.push(current);
+  const grid=[0,max/2,max].map(value=>`<line class="gridline" x1="${left}" x2="${width-16}" y1="${y(value)}" y2="${y(value)}"/><text x="0" y="${y(value)+4}">${esc(fmt(value,"decimal"))}</text>`).join("");
+  const labels=rows.filter((_,index)=>index===0||index===rows.length-1||index===Math.floor(rows.length/2)).map(row=>{
+    const index=rows.indexOf(row); return `<text x="${x(index)}" y="${height-8}" text-anchor="${index===0?"start":index===rows.length-1?"end":"middle"}">${esc(String(row[dateKey]).slice(5))}</text>`;
+  }).join("");
+  return `<svg class="plot" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(key)} over time; missing points are not connected.">${grid}${segments.map(points=>`<polyline class="series" points="${points.join(" ")}"/>`).join("")}${rows.map((row,index)=>known(row[key])?`<circle class="point" cx="${x(index)}" cy="${y(row[key])}" r="3"><title>${esc(row[dateKey])}: ${esc(fmt(row[key],"decimal"))}</title></circle>`:"").join("")}${labels}</svg>`;
+}
+const subtitles={
+overview:"Known usage spend, activity and agent operations at a glance.",
+personal:"A fictional self-view for user01@example.com. No customer identity is loaded.",
+organization:"Fixed-scope aggregates and completed-week engagement; never individual rankings.",
+momentum:"Reported adoption and intensity across two six-week completed windows.",
+agents:"Registered examples, observed runs, known costs and spend-spike signals.",
+agent_detail:"Select one example agent to inspect its profile and period metrics.",
+outcomes:"Synthetic work items counted on their resolution date.",
+value:"Explicit owner assumptions, a scenario rate and a prorated budget.",
+models:"Reported token and spend breakdowns; unavailable fields remain unavailable.",
+guide:"Source coverage, interpretation and the real installer workflow."
+};
+const option=(value,label)=>`<option value="${esc(value)}">${esc(label)}</option>`;
+$("period").innerHTML=DATA.periods.map(p=>option(p,p)).join("");
+$("period").value="Last 28 days";
+$("scope").innerHTML=DATA.scopes.map(s=>option(s.key,s.name)).join("");
+$("scope").value="demo-engineering";
+$("agent").innerHTML=DATA.agents.filter(a=>a.AgentKey!=="direct").map(a=>option(a.AgentKey,a.Name)).join("");
+$("agent").value="demo-build";
+$("navigation").innerHTML=DATA.pages.map((p,index)=>`<a href="#${esc(p.id)}" data-page="${esc(p.id)}">${String(index+1).padStart(2,"0")} · ${esc(p.title)}</a>`).join("");
+$("anchor").textContent="Data through " + DATA.anchor;
+$("provenance").textContent=DATA.provenance + " This sample is not a sign-in, permission or deployment test.";
+function render() {
+  const name=location.hash.slice(1)||"overview";
+  const page=DATA.pages.find(p=>p.id===name);
+  if(!page){$("main").innerHTML='<p role="alert">Unknown sample page. Select a page from the navigation.</p>';return;}
+  const period=$("period").value,scope=$("scope").value;
+  const snapshot=DATA.snapshots[scope+"|"+period];
+  if(!snapshot){$("main").innerHTML='<p role="alert">Unknown sample scope or period.</p>';return;}
+  $("title").textContent=page.title;$("subtitle").textContent=subtitles[name];
+  document.querySelectorAll("[data-page]").forEach(link=>{if(link.dataset.page===name)link.setAttribute("aria-current","page");else link.removeAttribute("aria-current");});
+  $("scope-control").hidden=name==="personal";
+  $("agent-control").hidden=name!=="agent_detail";
+  $("rate-control").hidden=name!=="value";
+  const summary=snapshot.summary;
+  const activeAgents=snapshot.agents.filter(a=>known(a.AgentRuns)&&a.AgentRuns>0);
+  const month=new Date(DATA.anchor+"T00:00:00Z");
+  const daysInMonth=new Date(Date.UTC(month.getUTCFullYear(),month.getUTCMonth()+1,0)).getUTCDate();
+  const prorated=known(snapshot.monthBudget)?snapshot.monthBudget*month.getUTCDate()/daysInMonth:null;
+  let content="";
+  if(name==="overview"){
+    content=cards([
+      card("Known usage spend",summary.Amount,"money",period,"known-spend"),card("Spend month to date",snapshot.mtd,"money"),
+      card("Prorated budget used",ratio(snapshot.mtd,prorated),"percent"),
+      card("Active people",summary.ActiveUsers,"number","Synthetic cohort"),
+      card("Active agents",activeAgents.length),card("Reported tokens",totalTokens(summary))
+    ]);
+    content+=`<div class="grid">${panel("Weekly known spend",line(snapshot.weekly,"Amount"),"13 completed Sunday-to-Saturday weeks. Missing values are not zero.")}${panel("Visible spend by surface",bars(snapshot.surfaces,"Amount"),"Known subtotals; licence-included observations have no reported usage charge.")}</div>`;
+    content+=panel("Example agent portfolio",table(["Agent","Known spend","Observed runs","Known cost / run"],activeAgents.map(a=>[a.name,fmt(a.Amount,"money"),fmt(a.AgentRuns),fmt(ratio(a.Amount,a.AgentRuns),"money")])));
+    content+=notice("Start with the data date and scope. A cost spike is an operational signal to review, not a judgment of employee performance.");
+  }else if(name==="personal"){
+    const mine=DATA.personal[period];
+    content=cards([card("My spend · last 7 days",DATA.fixedPersonalSpend["7 days"],"money","Fixed window","personal-7"),card("My spend · last 28 days",DATA.fixedPersonalSpend["28 days"],"money","Fixed window","personal-28"),card("My spend · month to date",DATA.fixedPersonalSpend["Month to date"],"money"),card("My reported tokens",totalTokens(mine)),card("My observed active days",mine.ActiveDays),card("Unpriced token rows",mine.UnpricedRows)]);
+    content+=panel("My synthetic accounts",table(["Platform","Account type","Masked sample ID","Latest activity"],DATA.accounts.map(a=>[a.Platform,a.AccountType,a.MaskedId,a.DataThroughDate])));
+    content+=`<div class="grid">${panel("My known spend trend",line(mine.daily,"amount","date"),period+"; gaps do not become free usage.")}${panel("My model usage",table(["Model","Tokens","Cached input","Known spend"],mine.models.map(m=>[m.name,fmt(totalTokens(m)),fmt(m.CachedInputTokens),fmt(m.Amount,"money")])))}</div>`;
+    content+=panel("My surfaces",table(["Surface","Requests","Runs","Known spend"],mine.surfaces.map(s=>[s.name,fmt(s.Requests),fmt(s.AgentRuns),s.Amount===null?"Not usage billed / not reported":fmt(s.Amount,"money")])));
+    content+=notice("This is a fixed fictional persona, not your current signed-in identity. In the real model, use Viewer RLS and verify that user A cannot read user B's personal records.");
+  }else if(name==="organization"){
+    content=cards([card("Reporting members",summary.MemberCount),card("Active people",summary.ActiveUsers),card("Recorded adoption",ratio(summary.ActiveUsers,summary.MemberCount),"percent"),card("Active user-days",summary.UserDays),card("Known spend",summary.Amount,"money"),card("Privacy minimum",DATA.minimumGroupSize,"number","At least six people")]);
+    content+=`<div class="grid">${panel("Weekly active people",line(snapshot.weekly,"ActiveUsers"),"13 completed weeks; not an individual productivity measure.")}${panel("Latest completed engagement bands",table(["Band","People"],Object.entries(snapshot.weekly.at(-1)).filter(([field])=>["High","Moderate","Low","None","NoRecorded"].includes(field)).map(([field,value])=>[field==="NoRecorded"?"No recorded usage":field,fmt(value)])),"High: 4+ days · Moderate: 2–3 · Low: 1")}</div>`;
+    content+=panel("Published synthetic scopes",table(["Scope","Level","Members"],DATA.scopes.map(s=>[s.name,s.key==="demo-root"?"Company":"Team",fmt(s.members)])));
+    content+=notice("The four-person example team is absent from published scopes. Suppressed facts are null before model loading, not merely hidden by the visual. This offline sample does not enforce production authorization.");
+  }else if(name==="momentum"){
+    content=notice("Read the two growth measures separately. A stable adoption trend can coexist with a sharp spend increase when the model or workload mix changes.");
+    content+=cards([card("Example agents",snapshot.agents.length),card("Active agents",activeAgents.length),card("Reported runs",summary.AgentRuns),card("Current known spend",summary.Amount,"money"),card("Privacy minimum",DATA.minimumGroupSize),card("Completed comparison window",12,"number","Two six-week windows")]);
+    content+=panel("Six-week comparison by agent",table(["Agent","Users last 6w","Users prior 6w","User growth","Intensity growth","Trend"],snapshot.agents.map(a=>[a.name,fmt(a.UsersLast6Weeks),fmt(a.UsersPrior6Weeks),fmt(a.UserGrowth,"percent"),fmt(a.IntensityGrowth,"percent"),a.TrendClass])));
+    content+=panel("Intensity definition",table(["Metric","Meaning"],[["User growth","Change in distinct recorded people across the two windows."],["Intensity growth","Change in reported requests per active user-week."],["Stable","Both reported changes within ±5%."],["Insufficient data","No ratio is invented when the earlier intensity is unavailable."]]));
+  }else if(name==="agents"){
+    const spend=add(activeAgents.map(a=>a.Amount)),runs=add(activeAgents.map(a=>a.AgentRuns));
+    content=cards([card("Active agents",activeAgents.length),card("Known agent spend",spend,"money"),card("Observed runs",runs),card("Known cost / run",ratio(spend,runs),"money"),card("Spend-spike agents",snapshot.agents.filter(a=>a.SpikeFlag===true).length),card("Privacy minimum",DATA.minimumGroupSize)]);
+    content+=panel("Agent portfolio",table(["Agent","Known spend","Runs","Eligible users","Trend","Spike signal"],snapshot.agents.map(a=>[a.name,fmt(a.Amount,"money"),fmt(a.AgentRuns),fmt(a.ActiveUsers),a.TrendClass,a.SpikeFlag===true?"Review spend spike":a.SpikeFlag===false?"No flag":"Not reported"])));
+    content+=panel("Spend-spike inputs",table(["Agent","Last 7-day spend","Prior 4-week weekly average","Ratio"],snapshot.agents.filter(a=>a.SpikeFlag===true).map(a=>[a.name,fmt(a.Last7Amount,"money"),fmt(a.Prior4WeekAverage,"money"),fmt(ratio(a.Last7Amount,a.Prior4WeekAverage),"decimal")])));
+    content+=notice("Open Agent Detail and select an agent. A used-agent Boolean is not automatically counted as a run. Teams/email alert delivery requires separate approved automation.");
+  }else if(name==="agent_detail"){
+    const chosen=DATA.agents.find(a=>a.AgentKey===$("agent").value),metrics=snapshot.agents.find(a=>a.AgentKey===chosen.AgentKey);
+    if(!metrics)throw new Error("The example agent has no period record.");
+    content=cards([card("Known spend",metrics.Amount,"money"),card("Observed runs",metrics.AgentRuns),card("Eligible users",metrics.ActiveUsers),card("Known cost / run",ratio(metrics.Amount,metrics.AgentRuns),"money"),card("Reported tokens / run",ratio(totalTokens(metrics),metrics.AgentRuns)),card("Scenario hours saved",known(chosen.MinutesSavedPerRun)&&known(metrics.AgentRuns)?chosen.MinutesSavedPerRun*metrics.AgentRuns/60:null,"decimal")]);
+    content+=panel("Selected example agent profile",table(["Name","Type","Platform","Status","Owner contact","Minutes saved / run"],[[chosen.Name,chosen.Type,chosen.Platform,chosen.Status,chosen.OwnerContact,fmt(chosen.MinutesSavedPerRun,"decimal")]]));
+    content+=`<div class="grid">${panel("Reported token mix",bars([{name:"Cached input",tokens:metrics.CachedInputTokens},{name:"Remaining input (cache-write detail unavailable here)",tokens:known(metrics.InputTokens)&&known(metrics.CachedInputTokens)?metrics.InputTokens-metrics.CachedInputTokens:null},{name:"Output",tokens:metrics.OutputTokens}],"tokens","number"),"Reported subsets. Cached input is already included in total input.")}${panel("Period status",table(["Observation","Value"],[["Trend",metrics.TrendClass],["New this month",String(metrics.NewThisMonth)],["Idle 30 days",String(metrics.Idle30Days)],["Privacy suppressed",String(metrics.PrivacySuppressed)]]))}</div>`;
+    content+=notice("Minutes saved per run is a fictional owner assumption. It is not measured causal productivity. Change the example scope to inspect an agent active in that scope.");
+  }else if(name==="outcomes"){
+    const total=snapshot.outcomes.reduce((sum,row)=>sum+row.count,0),human=snapshot.outcomes[0],assisted=snapshot.outcomes[1],resolved=snapshot.outcomes[2];
+    const saved=known(human.effort)?add(snapshot.outcomes.slice(1).map(row=>known(row.effort)&&row.count?Math.max(0,human.effort-row.effort)*row.count/60:null)):null;
+    const involved=snapshot.outcomes.slice(1),agentHours=ratio(add(involved.map(row=>known(row.hours)&&row.count?row.hours*row.count:null)),involved.reduce((sum,row)=>sum+row.count,0));
+    content=cards([card("Resolved items",total),card("AI-involved share",ratio(assisted.count+resolved.count,total),"percent"),card("Agent-resolved share",ratio(resolved.count,total),"percent"),card("Human resolution hours",human.hours,"decimal"),card("Agent resolution hours",agentHours,"decimal"),card("Compared effort saved",saved,"decimal","Hours; matched example scope")]);
+    content+=`<div class="grid">${panel("Elapsed resolution by mode",bars(snapshot.outcomes,"hours","decimal"),"Resolution-date items; averages in hours.")}${panel("Synthetic work-item handling",table(["Mode","Resolved items","Average effort (minutes)"],snapshot.outcomes.map(row=>[row.name,fmt(row.count),fmt(row.effort,"decimal")])))}</div>`;
+    content+=notice(total?"These example categories have comparable synthetic baselines. Real outcomes need reviewed ticket metadata and time tracking; an association is not a causal claim.":"This scope has no reported work outcomes. Select Example operations team to see the synthetic outcome example; no values are invented for an empty scope.");
+  }else if(name==="value"){
+    const rate=Number($("rate").value);$("rate-value").textContent=DATA.currency+" "+rate;
+    const valueRows=activeAgents.map(a=>{const agent=DATA.agents.find(row=>row.AgentKey===a.AgentKey);const hours=known(agent.MinutesSavedPerRun)&&known(a.AgentRuns)?agent.MinutesSavedPerRun*a.AgentRuns/60:null;return {...a,hours,value:known(hours)?hours*rate:null,minutes:agent.MinutesSavedPerRun};});
+    const hours=add(valueRows.map(row=>row.hours)),value=add(valueRows.map(row=>row.value)),spend=add(valueRows.map(row=>row.Amount));
+    content=cards([card("Estimated hours saved",hours,"decimal"),card("Scenario value",value,"money","Rate: "+DATA.currency+" "+rate,"scenario-value"),card("Known agent cost",spend,"money"),card("Net scenario value",known(value)&&known(spend)?value-spend:null,"money"),card("Value / cost ratio",ratio(value,spend),"decimal"),card("Budget variance MTD",known(snapshot.mtd)&&known(prorated)?snapshot.mtd-prorated:null,"money")]);
+    content+=panel("Explicit value assumptions",table(["Agent","Assumed minutes / run","Reported runs","Estimated hours","Scenario value"],valueRows.map(row=>[row.name,fmt(row.minutes,"decimal"),fmt(row.AgentRuns),fmt(row.hours,"decimal"),fmt(row.value,"money")])));
+    content+=panel("Budget example",table(["Whole month budget","Prorated through anchor date","Known month-to-date spend","Prorated budget used"],[[fmt(snapshot.monthBudget,"money"),fmt(prorated,"money"),fmt(snapshot.mtd,"money"),fmt(ratio(snapshot.mtd,prorated),"percent")]]));
+    content+=notice("Move the hourly-rate slider to test a scenario. A scenario is not an invoice, ROI certification or an employee-performance score. Keep owner assumptions and measured outcomes separate.");
+  }else if(name==="models"){
+    const visible=add(snapshot.models.map(row=>row.Amount));
+    content=cards([card("Known scope spend",summary.Amount,"money"),card("Reported input",summary.InputTokens),card("Reported output",summary.OutputTokens),card("Reported tokens",totalTokens(summary)),card("Unpriced token rows",summary.UnpricedRows),card("Hidden breakdown difference",known(summary.Amount)&&known(visible)?summary.Amount-visible:null,"money")]);
+    content+=`<div class="grid">${panel("Visible model spend",bars(snapshot.models,"Amount"),"Privacy-filtered breakdown, including undisclosed models.")}${panel("Reported token mix",bars([{name:"Input (includes cached)",tokens:summary.InputTokens},{name:"Cached input subset",tokens:summary.CachedInputTokens},{name:"Output",tokens:summary.OutputTokens}],"tokens","number"),"Do not add cached input again when computing total tokens.")}</div>`;
+    content+=panel("Visible model breakdown",table(["Model","Provider","Tier","Reported tokens","Known spend"],snapshot.models.map(row=>[row.name,row.provider,row.tier,fmt(totalTokens(row)),fmt(row.Amount,"money")])));
+    content+=notice("This is synthetic cache coverage only. Real Microsoft 365 and GitHub feeds may not expose these fields. Privacy-hidden detail may not sum to a reportable scope total.");
+  }else{
+    const counts=Object.fromEntries(["Reported","Partial","Not reported"].map(status=>[status,DATA.coverage.filter(row=>row.Status===status).length]));
+    content=cards([card("Fields reported",counts.Reported),card("Fields partial",counts.Partial),card("Fields not reported",counts["Not reported"]),card("Privacy minimum",DATA.minimumGroupSize),card("Sample pages",DATA.pages.length),card("Known sample rows",DATA.coverage.reduce((sum,row)=>sum+(row.Metric==="Amount"?row.RowCount:0),0))]);
+    content+=panel("Synthetic source capability and freshness",table(["Source","Metric","Status","Data through"],DATA.coverage.map(row=>[row.Source,row.Metric,row.Status,row.AsOfDate])));
+    content+=panel("Real installation workflow",`<div class="steps"><div class="step"><strong>1 · Validate</strong><p>Download the release, verify SHA-256, extract and run Install.ps1 -Action Validate.</p></div><div class="step"><strong>2 · Open locally</strong><p>Use Demo in Power BI Desktop. Check the banner, sample dates and page values.</p></div><div class="step"><strong>3 · Configure tenant</strong><p>Supply your own tenant, source permissions, credentials and approved reporting scopes.</p></div><div class="step"><strong>4 · Test before sharing</strong><p>Assign Viewer RLS, configure refresh and test real users. A public preview is not production sign-off.</p></div></div>`);
+    content+=notice("The standalone sample is intentionally offline. It does not simulate account permissions, call vendor APIs, or make a successful installer/Power BI rendering claim.");
+  }
+  $("main").innerHTML=content;
+  $("main").dataset.page=name;
+  $("main").dataset.scope=scope;
+  $("main").dataset.period=period;
+  document.title=page.title+" - Copilot Token Dashboard Synthetic Sample";
+}
+["period","scope","agent","rate"].forEach(id=>$(id).addEventListener(id==="rate"?"input":"change",render));
+document.querySelector(".skip").addEventListener("click",event=>{event.preventDefault();$("main").focus();$("main").scrollIntoView();});
+$("theme-toggle").addEventListener("click",()=>document.documentElement.setAttribute("data-theme",document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"));
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>

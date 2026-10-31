@@ -1,0 +1,37 @@
+{
+  "synthetic": true,
+  "anchor": "2026-05-28",
+  "pages": 10,
+  "illustration": true,
+  "sourceHashes": {
+    "Accounts.csv": "9e5ea45437d498cea4cdf1e22b0a818d2c9336d03fb925543345d02668d4ad57",
+    "AgentPeriod.csv": "0df45bce9ca723d47f8ca64b16f8e68e183f66149c55fd1963c7b93daa5c521b",
+    "Agents.csv": "06d5a724c48d616d8bb5a998de81a0b814f237a33525d5198c94908cbbccef58",
+    "Budgets.csv": "e9eb8a667ccb824713d3c9846ae582b04726b889b3926aac37b5844f27405356",
+    "Calendar.csv": "33e6ef0486516501a525bf54691b374ec630df575e36bdc33e165bb002cb8c11",
+    "Coverage.csv": "2e6a2d147dc328607e4eb1a64e5cbd3dc9a5f6927afa52466ea359bf7d544d75",
+    "Currencies.csv": "84dc49b575e6bed57c9d043ff590676bdd0513c4386161f86af1f668f6d03259",
+    "HourlyRate.csv": "2b1c8caef740907f7b51a55e7b7810ca3504e45b8bac0e6da46d1bbf181b2cf6",
+    "Models.csv": "e2da7f2be9041c77eb2140e3832a58aaa5c104dc4db51ecaa18b02a1596251fb",
+    "Outcomes.csv": "56b3ec4a3f2fbf4c9d470c6b539aa90dc6f46e4b49221fcfe9b8acce1466ff33",
+    "People.csv": "188e00998f84fb056ef5047cc71760f0bb86044347437fa8d9f8d5de3c7d1d45",
+    "Periods.csv": "6020d3539d67f8a168e49c688d71e357e22ef53b90733ba738cdcd138e1bf0b1",
+    "PeriodSummary.csv": "ebebb853df4072606a9d44c0d765c8281627272882d1cea703dbd8fa97197981",
+    "ScopeAccess.csv": "b99c9387791598885af5750c177781f764251314bd43bcf8b0add2b9d1d83c8b",
+    "ScopeDaily.csv": "7977334a581b68404697a8182695a0e2f1aabdc48e0efce229e8cce3c00f9036",
+    "ScopePeriod.csv": "c80ac82b29b93682ca0589ebcd6a92f4f8c2ae8fa32bf205757f6ad625da1ba7",
+    "Scopes.csv": "ddc390d587411f991af182272dc8dc021a4ae94f8b255b6e3f34268a28e6fffa",
+    "ScopeWeekly.csv": "f72b7cc3a616f59c7a2c754297e80ab4234637648f98170fecdfa38a523d29e7",
+    "Settings.csv": "7236889096729253024e98ca972a62aec0147f2401833d0f10516621343d5c81",
+    "Surfaces.csv": "4378155d322f86561dfc345235f37609d777779069dee253c537af864de60dee",
+    "UsageDaily.csv": "1fb9abde4f8f2202e8fc5733b0f41c95cd200ebd6e96167c5d167a61d01b2238"
+  },
+  "defaultScope": "demo-engineering",
+  "defaultPeriod": "Last 28 days",
+  "viewer": "user01@example.com",
+  "fixedPersonalSpend": {
+    "7 days": 34.0,
+    "28 days": 39.04,
+    "Month to date": 39.04
+  }
+}

@@ -10,6 +10,13 @@ It does not grant access to another organization's data. Every recipient uses
 their own Microsoft tenant, Power BI workspace, source permissions and secrets.
 The installation demonstration is synthetic and is marked on every page.
 
+**Illustrated help:** see the ten-page walkthrough in section 11 or the
+[sample dashboard gallery](SAMPLE_DASHBOARD.md). You can explore the
+[live synthetic sample](https://zangkasi55.github.io/Copilot-Token-Dashboard/)
+or the
+[offline sample dashboard](assets/sample-dashboard.html) without a tenant or
+sign-in: download the HTML file and open it in Edge or Chrome.
+
 ## 2. Prerequisites
 
 | Component | Required for |
@@ -215,3 +222,118 @@ This is not a legal-compliance certification or an employee-performance tool.
 
 The accompanying administrator and source-capability manuals provide detailed
 operating boundaries.
+
+## 11. Illustrated sample dashboard walkthrough
+
+The following screenshots were captured from the standalone browser sample using
+the shipped synthetic CSV data. **They are illustrations, not verified Power BI
+Desktop screenshots.** The companion uses a simplified layout and different
+styling; it does not run DAX, call APIs, test authentication or enforce RLS.
+Production acceptance still requires the actual Power BI project in your tenant.
+
+For figures 1–6 and 8–10, select **Last 28 days** and **Example engineering team**.
+Figure 7 uses **Example operations team**. The personal page uses the fixed
+fictional viewer **user01@example.com**. All examples end on **2026-05-28**.
+Click an image on GitHub to view its original 1600-pixel-wide PNG; the PDF
+embeds the image so it is available offline and can be zoomed.
+
+### Figure 1. Overview: check the scope and data date
+
+![Figure 1. Browser-rendered synthetic Overview illustration, not a verified Power BI screenshot.](images/01-overview.png)
+
+1. Check the SYNTHETIC DEMO banner and data-through date before reading a value.
+2. For the engineering example, known 28-day spend is **USD 468.48**, with
+   **12 active people**, **1 active agent** and **644,590 reported tokens**.
+3. The weekly chart covers completed weeks. The current spend spike is not
+   retroactively added to earlier completed weeks. Word's missing usage price
+   remains unavailable instead of being treated as a metered zero.
+
+### Figure 2. My AI Usage: validate the fictional self-view
+
+![Figure 2. Browser-rendered synthetic personal usage illustration for user01@example.com, not a verified Power BI screenshot.](images/02-personal.png)
+
+The example user's spend is **USD 34.00 for seven days**, **USD 39.04 for
+28 days** and **USD 39.04 month to date**. The tables show masked accounts,
+reported model tokens and unavailable fields explicitly.
+
+In the real Power BI model, test the Viewer role with two actual UPNs. Never use
+this fixed browser persona as evidence that tenant RLS works.
+
+### Figure 3. Organization Usage: understand privacy and completed weeks
+
+![Figure 3. Browser-rendered synthetic organization usage illustration, not a verified Power BI screenshot.](images/03-organization.png)
+
+The engineering scope contains **12 members**. A four-person example team is
+absent from the published scope list because the minimum is six. High engagement
+means four or more observed days in a completed week; it is not a productivity
+rating. The HTML has no authorization boundary; production protection comes from
+the reviewed aggregate pipeline and the Power BI Viewer role.
+
+### Figure 4. Adoption and Momentum: interpret the two growth axes
+
+![Figure 4. Browser-rendered synthetic adoption and momentum illustration, not a verified Power BI screenshot.](images/04-momentum.png)
+
+Compare the latest six completed weeks with the preceding six. User growth and
+requests per active user-week are different measures. The example build helper
+is **Stable** in these windows even though its latest spend spikes, because the
+spike falls outside the last completed comparison window.
+
+### Figure 5. Agents: investigate a spend flag
+
+![Figure 5. Browser-rendered synthetic agent portfolio and spend-spike illustration, not a verified Power BI screenshot.](images/05-agents.png)
+
+The example build helper has **384 reported runs** in the selected period.
+Its last-seven-day spend is **USD 408.00**, compared with a prior four-week
+weekly average of **USD 20.16**. Review the workload and source coverage instead
+of interpreting the flag as an employee-performance judgment. Notifications
+require separate approved automation.
+
+### Figure 6. Agent Detail: select one registered example
+
+![Figure 6. Browser-rendered synthetic agent detail illustration, not a verified Power BI screenshot.](images/06-agent-detail.png)
+
+Open Agent Detail and use the agent selector. The build helper's known cost per
+run is approximately **USD 1.22**. Its seven-and-a-half-minute saved-per-run
+setting is a fictional owner assumption, not a measured benefit.
+
+If an agent has no activity in the current scope, change to its approved scope.
+Do not replace absent metrics with invented values.
+
+### Figure 7. Agent Outcomes: use the operations example
+
+![Figure 7. Browser-rendered synthetic work-outcome illustration for the operations team, not a verified Power BI screenshot.](images/07-outcomes.png)
+
+Select **Example operations team**. The sample has **56 resolved items**:
+20 human-only, 18 agent-assisted and 18 agent-resolved. Elapsed hours and tracked
+human effort are separate quantities. The example comparison does not establish
+causation or replace review of your own ITSM data.
+
+### Figure 8. Value and Budget: test assumptions, not guarantees
+
+![Figure 8. Browser-rendered synthetic value and budget scenario illustration, not a verified Power BI screenshot.](images/08-value.png)
+
+At **USD 20 per hour**, the build-helper example shows **48 estimated hours**
+and **USD 960.00 scenario value**. Changing the sample slider to USD 40 doubles
+the value to USD 1,920.00; it does not change measured spend or prove productivity.
+Budget is prorated through the displayed anchor date.
+
+### Figure 9. Models and Efficiency: reconcile known subtotals
+
+![Figure 9. Browser-rendered synthetic model and token-efficiency illustration, not a verified Power BI screenshot.](images/09-models.png)
+
+Input includes the cached-input subset: **do not add cached tokens a second time**.
+Compare known model/surface subtotals with the scope total and inspect any
+privacy-hidden difference. The sample's fictional cache coverage is not a promise
+that Microsoft 365 or GitHub APIs expose the same fields in production.
+
+### Figure 10. Data Quality and Guide: finish the installation checklist
+
+![Figure 10. Browser-rendered synthetic source-coverage and installation-workflow illustration, not a verified Power BI screenshot.](images/10-guide.png)
+
+The example coverage table has **8 reported**, **0 partial** and **4 unavailable**
+source-field entries. These are sample capabilities, not a live connection test.
+Complete Validate, local Desktop checks, tenant/source configuration, Viewer
+security tests and refresh verification before sharing.
+
+The [sample dashboard gallery](SAMPLE_DASHBOARD.md) also explains how to explore
+the offline HTML and open every original screenshot.

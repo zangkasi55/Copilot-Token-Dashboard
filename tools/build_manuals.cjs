@@ -3,12 +3,11 @@ const path = require("path");
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, Header,
   Footer, PageNumber, HeadingLevel, WidthType, BorderStyle, ShadingType,
-  LevelFormat, AlignmentType,
+  LevelFormat, AlignmentType, ImageRun,
 } = require("docx");
 
 const root = path.resolve(__dirname, "..");
 const destination = path.join(root, "docs", "manuals");
-fs.mkdirSync(destination, { recursive: true });
 
 const border = { style: BorderStyle.SINGLE, size: 4, color: "DCE4EC" };
 const borders = { top: border, bottom: border, left: border, right: border };
@@ -26,7 +25,11 @@ function blocks(markdown) {
   while (index < lines.length) {
     const line = lines[index];
     if (!line.trim()) { index++; continue; }
-    if (line.startsWith("```")) {
+    const image = line.match(/^!\[([^\]]+)\]\(([^)]+)\)\s*$/);
+    if (image) {
+      result.push({ kind: "image", text: image[1], target: image[2] });
+      index++;
+    } else if (line.startsWith("```")) {
       const code = [];
       index++;
       while (index < lines.length && !lines[index].startsWith("```")) code.push(lines[index++]);
@@ -55,13 +58,29 @@ function blocks(markdown) {
     } else {
       const paragraph = [line];
       index++;
-      while (index < lines.length && lines[index].trim() && !/^(#|\||```|[-*] |\d+\. )/.test(lines[index])) {
+      while (index < lines.length && lines[index].trim() && !/^(#|\||```|!\[|[-*] |\d+\. )/.test(lines[index])) {
         paragraph.push(lines[index++]);
       }
       result.push({ kind: "paragraph", text: clean(paragraph.join(" ")) });
     }
   }
   return result;
+}
+
+function pngImage(target) {
+  const docs = path.join(root, "docs");
+  const file = path.resolve(docs, target);
+  const relative = path.relative(docs, file);
+  if (path.isAbsolute(target) || relative.startsWith("..") || path.extname(file) !== ".png") {
+    throw new Error("Manual illustrations must be local PNGs inside docs/.");
+  }
+  const data = fs.readFileSync(file);
+  if (data.length < 24 || data.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") {
+    throw new Error("The manual image is not a valid PNG: " + target);
+  }
+  const width = data.readUInt32BE(16), height = data.readUInt32BE(20);
+  if (!width || !height) throw new Error("The manual PNG has invalid dimensions.");
+  return { data, width, height };
 }
 
 function table(rows, font) {
@@ -88,6 +107,17 @@ function document(content, font) {
   const children = [];
   for (const block of content) {
     if (block.kind === "table") children.push(table(block.rows, font));
+    else if (block.kind === "image") {
+      const image = pngImage(block.target);
+      children.push(new Paragraph({
+        children: [new ImageRun({
+          type: "png", data: image.data,
+          transformation: { width: 624, height: Math.round(image.height * 624 / image.width) },
+          altText: { title: block.text, description: block.text, name: block.target },
+        })],
+      }));
+      children.push(new Paragraph({ children: [new TextRun({ text: block.text, font, size: 19 })] }));
+    }
     else if (block.kind === "code") {
       for (const line of block.lines) children.push(new Paragraph({
         spacing: { before: 0, after: 30 },
@@ -150,6 +180,10 @@ function document(content, font) {
 
 function html(content, language) {
   const output = content.map(block => {
+    if (block.kind === "image") {
+      const image = pngImage(block.target);
+      return `<figure><img src="data:image/png;base64,${image.data.toString("base64")}" alt="${escape(block.text)}" width="${image.width}" height="${image.height}"><figcaption>${escape(block.text)}</figcaption></figure>`;
+    }
     if (block.kind === "heading") return `<h${block.level}>${escape(block.text)}</h${block.level}>`;
     if (block.kind === "table") return "<table>" + block.rows.map((row, index) =>
       "<tr>" + row.map(cell => `<${index === 0 ? "th" : "td"}>${escape(cell)}</${index === 0 ? "th" : "td"}>`).join("") + "</tr>").join("") + "</table>";
@@ -158,17 +192,20 @@ function html(content, language) {
     if (block.kind === "number") return "<p class=\"list\">" + block.number + ". " + escape(block.text) + "</p>";
     return "<p>" + escape(block.text) + "</p>";
   }).join("\n");
+  const theme = fs.readFileSync(path.join(__dirname, "clawpilot-theme.html"), "utf8");
   return `<!doctype html><html lang="${language}"><head><meta charset="utf-8">
-<title>Copilot Token Dashboard Installation Guide</title><style>
-@page{size:Letter;margin:18mm 20mm}body{font-family:Tahoma,Arial,sans-serif;font-size:10.5pt;line-height:1.5;color:#17324d}
+<title>Copilot Token Dashboard Installation Guide</title>${theme}<style>
+@page{size:Letter;margin:18mm 20mm}body{font-family:"Segoe UI",Aptos,Calibri,-apple-system,BlinkMacSystemFont,sans-serif;font-size:10.5pt;line-height:1.5;color:var(--cp-text);background:var(--cp-surface)}
 h1{font-size:21pt}h2{font-size:15pt;margin-top:18pt}h3{font-size:12pt}h1,h2,h3{break-after:avoid}
-table{width:100%;border-collapse:collapse;font-size:9pt;margin:12pt 0}td,th{border:1px solid #dce4ec;padding:6pt;text-align:left}
-th{background:#e7f0fa}tr{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f9;padding:10pt;font-size:8.5pt}
-p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:12pt 0}td,th{border:1px solid var(--cp-border);padding:6pt;text-align:left}
+th{background:var(--cp-surface-soft)}tr{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--cp-surface-soft);padding:10pt;font-size:8.5pt}
+p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,"Courier New",Courier,monospace}
+figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;height:auto;border:1px solid var(--cp-border);border-radius:.625rem}figcaption{font-size:9pt;color:var(--cp-text-muted);margin-top:6pt}
 </style></head><body>${output}</body></html>`;
 }
 
 async function main() {
+  fs.mkdirSync(destination, { recursive: true });
   const contract = JSON.parse(fs.readFileSync(path.join(root, "sample_data", "data-contract.json"), "utf8"));
   const sections = ["# Data Contract", "", "Generated from the shared schema. CSV column order is part of the contract.", ""];
   for (const [name, columns] of Object.entries(contract.tables)) {
@@ -190,4 +227,5 @@ async function main() {
   }
 }
 
-main().catch(error => { console.error(error); process.exitCode = 1; });
+module.exports = { blocks, html, pngImage };
+if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });

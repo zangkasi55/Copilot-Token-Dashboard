@@ -4,10 +4,10 @@
   "private": true,
   "description": "Build tooling for the public installation manuals",
   "scripts": {
-    "docs": "node tools/build_manuals.cjs"
+    "docs": "node tools/build_manuals.cjs",
+    "test:manuals": "node --test tests/manual-rendering.test.cjs"
   },
   "devDependencies": {
     "docx": "9.5.1"
   }
 }
-

@@ -9,6 +9,18 @@ results and required interactive Desktop/recipient-tenant smoke tests.
 This is an independent open-source project. It is not an official Microsoft or
 GitHub product and does not include access to Microsoft-internal telemetry.
 
+## Sample dashboard
+
+![Browser-rendered synthetic dashboard illustration, not a verified Power BI screenshot.](docs/images/01-overview.png)
+
+See the [complete ten-page screenshot gallery](docs/SAMPLE_DASHBOARD.md) and the
+[live synthetic sample](https://zangkasi55.github.io/Copilot-Token-Dashboard/).
+An [offline interactive copy](docs/assets/sample-dashboard.html) is also
+available: download the HTML and open it in Edge or Chrome; GitHub's source-file
+view does not execute it.
+The screenshots use only shipped synthetic data and a simplified browser layout.
+They are **not verified Power BI screenshots** or evidence of live tenant access.
+
 ## What you install
 
 - A ten-page Power BI project with an editable semantic model.
@@ -37,7 +49,7 @@ See the installation and operations documentation in `docs/`.
 ## Quick start
 
 1. Download the installation ZIP from
-   [Releases](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases).
+   [the illustrated documentation release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.0-manuals.1).
 2. Verify the SHA-256 checksum and extract into a new folder.
 3. Run `.\Install.ps1 -Action Validate -InstallDependencies`.
 4. Run `.\Install.ps1 -Action Local -SourceMode Demo`, or open the included PBIT
@@ -52,6 +64,7 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 
 - [Installation guide](docs/INSTALLATION.md)
 - [คู่มือการติดตั้งภาษาไทย](docs/INSTALLATION_TH.md)
+- [Illustrated sample dashboard and all ten screenshots](docs/SAMPLE_DASHBOARD.md)
 - [Administrator and operations manual](docs/ADMINISTRATION.md)
 - [Data sources and API limits](docs/DATA_SOURCES.md)
 - [Data contract](docs/DATA_CONTRACT.md)
@@ -59,7 +72,8 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 - [Public requirements](docs/REQUIREMENTS.md)
 - [Release notes](docs/RELEASE_NOTES.md)
 
-Portable PDF installation guides are in `docs/manuals/`. Rights-protected Word
+Portable PDF installation guides are in `docs/manuals/`; both include all ten
+sample screenshots and captions. Rights-protected Word
 outputs are not uploaded. No protected or customer-branded source documents,
 actual employee records or private internal dashboard exports are distributed.
 
@@ -72,7 +86,9 @@ python -m pytest -q tests
 ctd demo --output sample_data --scratch .work\demo-inputs
 python tools\build_powerbi.py
 python tools\validate_powerbi.py
+python tools\build_sample_dashboard.py
 npm run docs
+npm run test:manuals
 python tools\publication_check.py
 ```
 

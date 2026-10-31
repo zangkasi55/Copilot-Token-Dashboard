@@ -1,6 +1,17 @@
-# Release 1.0.0
+# Release 1.0.0 - illustrated documentation revision 1
 
 Initial independently authored public preview release.
+
+## Illustrated documentation update
+
+- Published as `v1.0.0-manuals.1`; the underlying Power BI preview remains 1.0.0.
+- Ten synthetic screenshot figures embedded in both English and Thai
+  installation PDFs and Markdown manuals.
+- A complete sample-dashboard gallery and self-contained offline HTML companion
+  built from the shipped public CSVs.
+- Explicit browser-illustration provenance; no Power BI rendering or live
+  tenant/security success is inferred from these screenshots.
+- The Power BI project, template and runtime behavior are unchanged.
 
 - Ten Power BI pages, editable model and explicit synthetic data.
 - Separate self-only personal facts and privacy-filtered organization aggregates.

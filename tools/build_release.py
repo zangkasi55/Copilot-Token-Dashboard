@@ -6,6 +6,7 @@ import json
 import shutil
 import zipfile
 from pathlib import Path
+from pypdf import PdfReader
 
 from publication_check import inspect, public_files
 
@@ -40,6 +41,12 @@ def build(root: Path) -> dict:
             path = root / "docs" / "manuals" / f"Copilot Token Dashboard - Installation {suffix}.{extension}"
             if not path.is_file():
                 raise FileNotFoundError("Both public installation manuals must be built and validated")
+            reader = PdfReader(path)
+            if reader.is_encrypted or sum(len(page.images) for page in reader.pages) != 10:
+                raise ValueError("Each public installation PDF must contain all ten unencrypted screenshot figures")
+    sample = root / "docs" / "assets" / "sample-dashboard.html"
+    if not sample.is_file():
+        raise FileNotFoundError("Build the synthetic dashboard companion before packaging the illustrated manuals")
     checked = inspect(root, [template])
     if checked["errors"]:
         raise ValueError("Public-safety validation failed: " + json.dumps(checked["problems"]))
@@ -59,7 +66,9 @@ def build(root: Path) -> dict:
         target = destination / f"Copilot-Token-Dashboard-Installation-{suffix}.pdf"
         shutil.copyfile(source, target)
         manual_assets.append(target)
-    artifacts = [archive_path, template] + manual_assets
+    sample_asset = destination / "Copilot-Token-Dashboard-Sample.html"
+    shutil.copyfile(sample, sample_asset)
+    artifacts = [archive_path, template] + manual_assets + [sample_asset]
     checksums = []
     for file in artifacts:
         checksums.append(hashlib.sha256(file.read_bytes()).hexdigest() + "  " + file.name)
@@ -70,6 +79,10 @@ def build(root: Path) -> dict:
         "template": template.name, "template_verified": template_info,
         "source_files": len(files), "public_safety_errors": 0,
         "manual_languages": ["English", "Thai"],
+        "documentation_revision": "illustrated-1",
+        "manual_figures_per_language": 10,
+        "sample_dashboard": sample_asset.name,
+        "screenshot_provenance": "Synthetic browser illustrations, not verified Power BI screenshots",
     }
     (destination / "release-manifest.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result

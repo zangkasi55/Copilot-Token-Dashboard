@@ -1,5 +1,20 @@
 # User Guide
 
+## Illustrated tour
+
+![Browser-rendered synthetic personal-dashboard illustration, not a verified Power BI screenshot.](images/02-personal.png)
+
+The [ten-page sample gallery](SAMPLE_DASHBOARD.md) explains every page with a
+full-resolution screenshot and reproducible example values. Download the
+[offline dashboard companion](assets/sample-dashboard.html) to try its sample
+period, scope, agent and scenario controls without sign-in.
+The same synthetic companion is [available online](https://zangkasi55.github.io/Copilot-Token-Dashboard/).
+
+These are browser illustrations using the public synthetic data, not verified
+Power BI Desktop captures. They do not implement the real model's DAX or RLS.
+Use the [English](INSTALLATION.md) or [Thai](INSTALLATION_TH.md) illustrated
+installation manual for the actual tenant setup and acceptance checks.
+
 ## Report pages
 
 | Page | Purpose |
@@ -47,4 +62,3 @@ available time tracking. Neither proves causal productivity improvement.
 
 Use these insights for cost awareness and responsible operations, never to rank
 or evaluate individual employees.
-

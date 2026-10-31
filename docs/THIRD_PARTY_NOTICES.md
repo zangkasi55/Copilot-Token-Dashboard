@@ -15,6 +15,7 @@ Documentation/build dependencies:
 - jsonschema and referencing: MIT.
 - pytest: MIT.
 - ReportLab: BSD.
+- pypdfium2: Apache-2.0/BSD-3-Clause; optional PDF rendering validation utility.
 - pbi-tools: AGPL-3.0; an optional build-time utility downloaded from its official
   repository. Its binaries and source code are not bundled into our release.
 - Microsoft Power BI Desktop and Analysis Services components: Microsoft

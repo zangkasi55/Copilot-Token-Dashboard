@@ -38,7 +38,14 @@ jobs:
           python tools\validate_powerbi.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build public manual sources
-        run: npm run docs
+        shell: pwsh
+        run: |
+          $env:PYTHONPATH = 'src'
+          python tools\build_sample_dashboard.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm run docs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Illustrated manual renderer tests
+        run: npm run test:manuals
       - name: Public-content safety gate
         run: python tools\publication_check.py
-
