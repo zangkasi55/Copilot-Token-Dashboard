@@ -1,0 +1,46 @@
+PeriodLabel,ScopeKey,AgentKey,Amount,AgentRuns,ActiveUsers,InputTokens,CachedInputTokens,OutputTokens,Last7Amount,Prior4WeekAverage,SpikeFlag,Idle30Days,NewThisMonth,UsersLast6Weeks,UsersPrior6Weeks,IntensityLast6Weeks,IntensityPrior6Weeks,UserGrowth,IntensityGrowth,TrendClass,PrivacySuppressed
+Last 7 days,demo-engineering,demo-build,408.0,96,12,137215,68597,25736,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 28 days,demo-engineering,demo-build,468.48,384,12,543213,271559,101377,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 90 days,demo-engineering,demo-build,649.92,1248,12,1780461,890069,327284,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Month to date,demo-engineering,demo-build,468.48,384,12,543213,271559,101377,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Year to date,demo-engineering,demo-build,791.04,1920,12,2729229,1364371,504180,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 7 days,demo-engineering,demo-support,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 28 days,demo-engineering,demo-support,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 90 days,demo-engineering,demo-support,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Month to date,demo-engineering,demo-support,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Year to date,demo-engineering,demo-support,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 7 days,demo-engineering,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 28 days,demo-engineering,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 90 days,demo-engineering,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Month to date,demo-engineering,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Year to date,demo-engineering,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 7 days,demo-operations,demo-build,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 28 days,demo-operations,demo-build,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 90 days,demo-operations,demo-build,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Month to date,demo-operations,demo-build,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Year to date,demo-operations,demo-build,,,0,,,,,,,True,False,0,0,,,,,No observed activity,False
+Last 7 days,demo-operations,demo-support,6.4799999999999995,72,12,104214,52099,19265,6.4799999999999995,6.4799999999999995,False,False,False,12,12,6.0,6.0,0.0,0.0,Stable,False
+Last 28 days,demo-operations,demo-support,25.919999999999998,288,12,406028,202977,76125,6.4799999999999995,6.4799999999999995,False,False,False,12,12,6.0,6.0,0.0,0.0,Stable,False
+Last 90 days,demo-operations,demo-support,82.08,912,12,1301211,650490,240004,6.4799999999999995,6.4799999999999995,False,False,False,12,12,6.0,6.0,0.0,0.0,Stable,False
+Month to date,demo-operations,demo-support,25.919999999999998,288,12,406028,202977,76125,6.4799999999999995,6.4799999999999995,False,False,False,12,12,6.0,6.0,0.0,0.0,Stable,False
+Year to date,demo-operations,demo-support,129.6,1440,12,2049468,1024556,378961,6.4799999999999995,6.4799999999999995,False,False,False,12,12,6.0,6.0,0.0,0.0,Stable,False
+Last 7 days,demo-operations,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 28 days,demo-operations,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 90 days,demo-operations,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Month to date,demo-operations,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Year to date,demo-operations,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 7 days,demo-root,demo-build,408.0,96,12,137215,68597,25736,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 28 days,demo-root,demo-build,468.48,384,12,543213,271559,101377,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 90 days,demo-root,demo-build,649.92,1248,12,1780461,890069,327284,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Month to date,demo-root,demo-build,468.48,384,12,543213,271559,101377,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Year to date,demo-root,demo-build,791.04,1920,12,2729229,1364371,504180,408.0,20.16,True,False,False,12,12,16.0,16.0,0.0,0.0,Stable,False
+Last 7 days,demo-root,demo-support,8.64,96,16,138483,69229,25693,8.64,8.64,False,False,False,16,16,6.0,6.0,0.0,0.0,Stable,False
+Last 28 days,demo-root,demo-support,34.56,384,16,541967,270931,101735,8.64,8.64,False,False,False,16,16,6.0,6.0,0.0,0.0,Stable,False
+Last 90 days,demo-root,demo-support,109.44,1216,16,1733557,866625,320561,8.64,8.64,False,False,False,16,16,6.0,6.0,0.0,0.0,Stable,False
+Month to date,demo-root,demo-support,34.56,384,16,541967,270931,101735,8.64,8.64,False,False,False,16,16,6.0,6.0,0.0,0.0,Stable,False
+Year to date,demo-root,demo-support,172.79999999999998,1920,16,2733783,1366659,505642,8.64,8.64,False,False,False,16,16,6.0,6.0,0.0,0.0,Stable,False
+Last 7 days,demo-root,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 28 days,demo-root,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Last 90 days,demo-root,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Month to date,demo-root,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False
+Year to date,demo-root,demo-idle,,,0,,,,,,,True,True,0,0,,,,,No observed activity,False

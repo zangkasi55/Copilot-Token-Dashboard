@@ -1,0 +1,4 @@
+SurfaceKey,Name,Platform,SurfaceType,WorkCategory,BillingKind
+0d296f79f7f91e3309b401fe,copilot_cli,GitHub Copilot,Not classified,Not classified,tokens
+a550a9b4f5dbbf0a76cdec40,Example API,AI gateway,API,Not classified,tokens
+ceecc1c23a36f73827aaa0f7,Word,Microsoft 365 Copilot,Not classified,Not classified,licence-included

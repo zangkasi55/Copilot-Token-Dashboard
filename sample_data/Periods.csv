@@ -1,0 +1,6 @@
+Label,Mode,Days,SortOrder
+Last 7 days,Rolling,7,1
+Last 28 days,Rolling,28,2
+Last 90 days,Rolling,90,3
+Month to date,MTD,0,4
+Year to date,YTD,0,5

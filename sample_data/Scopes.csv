@@ -1,0 +1,4 @@
+ScopeKey,Name,ParentScopeKey,Company,BusinessUnit,Department,Team,ScopeLevel,MemberCount
+demo-root,Example organization,,Example organization,Example,,,Company,28
+demo-engineering,Example engineering team,demo-root,Example organization,Example,Engineering,Engineering,Team,12
+demo-operations,Example operations team,demo-root,Example organization,Example,Operations,Operations,Team,12

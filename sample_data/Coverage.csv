@@ -1,0 +1,13 @@
+Source,Metric,Granularity,Status,AsOfDate,LoadedAtUTC,RowCount,Detail
+Synthetic GitHub,Input tokens,day,Reported,2026-05-27,2026-10-31T09:37:46.585507+00:00,960,960 of 960 records expose this field.
+Synthetic GitHub,Cached input,day,Reported,2026-05-27,2026-10-31T09:37:46.585756+00:00,960,960 of 960 records expose this field.
+Synthetic GitHub,Amount,day,Reported,2026-05-27,2026-10-31T09:37:46.586032+00:00,960,960 of 960 records expose this field.
+Synthetic GitHub,Requests,day,Reported,2026-05-27,2026-10-31T09:37:46.586262+00:00,960,960 of 960 records expose this field.
+Synthetic Microsoft 365,Input tokens,day,Not reported,2026-05-25,2026-10-31T09:37:46.586567+00:00,240,0 of 240 records expose this field.
+Synthetic Microsoft 365,Cached input,day,Not reported,2026-05-25,2026-10-31T09:37:46.586619+00:00,240,0 of 240 records expose this field.
+Synthetic Microsoft 365,Amount,day,Not reported,2026-05-25,2026-10-31T09:37:46.586673+00:00,240,0 of 240 records expose this field.
+Synthetic Microsoft 365,Requests,day,Not reported,2026-05-25,2026-10-31T09:37:46.586723+00:00,240,0 of 240 records expose this field.
+Synthetic gateway,Input tokens,day,Reported,2026-05-28,2026-10-31T09:37:46.587205+00:00,960,960 of 960 records expose this field.
+Synthetic gateway,Cached input,day,Reported,2026-05-28,2026-10-31T09:37:46.587425+00:00,960,960 of 960 records expose this field.
+Synthetic gateway,Amount,day,Reported,2026-05-28,2026-10-31T09:37:46.587684+00:00,960,960 of 960 records expose this field.
+Synthetic gateway,Requests,day,Reported,2026-05-28,2026-10-31T09:37:46.587958+00:00,960,960 of 960 records expose this field.

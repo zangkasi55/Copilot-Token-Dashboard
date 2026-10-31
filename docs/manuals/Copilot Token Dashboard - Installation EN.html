@@ -1,0 +1,101 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Copilot Token Dashboard Installation Guide</title><style>
+@page{size:Letter;margin:18mm 20mm}body{font-family:Tahoma,Arial,sans-serif;font-size:10.5pt;line-height:1.5;color:#17324d}
+h1{font-size:21pt}h2{font-size:15pt;margin-top:18pt}h3{font-size:12pt}h1,h2,h3{break-after:avoid}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:12pt 0}td,th{border:1px solid #dce4ec;padding:6pt;text-align:left}
+th{background:#e7f0fa}tr{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f9;padding:10pt;font-size:8.5pt}
+p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,monospace}
+</style></head><body><h1>Installation Guide</h1>
+<h2>1. What this package does</h2>
+<p>Copilot Token Dashboard is a tenant-owned Power BI reference application. It provides ten report pages for personal usage, organization aggregates, agent operations, models, value scenarios, budgets and data quality.</p>
+<p>It does not grant access to another organization&#39;s data. Every recipient uses their own Microsoft tenant, Power BI workspace, source permissions and secrets. The installation demonstration is synthetic and is marked on every page.</p>
+<h2>2. Prerequisites</h2>
+<table><tr><th>Component</th><th>Required for</th></tr><tr><td>Windows and recent Power BI Desktop</td><td>Local report authoring and validation</td></tr><tr><td>Python 3.10 or later</td><td>Collectors, normalized-data build and deployment</td></tr><tr><td>PowerShell 7</td><td>Installation script</td></tr><tr><td>Power BI Pro, PPU or suitable Fabric capacity</td><td>Publishing and sharing, as required by Microsoft licensing</td></tr><tr><td>Workspace Contributor or higher</td><td>Provisioning semantic model and report</td></tr><tr><td>Azure CLI, or a tenant-scoped Fabric token in your process environment</td><td>Automated tenant provisioning</td></tr><tr><td>Approved source permissions</td><td>Collecting actual organizational usage and billing data</td></tr></table>
+<p>The supplied API origins target Microsoft&#39;s global commercial cloud. Sovereign clouds and custom GitHub hosts are not validated by this release.</p>
+<p>Power BI Desktop and optional build utilities are not redistributed.</p>
+<h2>3. Download and validate</h2>
+<p>Download the versioned installation ZIP from the GitHub Releases page. Verify its SHA-256 checksum against the release checksum file, then extract it into a new folder, for example C:\CopilotTokenDashboard.</p>
+<pre><code>Set-Location C:\CopilotTokenDashboard
+.\Install.ps1 -Action Validate -InstallDependencies</code></pre>
+<p>This restores only the declared runtime dependencies and validates the complete synthetic table set. No tenant resources are created in Validate mode.</p>
+<p>Expected result: the validation reports all contract tables and no errors.</p>
+<p>Do not disable enterprise execution policies or security controls to run the script. Follow your organization&#39;s approved script-execution process.</p>
+<h2>4. Open the demonstration locally</h2>
+<pre><code>.\Install.ps1 -Action Local -SourceMode Demo</code></pre>
+<p>The script creates a new version-specific folder under your local application data and opens the PBIP. An existing installation folder is not overwritten. Use -InstallFolder C:\CTD\Demo-1.0.0 to choose a new folder.</p>
+<p>In Power BI Desktop:</p>
+<p class="list">1. Wait for the project to open.</p>
+<p class="list">2. Select Refresh if the data is not yet loaded.</p>
+<p class="list">3. Confirm the synthetic-demo banner and data-through date.</p>
+<p class="list">4. Visit all ten report pages.</p>
+<p class="list">5. Use the Agent selector or drill-through configuration for a single agent.</p>
+<p class="list">6. Open Modeling &gt; View as and test the Viewer role with an example UPN.</p>
+<p>The example people use the reserved example.com domain. The sample prices are fictional; they are not vendor prices or a recommended rate card.</p>
+<h2>5. Publish manually into your own tenant</h2>
+<p>This path does not require an automated deployment token.</p>
+<p class="list">1. Sign in to Power BI Desktop with an account in the destination tenant.</p>
+<p class="list">2. Create or select an approved Power BI workspace.</p>
+<p class="list">3. Publish the opened project from Power BI Desktop.</p>
+<p class="list">4. Configure credentials and refresh in the Power BI Service.</p>
+<p class="list">5. Assign approved Entra security groups to the semantic model&#39;s Viewer role.</p>
+<p class="list">6. Test as real Viewer users before sharing the report or publishing an app.</p>
+<p>A PBIT, when supplied, is opened in Desktop and instantiated there. It is not directly imported through the Power BI Service REST API. PBIP projects are editable source projects, not executable copies of Power BI Desktop.</p>
+<h2>6. Automated tenant provisioning</h2>
+<p>Use an explicitly chosen tenant and workspace:</p>
+<pre><code>.\Install.ps1 -Action Tenant -SourceMode Demo `
+  -TenantId &#39;&lt;your-tenant-guid&gt;&#39; `
+  -WorkspaceId &#39;&lt;your-workspace-guid&gt;&#39;</code></pre>
+<p>Azure CLI authentication is performed against the specified tenant if no CTD_FABRIC_ACCESS_TOKEN is present. Alternatively, acquire an approved tenant-scoped token with SemanticModel.ReadWrite.All and Report.ReadWrite.All, or Item.ReadWrite.All, and set it in the current process environment.</p>
+<p>The script checks the token&#39;s tenant before sending any provisioning request. The API still verifies the token&#39;s signature, audience and permissions.</p>
+<p>The installer creates the semantic model first, then binds the report to the created model ID. It follows Fabric long-running operations and does not silently overwrite an existing item. Use -Update only after reviewing the destination and backing up its current definitions.</p>
+<p>The resulting state is provisioned, configuration required. Security-group assignment, data-source credentials, refresh, app audiences and Viewer smoke tests remain required. The script does not falsely declare production readiness.</p>
+<h2>7. Replace synthetic data with your own data</h2>
+<p>Never edit the shipped demonstration to contain real secrets or employee data and then commit it. Work in an ignored runtime folder.</p>
+<pre><code>python -m pip install .
+ctd collect-github --settings config\settings.json `
+  --day 2026-05-28 --output runtime\incoming\github.jsonl
+ctd collect-m365 --settings config\settings.json `
+  --output runtime\incoming\m365.jsonl</code></pre>
+<p>Copy config\settings.example.json to the ignored config\settings.json and provide your tenant/app/source settings. Secrets are read from environment variables or from an approved secret manager that populates those variables.</p>
+<p>Prepare the input folder:</p>
+<p class="list">&#8226; People.csv, Scopes.csv, ScopeAccess.csv: required, reviewed organization</p>
+<p>  and access mappings.</p>
+<p class="list">&#8226; usage.jsonl: normalized metadata records, combining the approved sources.</p>
+<p class="list">&#8226; Models.csv, Surfaces.csv, Agents.csv, Budgets.csv, Outcomes.csv: optional</p>
+<p>  registry and outcome inputs using the exact public contract.</p>
+<p class="list">&#8226; period-summaries.jsonl: optional Microsoft 365 period summaries.</p>
+<p>Use the data contract and source-capability guide. Do not spread period totals into daily rows or infer cached tokens from input totals.</p>
+<pre><code>ctd build-data --input runtime\incoming --output runtime\gold-2026-05-28
+ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
+<p>The build sets demonstration mode to false for customer data, removes ineligible organization scopes, erases suppressed numeric facts and preserves unpriced/unattributed records.</p>
+<h2>8. Customer data-source modes</h2>
+<h3>CSV</h3>
+<pre><code>.\Install.ps1 -Action Local -SourceMode CSV `
+  -DataFolder C:\CTD\runtime\gold-2026-05-28 `
+  -InstallFolder C:\CTD\Customer-1.0.0</code></pre>
+<p>The Power BI Service cannot read your local folder without a configured on-premises data gateway. A Desktop-published snapshot can be viewed without scheduled refresh, but it is not a live pipeline.</p>
+<h3>SharePoint</h3>
+<p>Upload a complete, validated generation of the contract CSV files to an approved folder in your own tenant. Use the exact folder URL, including its trailing slash, and configure organizational OAuth credentials:</p>
+<pre><code>.\Install.ps1 -Action Tenant -SourceMode SharePoint `
+  -TenantId &#39;&lt;your-tenant-guid&gt;&#39; -WorkspaceId &#39;&lt;your-workspace-guid&gt;&#39; `
+  -DataFolder C:\CTD\runtime\gold-2026-05-28 `
+  -SharePointSite &#39;https://&lt;your-tenant&gt;.sharepoint.com/sites/AIReporting&#39; `
+  -SharePointFolder &#39;https://&lt;your-tenant&gt;.sharepoint.com/sites/AIReporting/Shared Documents/Gold/&#39;</code></pre>
+<p>The local validated folder is required as a preflight mirror. The model reads the SharePoint files after deployment, not that local mirror.</p>
+<p>A file must match its expected name and exact folder once; missing or duplicate matches fail explicitly. Credentials are not shipped in the model.</p>
+<h2>9. Security and go-live checks</h2>
+<p class="list">&#8226; Use the Viewer RLS role; app page visibility is not a security boundary.</p>
+<p class="list">&#8226; Give consumers Viewer/app access, not Workspace Member or Contributor.</p>
+<p class="list">&#8226; Do not grant broad Build/export permissions without a data-protection review.</p>
+<p class="list">&#8226; Assign your own sensitivity label in the destination tenant.</p>
+<p class="list">&#8226; Verify personal user A cannot see user B&#39;s personal rows.</p>
+<p class="list">&#8226; Verify a small scope is absent and suppressed aggregate rows contain no</p>
+<p>  numeric facts, even through dataset access.</p>
+<p class="list">&#8226; Configure refresh only after a complete data generation is uploaded.</p>
+<p class="list">&#8226; Test all source credentials and permissions in the destination tenant.</p>
+<p class="list">&#8226; Confirm no demo identities remain in customer data.</p>
+<p class="list">&#8226; Review access and source coverage periodically.</p>
+<p>This is not a legal-compliance certification or an employee-performance tool.</p>
+<h2>10. Troubleshooting</h2>
+<table><tr><th>Symptom</th><th>Action</th></tr><tr><td>Python dependency error</td><td>Install the declared runtime package; do not install arbitrary packages</td></tr><tr><td>CSV header/type error</td><td>Compare exact column order/types with the contract</td></tr><tr><td>Missing tokens or cached tokens</td><td>Inspect source coverage; do not substitute zero</td></tr><tr><td>Unexpected spend totals</td><td>Compare billed/estimated basis, unattributed rows and privacy-hidden breakdowns</td></tr><tr><td>No personal rows</td><td>Confirm the actual UPN mapping and Viewer role membership</td></tr><tr><td>Blank organization scope</td><td>Confirm approved scope access and the six-person minimum</td></tr><tr><td>HTTP 403</td><td>Obtain required consent/role/policy; do not bypass the restriction</td></tr><tr><td>Existing item conflict</td><td>Inspect the destination; use Update only deliberately</td></tr><tr><td>Refresh failure</td><td>Configure credentials, gateway and source-folder permissions</td></tr><tr><td>Long-running operation timeout</td><td>Inspect the workspace and operation before retrying creation</td></tr></table>
+<p>The accompanying administrator and source-capability manuals provide detailed operating boundaries.</p></body></html>

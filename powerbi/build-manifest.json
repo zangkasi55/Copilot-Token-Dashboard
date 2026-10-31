@@ -1,0 +1,3707 @@
+{
+  "product": "Copilot Token Dashboard",
+  "version": "1.0.0",
+  "pageCount": 10,
+  "visualCount": 146,
+  "tableCount": 22,
+  "measureCount": 100,
+  "roles": [
+    "Viewer"
+  ],
+  "defaultMode": "Demo",
+  "pages": [
+    {
+      "name": "overview",
+      "title": "Overview",
+      "visualCount": 15,
+      "visuals": [
+        {
+          "id": "4d8cbf3103554dd8c941",
+          "type": "card",
+          "title": "Overview",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "1b810c38f73ccb22bc01",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "9a94043596c27154745a",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "9349454e561060b8b2f2",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "544658d5e7a34d9fa80b",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "835408a8da89103f050a",
+          "type": "card",
+          "title": "Known usage spend",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Known Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "d24b24ee68a4549b1986",
+          "type": "card",
+          "title": "Spend MTD",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope MTD Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "d3953c1eac02d30e062a",
+          "type": "card",
+          "title": "Prorated budget used",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Budget Used Ratio",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "bcb914282d95951f0ca0",
+          "type": "card",
+          "title": "Active people",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Active Users",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "78c7ff8f39c06b388812",
+          "type": "card",
+          "title": "Active agents",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Active Agents",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "e9b338d6fdb3731a3a10",
+          "type": "card",
+          "title": "Reported tokens",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Reported Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "46398f823bf21c975cad",
+          "type": "lineChart",
+          "title": "Weekly known spend: 13 completed weeks",
+          "roles": {
+            "Category": [
+              [
+                "Calendar",
+                "WeekStart",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Scope Weekly Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 768,
+            "height": 270,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "32f274431fdb22ae6415",
+          "type": "donutChart",
+          "title": "Visible spend by surface",
+          "roles": {
+            "Category": [
+              [
+                "Surfaces",
+                "Name",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Scope Breakdown Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 800,
+            "y": 306,
+            "width": 784,
+            "height": 270,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "820a29a2c31521369e0b",
+          "type": "tableEx",
+          "title": "Agent portfolio",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Cost per Run",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 590,
+            "width": 1568,
+            "height": 270,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "308a54b20e2c9864bd7a",
+          "type": "card",
+          "title": "Purpose",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Usage Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 876,
+            "width": 1568,
+            "height": 102,
+            "z": 14,
+            "tabOrder": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "personal",
+      "title": "My AI Usage",
+      "visualCount": 16,
+      "visuals": [
+        {
+          "id": "057be0bc06faa2f3d5d3",
+          "type": "card",
+          "title": "My AI Usage",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "ee1c4758445ac3ba028c",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "4ffb9ecb4d4c36ca2ed5",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "ab563bd6a3c6e5804041",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "bd683ca4b54893f5e961",
+          "type": "card",
+          "title": "My spend 7 days",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Spend 7 Days",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "a70804a578299911c004",
+          "type": "card",
+          "title": "My spend 28 days",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Spend 28 Days",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "31eb65bab9ad805d488b",
+          "type": "card",
+          "title": "My spend MTD",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Spend MTD",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "19abd348c5d877a75cd1",
+          "type": "card",
+          "title": "My reported tokens",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Reported Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "3d457110e3dfc17bc7df",
+          "type": "card",
+          "title": "My observed active days",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Active Days",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "2ab4d4cc4f2ca01315b7",
+          "type": "card",
+          "title": "Unpriced token records",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Unpriced Records",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "b550159d27321f8495be",
+          "type": "tableEx",
+          "title": "My accounts",
+          "roles": {
+            "Values": [
+              [
+                "Accounts",
+                "Platform",
+                false
+              ],
+              [
+                "Accounts",
+                "AccountType",
+                false
+              ],
+              [
+                "Accounts",
+                "MaskedId",
+                false
+              ],
+              [
+                "Accounts",
+                "DataThroughDate",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 210,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "712209bbb8191af49be2",
+          "type": "lineChart",
+          "title": "My known spend over time",
+          "roles": {
+            "Category": [
+              [
+                "Calendar",
+                "Date",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "My Known Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 530,
+            "width": 1568,
+            "height": 270,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "ea41df2ee21c6983ec67",
+          "type": "tableEx",
+          "title": "My surfaces and agents",
+          "roles": {
+            "Values": [
+              [
+                "Surfaces",
+                "Name",
+                false
+              ],
+              [
+                "Measures",
+                "My Cost Label",
+                true
+              ],
+              [
+                "Measures",
+                "My Requests",
+                true
+              ],
+              [
+                "Measures",
+                "My Agent Runs",
+                true
+              ],
+              [
+                "Measures",
+                "My Reported Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 814,
+            "width": 1568,
+            "height": 270,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "74dc30e9d051fc8fffad",
+          "type": "tableEx",
+          "title": "My model usage",
+          "roles": {
+            "Values": [
+              [
+                "Models",
+                "Name",
+                false
+              ],
+              [
+                "Models",
+                "Provider",
+                false
+              ],
+              [
+                "Models",
+                "Tier",
+                false
+              ],
+              [
+                "Measures",
+                "My Reported Tokens",
+                true
+              ],
+              [
+                "Measures",
+                "My Cached Input Tokens",
+                true
+              ],
+              [
+                "Measures",
+                "My Known Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 1098,
+            "width": 1568,
+            "height": 270,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "80f95e403e8c417a484b",
+          "type": "tableEx",
+          "title": "Source period summaries: not daily counts",
+          "roles": {
+            "Values": [
+              [
+                "PeriodSummary",
+                "Source",
+                false
+              ],
+              [
+                "PeriodSummary",
+                "StartDate",
+                false
+              ],
+              [
+                "PeriodSummary",
+                "EndDate",
+                false
+              ],
+              [
+                "PeriodSummary",
+                "Metric",
+                false
+              ],
+              [
+                "PeriodSummary",
+                "Value",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 1382,
+            "width": 1568,
+            "height": 270,
+            "z": 14,
+            "tabOrder": 14
+          }
+        },
+        {
+          "id": "70565334af0758ef7975",
+          "type": "card",
+          "title": "Privacy",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Personal Privacy Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 1666,
+            "width": 1568,
+            "height": 150,
+            "z": 15,
+            "tabOrder": 15
+          }
+        }
+      ]
+    },
+    {
+      "name": "organization",
+      "title": "Organization Usage",
+      "visualCount": 14,
+      "visuals": [
+        {
+          "id": "6c72b6cc44c5bbae5578",
+          "type": "card",
+          "title": "Organization Usage",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "687d23de2493d4faf443",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "a90b217c1592a5a1e8f6",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "7eeec42af4488bd69d9b",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "de053891912298dcc67b",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "24049666274d95dd9cf0",
+          "type": "card",
+          "title": "Reporting members",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Member Count",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "64d3f6ecacb33ef9afe2",
+          "type": "card",
+          "title": "Active people",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Active Users",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "89b1c78a2bdd0a167fcd",
+          "type": "card",
+          "title": "Recorded adoption",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Adoption",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "7a338154dc1e9a9340ab",
+          "type": "card",
+          "title": "Active user-days",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope User Days",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "dafa1a788a05066ef588",
+          "type": "card",
+          "title": "Known spend",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Known Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "1ce52fd6e4bea5d55290",
+          "type": "card",
+          "title": "Privacy minimum",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Privacy Minimum",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "b929b5827850b494ae80",
+          "type": "lineChart",
+          "title": "Weekly active people: completed weeks",
+          "roles": {
+            "Category": [
+              [
+                "Calendar",
+                "WeekStart",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Scope Weekly Active Users",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 250,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "58c01fd1506ae43ba302",
+          "type": "stackedColumnChart",
+          "title": "Recorded weekly engagement bands",
+          "roles": {
+            "Category": [
+              [
+                "Calendar",
+                "WeekStart",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Weekly High",
+                true
+              ],
+              [
+                "Measures",
+                "Weekly Moderate",
+                true
+              ],
+              [
+                "Measures",
+                "Weekly Low",
+                true
+              ],
+              [
+                "Measures",
+                "Weekly None",
+                true
+              ],
+              [
+                "Measures",
+                "Weekly NoRecorded",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 570,
+            "width": 1568,
+            "height": 260,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "ef5deaa00e0384c11f20",
+          "type": "card",
+          "title": "Interpretation",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Usage Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 846,
+            "width": 1568,
+            "height": 130,
+            "z": 13,
+            "tabOrder": 13
+          }
+        }
+      ]
+    },
+    {
+      "name": "momentum",
+      "title": "Adoption and Momentum",
+      "visualCount": 9,
+      "visuals": [
+        {
+          "id": "b6026258449c1c0de756",
+          "type": "card",
+          "title": "Adoption and Momentum",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "cda8adb4f713485f3d10",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "5814f08e8113b6bda139",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "42e8f08ad05ee9388161",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "e1ce197e971dcd5edd28",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "142d40cf3df522db6f33",
+          "type": "card",
+          "title": "Method",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Momentum Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 1568,
+            "height": 100,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "ac134cb60079f089d5d7",
+          "type": "scatterChart",
+          "title": "Agent adoption versus intensity",
+          "roles": {
+            "Category": [
+              [
+                "Agents",
+                "Name",
+                false
+              ]
+            ],
+            "X": [
+              [
+                "Measures",
+                "Agent User Growth",
+                true
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Agent Intensity Growth",
+                true
+              ]
+            ],
+            "Size": [
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 292,
+            "width": 768,
+            "height": 350,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "76d9ddf815d2bf79587d",
+          "type": "tableEx",
+          "title": "Trend classification",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Measures",
+                "Agent User Growth",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Intensity Growth",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Trend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 800,
+            "y": 292,
+            "width": 784,
+            "height": 350,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "68fd8e3c2d9024045994",
+          "type": "card",
+          "title": "Data caution",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Quality Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 660,
+            "width": 1568,
+            "height": 180,
+            "z": 8,
+            "tabOrder": 8
+          }
+        }
+      ]
+    },
+    {
+      "name": "agents",
+      "title": "Agents",
+      "visualCount": 13,
+      "visuals": [
+        {
+          "id": "66c00bc9330a6462d60b",
+          "type": "card",
+          "title": "Agents",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "476af68401d69158c5a9",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "14d4c7a180f11597693a",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "eb6614ea182b9f91eed3",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "1b9e60490f6648f7f68e",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "053d1382ccd6e72b259b",
+          "type": "card",
+          "title": "Active agents",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Active Agents",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "c6930102c28fbfb681ee",
+          "type": "card",
+          "title": "Known agent spend",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "0a8f23799d1efcf31ad2",
+          "type": "card",
+          "title": "Reported runs",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "5b4c253a8d8d289eeab2",
+          "type": "card",
+          "title": "Known cost per run",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Cost per Run",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "3701aecbf08eba703742",
+          "type": "card",
+          "title": "Eligible agent users",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Users",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "f33f7a81c5f39c5be617",
+          "type": "card",
+          "title": "Spend-spike agents",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Spend Spike Agents",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "8de978a2db212f0533c8",
+          "type": "tableEx",
+          "title": "Agent portfolio: right-click an agent for detail",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Agents",
+                "Type",
+                false
+              ],
+              [
+                "Agents",
+                "Status",
+                false
+              ],
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Cost per Run",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Users",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 350,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "c6da7082f3d8b58722b5",
+          "type": "tableEx",
+          "title": "Registered agent metadata",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Agents",
+                "Platform",
+                false
+              ],
+              [
+                "Agents",
+                "Status",
+                false
+              ],
+              [
+                "Agents",
+                "Risk",
+                false
+              ],
+              [
+                "Agents",
+                "OwnerContact",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 674,
+            "width": 1568,
+            "height": 280,
+            "z": 12,
+            "tabOrder": 12
+          }
+        }
+      ]
+    },
+    {
+      "name": "agent_detail",
+      "title": "Agent Detail",
+      "visualCount": 15,
+      "visuals": [
+        {
+          "id": "7e04c334311b4d663446",
+          "type": "card",
+          "title": "Agent Detail",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "8c79bcfc7e7247d7c0b9",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "aa7bd48cf9fc49b86fd4",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "05a9aca441b64dc84f2a",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "f826591b35929e73e668",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "883c193b26d40b0d6aeb",
+          "type": "slicer",
+          "title": "Agent",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 990,
+            "y": 90,
+            "width": 280,
+            "height": 72,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "a85f86b3bc8f3b8d2355",
+          "type": "card",
+          "title": "Selected agent",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Name",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "f0ed449f801c33b40f9f",
+          "type": "card",
+          "title": "Known spend",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "dc27a8cc86ec81733087",
+          "type": "card",
+          "title": "Reported runs",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "002e0e2d37414f3c0354",
+          "type": "card",
+          "title": "Cost per run",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Cost per Run",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "a21b2eedeb19e75a0909",
+          "type": "card",
+          "title": "Reported tokens per run",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Tokens per Run",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "6e0f0688b2a099c2478f",
+          "type": "card",
+          "title": "Estimated hours",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Estimated Hours Saved",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "147f4c3a017f3f940075",
+          "type": "tableEx",
+          "title": "Agent profile",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Agents",
+                "Type",
+                false
+              ],
+              [
+                "Agents",
+                "Platform",
+                false
+              ],
+              [
+                "Agents",
+                "OwnerContact",
+                false
+              ],
+              [
+                "Agents",
+                "Status",
+                false
+              ],
+              [
+                "Agents",
+                "Risk",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 250,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "45ede9f94f5c9820d6b1",
+          "type": "tableEx",
+          "title": "Agent reported period metrics",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Users",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Input Tokens",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Output Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 572,
+            "width": 1568,
+            "height": 250,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "1e377ef006e2fed3ee08",
+          "type": "card",
+          "title": "Caution",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Value Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 840,
+            "width": 1568,
+            "height": 130,
+            "z": 14,
+            "tabOrder": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "outcomes",
+      "title": "Agent Outcomes",
+      "visualCount": 15,
+      "visuals": [
+        {
+          "id": "ed2bc047d48d6906ee18",
+          "type": "card",
+          "title": "Agent Outcomes",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "d742d3de0f889d1ecc11",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "f879d1419ce2c5330205",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "333371e430cb5c659415",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "2b882f1d7ce84f924c92",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "67bda952db0735114580",
+          "type": "card",
+          "title": "Resolved work items",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Resolved Work Items",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "28c9d741a921968b6e68",
+          "type": "card",
+          "title": "AI-involved share",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "AI Involved Share",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "2a8c0fc0f0a588f08a0b",
+          "type": "card",
+          "title": "Agent-resolved share",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Resolved Share",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "fd5a638ede63c2a86ca4",
+          "type": "card",
+          "title": "Human resolution hours",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Human Resolution Hours",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "49112194903e7f168642",
+          "type": "card",
+          "title": "Agent resolution hours",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Resolution Hours",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "9744c9d7509e6cccbf20",
+          "type": "card",
+          "title": "Measured effort saved",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Measured Effort Saved Hours",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "c8e31a6d908cf9094501",
+          "type": "clusteredColumnChart",
+          "title": "Resolution hours by handling mode",
+          "roles": {
+            "Category": [
+              [
+                "Outcomes",
+                "HandlingMode",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Resolution Hours",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 768,
+            "height": 280,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "1bf7a8736d08c4fbb5d0",
+          "type": "stackedColumnChart",
+          "title": "Resolved work by category",
+          "roles": {
+            "Category": [
+              [
+                "Outcomes",
+                "Category",
+                false
+              ]
+            ],
+            "Series": [
+              [
+                "Outcomes",
+                "HandlingMode",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Resolved Work Items",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 800,
+            "y": 306,
+            "width": 784,
+            "height": 280,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "ad4508017b33cd02effa",
+          "type": "tableEx",
+          "title": "Outcome categories",
+          "roles": {
+            "Values": [
+              [
+                "Outcomes",
+                "Category",
+                false
+              ],
+              [
+                "Outcomes",
+                "Priority",
+                false
+              ],
+              [
+                "Outcomes",
+                "HandlingMode",
+                false
+              ],
+              [
+                "Measures",
+                "Resolved Work Items",
+                true
+              ],
+              [
+                "Measures",
+                "Resolution Hours",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 602,
+            "width": 1568,
+            "height": 250,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "5e4dbec83841e5844048",
+          "type": "card",
+          "title": "Interpretation",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Value Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 868,
+            "width": 1568,
+            "height": 110,
+            "z": 14,
+            "tabOrder": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "value",
+      "title": "Value and Budget",
+      "visualCount": 18,
+      "visuals": [
+        {
+          "id": "f6118a20137af89ea3f9",
+          "type": "card",
+          "title": "Value and Budget",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "f48dc89a36bd4778a0db",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "fcccb6a99f0243739d7c",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "bb3116cd67d1c6005ab2",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "ab2d427251178908b5b8",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "8d4c1b6f8e88d0bf5778",
+          "type": "slicer",
+          "title": "Scenario hourly rate",
+          "roles": {
+            "Values": [
+              [
+                "HourlyRate",
+                "Rate",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 990,
+            "y": 90,
+            "width": 280,
+            "height": 72,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "af66e51f1c25f67f6f49",
+          "type": "card",
+          "title": "Estimated hours saved",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Estimated Hours Saved",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "87c8f2e2d4a2afc97e6e",
+          "type": "card",
+          "title": "Scenario value",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Estimated Value",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "6b7ef04ded958b66e061",
+          "type": "card",
+          "title": "Known agent cost",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "95f08fea887f28e815c3",
+          "type": "card",
+          "title": "Net scenario value",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Net Scenario Value",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "5983eb72734a2677861e",
+          "type": "card",
+          "title": "Value / cost ratio",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scenario Value Cost Ratio",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "f168de0f6f496c421be9",
+          "type": "card",
+          "title": "Budget variance MTD",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Budget Variance",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "677add05c23bbf0c7d1b",
+          "type": "tableEx",
+          "title": "Value assumptions by agent",
+          "roles": {
+            "Values": [
+              [
+                "Agents",
+                "Name",
+                false
+              ],
+              [
+                "Agents",
+                "MinutesSavedPerRun",
+                false
+              ],
+              [
+                "Measures",
+                "Agent Runs",
+                true
+              ],
+              [
+                "Measures",
+                "Estimated Hours Saved",
+                true
+              ],
+              [
+                "Measures",
+                "Estimated Value",
+                true
+              ],
+              [
+                "Measures",
+                "Agent Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 310,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "2a9351ace5d71f77d968",
+          "type": "card",
+          "title": "Month budget",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Month Budget",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 632,
+            "width": 248,
+            "height": 112,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "cd789412edef667404a4",
+          "type": "card",
+          "title": "Prorated budget",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Prorated Budget",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 632,
+            "width": 248,
+            "height": 112,
+            "z": 14,
+            "tabOrder": 14
+          }
+        },
+        {
+          "id": "f0931b50cf8dfda903f0",
+          "type": "card",
+          "title": "Known spend MTD",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope MTD Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 632,
+            "width": 248,
+            "height": 112,
+            "z": 15,
+            "tabOrder": 15
+          }
+        },
+        {
+          "id": "62682c4bea97c9d9c03b",
+          "type": "card",
+          "title": "Prorated budget used",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Budget Used Ratio",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 632,
+            "width": 248,
+            "height": 112,
+            "z": 16,
+            "tabOrder": 16
+          }
+        },
+        {
+          "id": "7b638de46912cd6a9615",
+          "type": "card",
+          "title": "Scenario limits",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Value Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 774,
+            "width": 1568,
+            "height": 200,
+            "z": 17,
+            "tabOrder": 17
+          }
+        }
+      ]
+    },
+    {
+      "name": "models",
+      "title": "Models and Efficiency",
+      "visualCount": 15,
+      "visuals": [
+        {
+          "id": "fe9af1b8bb0101b12b27",
+          "type": "card",
+          "title": "Models and Efficiency",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "8a489dafa76f8bca9532",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "436a99e0cb48c2fb2d99",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "62378074bf72cdfa765b",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "a565f9ebc58504102249",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "f9346b9e502a5d807b9e",
+          "type": "card",
+          "title": "Known spend",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Known Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "fdfda457da91c5b29244",
+          "type": "card",
+          "title": "Reported input",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Input Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "bb4161aca605d4d0e67f",
+          "type": "card",
+          "title": "Reported output",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Output Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "299539311515161716fe",
+          "type": "card",
+          "title": "Reported tokens",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Reported Tokens",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "646aa3642ebc3fa53da1",
+          "type": "card",
+          "title": "Unpriced records",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Unpriced Records",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "0781e782de9981963d16",
+          "type": "card",
+          "title": "Hidden breakdown difference",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Hidden Breakdown Difference",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "6dc90766a63225f5167d",
+          "type": "donutChart",
+          "title": "Visible spend by provider",
+          "roles": {
+            "Category": [
+              [
+                "Models",
+                "Provider",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Scope Breakdown Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 768,
+            "height": 270,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "0a890e09648eec73bb47",
+          "type": "donutChart",
+          "title": "Visible spend by tier",
+          "roles": {
+            "Category": [
+              [
+                "Models",
+                "Tier",
+                false
+              ]
+            ],
+            "Y": [
+              [
+                "Measures",
+                "Scope Breakdown Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 800,
+            "y": 306,
+            "width": 784,
+            "height": 270,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "2f971115dd7129ca302d",
+          "type": "tableEx",
+          "title": "Visible model breakdown",
+          "roles": {
+            "Values": [
+              [
+                "Models",
+                "Name",
+                false
+              ],
+              [
+                "Models",
+                "Provider",
+                false
+              ],
+              [
+                "Models",
+                "Tier",
+                false
+              ],
+              [
+                "Measures",
+                "Scope Breakdown Tokens",
+                true
+              ],
+              [
+                "Measures",
+                "Scope Breakdown Spend",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 592,
+            "width": 1568,
+            "height": 270,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "138591ee2fe29e9ad52b",
+          "type": "card",
+          "title": "Coverage",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Source Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 878,
+            "width": 1568,
+            "height": 100,
+            "z": 14,
+            "tabOrder": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "guide",
+      "title": "Data Quality and Guide",
+      "visualCount": 16,
+      "visuals": [
+        {
+          "id": "7252250d3b31e4a8ca8a",
+          "type": "card",
+          "title": "Data Quality and Guide",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Banner",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 12,
+            "width": 1130,
+            "height": 68,
+            "z": 0,
+            "tabOrder": 0
+          }
+        },
+        {
+          "id": "5aecba295edabb98b0a4",
+          "type": "card",
+          "title": "Data freshness",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Date Label",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1160,
+            "y": 12,
+            "width": 424,
+            "height": 68,
+            "z": 1,
+            "tabOrder": 1
+          }
+        },
+        {
+          "id": "b7ce3797843e1cab28f2",
+          "type": "slicer",
+          "title": "Period",
+          "roles": {
+            "Values": [
+              [
+                "Periods",
+                "Label",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 2,
+            "tabOrder": 2
+          }
+        },
+        {
+          "id": "86b786fcea5a37432a7d",
+          "type": "slicer",
+          "title": "Reporting scope",
+          "roles": {
+            "Values": [
+              [
+                "Scopes",
+                "Name",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 330,
+            "y": 90,
+            "width": 650,
+            "height": 72,
+            "z": 3,
+            "tabOrder": 3
+          }
+        },
+        {
+          "id": "e263b6c1f348bc110b37",
+          "type": "slicer",
+          "title": "Currency",
+          "roles": {
+            "Values": [
+              [
+                "Currencies",
+                "Code",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 1284,
+            "y": 90,
+            "width": 300,
+            "height": 72,
+            "z": 4,
+            "tabOrder": 4
+          }
+        },
+        {
+          "id": "39bb58658e16f2f3046e",
+          "type": "card",
+          "title": "Fields reported",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Coverage Fields Reported",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 5,
+            "tabOrder": 5
+          }
+        },
+        {
+          "id": "ca04f6bdeddc7657048a",
+          "type": "card",
+          "title": "Fields partial",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Coverage Fields Partial",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 280,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 6,
+            "tabOrder": 6
+          }
+        },
+        {
+          "id": "6bcc5215e3f6d81edddc",
+          "type": "card",
+          "title": "Fields not reported",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Coverage Fields Missing",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 544,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 7,
+            "tabOrder": 7
+          }
+        },
+        {
+          "id": "e71b6d7474b19493f170",
+          "type": "card",
+          "title": "Privacy minimum",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Privacy Minimum",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 808,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 8,
+            "tabOrder": 8
+          }
+        },
+        {
+          "id": "6cdf155878d3c60d764c",
+          "type": "card",
+          "title": "My model reconciliation",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "My Model Reconciliation",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1072,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 9,
+            "tabOrder": 9
+          }
+        },
+        {
+          "id": "9ad8ec94eebc1427c567",
+          "type": "card",
+          "title": "Scope unpriced rows",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Scope Unpriced Records",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 1336,
+            "y": 176,
+            "width": 248,
+            "height": 112,
+            "z": 10,
+            "tabOrder": 10
+          }
+        },
+        {
+          "id": "27fd1ee0398696971e48",
+          "type": "tableEx",
+          "title": "Source capability and freshness",
+          "roles": {
+            "Values": [
+              [
+                "Coverage",
+                "Source",
+                false
+              ],
+              [
+                "Coverage",
+                "Metric",
+                false
+              ],
+              [
+                "Coverage",
+                "Granularity",
+                false
+              ],
+              [
+                "Coverage",
+                "Status",
+                false
+              ],
+              [
+                "Coverage",
+                "AsOfDate",
+                false
+              ],
+              [
+                "Coverage",
+                "Detail",
+                false
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 306,
+            "width": 1568,
+            "height": 360,
+            "z": 11,
+            "tabOrder": 11
+          }
+        },
+        {
+          "id": "496a781be8530f66da4e",
+          "type": "card",
+          "title": "Interpretation",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Usage Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 682,
+            "width": 1568,
+            "height": 138,
+            "z": 12,
+            "tabOrder": 12
+          }
+        },
+        {
+          "id": "a69cc0086138b5f577e4",
+          "type": "card",
+          "title": "Missing data",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Data Quality Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 832,
+            "width": 1568,
+            "height": 138,
+            "z": 13,
+            "tabOrder": 13
+          }
+        },
+        {
+          "id": "13d3faf9f703242ae6d3",
+          "type": "card",
+          "title": "Privacy",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Personal Privacy Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 982,
+            "width": 1568,
+            "height": 138,
+            "z": 14,
+            "tabOrder": 14
+          }
+        },
+        {
+          "id": "993d06a7e0d2b1e1c54d",
+          "type": "card",
+          "title": "Production setup",
+          "roles": {
+            "Values": [
+              [
+                "Measures",
+                "Production Note",
+                true
+              ]
+            ]
+          },
+          "position": {
+            "x": 16,
+            "y": 1132,
+            "width": 1568,
+            "height": 138,
+            "z": 15,
+            "tabOrder": 15
+          }
+        }
+      ]
+    }
+  ]
+}

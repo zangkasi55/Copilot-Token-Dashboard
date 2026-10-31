@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "tenant_id": "",
+  "graph_client_id": "",
+  "base_currency": "USD",
+  "minimum_group_size": 6,
+  "fx_rates": {
+    "USD": 1
+  },
+  "github": {
+    "scope_type": "enterprise",
+    "scope_name": "",
+    "api_version": "2026-03-10",
+    "root_scope_key": "",
+    "login_map_file": "",
+    "token_environment_variable": "CTD_GITHUB_TOKEN"
+  },
+  "m365": {
+    "period": "D28",
+    "version": "v2",
+    "client_secret_environment_variable": "CTD_GRAPH_CLIENT_SECRET"
+  }
+}

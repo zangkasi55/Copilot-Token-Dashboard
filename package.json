@@ -1,0 +1,13 @@
+{
+  "name": "copilot-token-dashboard-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build tooling for the public installation manuals",
+  "scripts": {
+    "docs": "node tools/build_manuals.cjs"
+  },
+  "devDependencies": {
+    "docx": "9.5.1"
+  }
+}
+

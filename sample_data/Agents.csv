@@ -1,0 +1,5 @@
+AgentKey,Name,Type,ScopeKey,Platform,OwnerContact,Status,Risk,PublishedDate,MinutesSavedPerRun,IsRegistered
+direct,Direct use,Direct,demo-root,Multiple,,Active,Not applicable,,,True
+demo-build,Example build helper,Automation,demo-engineering,AI gateway,engineering@example.com,Active,Example only,2026-01-05,7.5,True
+demo-support,Example support helper,Support,demo-operations,GitHub Copilot,operations@example.com,Active,Example only,2026-02-05,11.5,True
+demo-idle,Example idle helper,Automation,demo-operations,AI gateway,operations@example.com,Pilot,Example only,2026-05-05,,True

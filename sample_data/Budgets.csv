@@ -1,0 +1,16 @@
+MonthStart,ScopeKey,Platform,BudgetAmount,Currency
+2026-01-01,demo-root,All,4200.0,USD
+2026-01-01,demo-engineering,All,2400.0,USD
+2026-01-01,demo-operations,All,1500.0,USD
+2026-02-01,demo-root,All,4200.0,USD
+2026-02-01,demo-engineering,All,2400.0,USD
+2026-02-01,demo-operations,All,1500.0,USD
+2026-03-01,demo-root,All,4200.0,USD
+2026-03-01,demo-engineering,All,2400.0,USD
+2026-03-01,demo-operations,All,1500.0,USD
+2026-04-01,demo-root,All,4200.0,USD
+2026-04-01,demo-engineering,All,2400.0,USD
+2026-04-01,demo-operations,All,1500.0,USD
+2026-05-01,demo-root,All,4200.0,USD
+2026-05-01,demo-engineering,All,2400.0,USD
+2026-05-01,demo-operations,All,1500.0,USD

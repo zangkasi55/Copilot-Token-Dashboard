@@ -1,0 +1,181 @@
+RecordKey,ResolvedDate,ScopeKey,AgentKey,Category,Priority,HandlingMode,ResolutionHours,HumanEffortMinutes,CSAT
+demo-case-000,2026-05-28,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-001,2026-05-27,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-002,2026-05-26,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-003,2026-05-25,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-004,2026-05-24,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-005,2026-05-23,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-006,2026-05-22,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-007,2026-05-21,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-008,2026-05-20,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-009,2026-05-19,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-010,2026-05-18,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-011,2026-05-17,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-012,2026-05-16,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-013,2026-05-15,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-014,2026-05-14,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-015,2026-05-13,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-016,2026-05-12,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-017,2026-05-11,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-018,2026-05-10,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-019,2026-05-09,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-020,2026-05-08,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-021,2026-05-07,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-022,2026-05-06,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-023,2026-05-05,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-024,2026-05-04,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-025,2026-05-03,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-026,2026-05-02,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-027,2026-05-01,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-028,2026-04-30,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-029,2026-04-29,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-030,2026-04-28,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-031,2026-04-27,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-032,2026-04-26,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-033,2026-04-25,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-034,2026-04-24,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-035,2026-04-23,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-036,2026-04-22,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-037,2026-04-21,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-038,2026-04-20,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-039,2026-04-19,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-040,2026-04-18,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-041,2026-04-17,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-042,2026-04-16,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-043,2026-04-15,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-044,2026-04-14,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-045,2026-04-13,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-046,2026-04-12,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-047,2026-04-11,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-048,2026-04-10,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-049,2026-04-09,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-050,2026-04-08,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-051,2026-04-07,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-052,2026-04-06,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-053,2026-04-05,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-054,2026-04-04,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-055,2026-04-03,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-056,2026-04-02,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-057,2026-04-01,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-058,2026-03-31,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-059,2026-03-30,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-060,2026-03-29,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-061,2026-03-28,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-062,2026-03-27,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-063,2026-03-26,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-064,2026-03-25,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-065,2026-03-24,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-066,2026-03-23,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-067,2026-03-22,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-068,2026-03-21,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-069,2026-03-20,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-070,2026-03-19,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-071,2026-03-18,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-072,2026-03-17,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-073,2026-03-16,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-074,2026-03-15,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-075,2026-03-14,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-076,2026-03-13,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-077,2026-03-12,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-078,2026-03-11,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-079,2026-03-10,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-080,2026-03-09,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-081,2026-03-08,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-082,2026-03-07,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-083,2026-03-06,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-084,2026-03-05,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-085,2026-03-04,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-086,2026-03-03,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-087,2026-03-02,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-088,2026-03-01,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-089,2026-02-28,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-090,2026-05-28,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-091,2026-05-27,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-092,2026-05-26,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-093,2026-05-25,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-094,2026-05-24,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-095,2026-05-23,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-096,2026-05-22,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-097,2026-05-21,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-098,2026-05-20,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-099,2026-05-19,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-100,2026-05-18,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-101,2026-05-17,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-102,2026-05-16,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-103,2026-05-15,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-104,2026-05-14,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-105,2026-05-13,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-106,2026-05-12,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-107,2026-05-11,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-108,2026-05-10,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-109,2026-05-09,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-110,2026-05-08,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-111,2026-05-07,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-112,2026-05-06,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-113,2026-05-05,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-114,2026-05-04,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-115,2026-05-03,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-116,2026-05-02,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-117,2026-05-01,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-118,2026-04-30,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-119,2026-04-29,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-120,2026-04-28,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-121,2026-04-27,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-122,2026-04-26,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-123,2026-04-25,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-124,2026-04-24,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-125,2026-04-23,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-126,2026-04-22,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-127,2026-04-21,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-128,2026-04-20,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-129,2026-04-19,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-130,2026-04-18,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-131,2026-04-17,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-132,2026-04-16,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-133,2026-04-15,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-134,2026-04-14,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-135,2026-04-13,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-136,2026-04-12,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-137,2026-04-11,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-138,2026-04-10,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-139,2026-04-09,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-140,2026-04-08,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-141,2026-04-07,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-142,2026-04-06,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-143,2026-04-05,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-144,2026-04-04,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-145,2026-04-03,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-146,2026-04-02,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-147,2026-04-01,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-148,2026-03-31,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-149,2026-03-30,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-150,2026-03-29,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-151,2026-03-28,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-152,2026-03-27,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-153,2026-03-26,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-154,2026-03-25,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-155,2026-03-24,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-156,2026-03-23,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-157,2026-03-22,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-158,2026-03-21,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-159,2026-03-20,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-160,2026-03-19,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-161,2026-03-18,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-162,2026-03-17,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-163,2026-03-16,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-164,2026-03-15,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-165,2026-03-14,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-166,2026-03-13,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-167,2026-03-12,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-168,2026-03-11,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-169,2026-03-10,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-170,2026-03-09,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-171,2026-03-08,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-172,2026-03-07,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-173,2026-03-06,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-174,2026-03-05,demo-operations,direct,Incident,P1,Human only,9.5,65.0,3.5
+demo-case-175,2026-03-04,demo-operations,demo-support,Service request,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-176,2026-03-03,demo-operations,demo-support,Incident,P3,Agent-resolved,1.75,8.0,4.25
+demo-case-177,2026-03-02,demo-operations,direct,Service request,P1,Human only,9.5,65.0,3.5
+demo-case-178,2026-03-01,demo-operations,demo-support,Incident,P2,Agent-assisted,3.5,25.0,4.25
+demo-case-179,2026-02-28,demo-operations,demo-support,Service request,P3,Agent-resolved,1.75,8.0,4.25

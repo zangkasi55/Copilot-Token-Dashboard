@@ -1,0 +1,4 @@
+ModelKey,Name,Provider,Tier,InputRate,CacheReadRate,CacheWriteRate,OutputRate,IsPriced
+demo-balanced,Example balanced model,Example provider,Balanced,2.2,0.22,2.75,6.6,True
+demo-fast,Example fast model,Example provider,Fast,0.33,0.033,0.4,1.32,True
+demo-unknown,Not disclosed,Not disclosed,Not classified,,,,,False

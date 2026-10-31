@@ -1,0 +1,44 @@
+name: Validate public package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Restore declared dependencies
+        run: |
+          python -m pip install ".[dev]"
+          npm ci --ignore-scripts
+      - name: Unit and contract tests
+        run: python -m pytest -q tests
+      - name: Build synthetic data and public project
+        shell: pwsh
+        run: |
+          $env:PYTHONPATH = 'src'
+          python -m copilot_token_dashboard.cli demo --output sample_data --scratch .work\demo-inputs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools\build_powerbi.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools\validate_powerbi.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build public manual sources
+        run: npm run docs
+      - name: Public-content safety gate
+        run: python tools\publication_check.py
+
