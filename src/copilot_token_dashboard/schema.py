@@ -168,11 +168,15 @@ def read_table(folder: Path, name: str, required: bool = True) -> list[Row]:
         reader = csv.DictReader(stream)
         if reader.fieldnames != list(columns):
             raise ValueError(f"{name}.csv: headers must match the published data contract")
-        return [
-            {column: parse_cell(row[column], kind, f"{name}:{index}:{column}")
-             for column, kind in columns.items()}
-            for index, row in enumerate(reader, start=2)
-        ]
+        rows = []
+        for index, row in enumerate(reader, start=2):
+            if None in row or any(value is None for value in row.values()):
+                raise ValueError(f"{name}.csv:{index}: column count does not match the contract")
+            rows.append({
+                column: parse_cell(row[column], kind, f"{name}:{index}:{column}")
+                for column, kind in columns.items()
+            })
+        return rows
 
 
 def write_table(folder: Path, name: str, rows: list[Row]) -> None:

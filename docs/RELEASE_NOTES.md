@@ -1,49 +1,60 @@
-# Release 1.0.0 - illustrated documentation revision 1
+# Release 1.0.1 - Thai installation guide and code recheck
 
-Initial independently authored public preview release.
+Public preview, updated 2026-11-01.
 
-## Illustrated documentation update
+## Installation and documentation
 
-- Published as `v1.0.0-manuals.1`; the underlying Power BI preview remains 1.0.0.
-- Ten synthetic screenshot figures embedded in both English and Thai
-  installation PDFs and Markdown manuals.
-- A complete sample-dashboard gallery and self-contained offline HTML companion
-  built from the shipped public CSVs.
-- Explicit browser-illustration provenance; no Power BI rendering or live
-  tenant/security success is inferred from these screenshots.
-- The Power BI project, template and runtime behavior are unchanged.
+- Expanded the Thai installation guide with executable checksum checks, direct
+  PBIT and scripted PBIP paths, source/identity preparation, exact SharePoint
+  configuration, refresh prerequisites and a production acceptance checklist.
+- Retained all ten synthetic illustrations in the English and Thai PDFs.
+- Added a validation report documenting executed tests and unverified live paths.
+- The local installer and tenant deployer share source-parameter validation.
+  Local CSV folders are saved as absolute paths; invalid SharePoint folders fail
+  before copying a project or starting deployment.
 
-- Ten Power BI pages, editable model and explicit synthetic data.
-- Separate self-only personal facts and privacy-filtered organization aggregates.
-- Billing-only personal contributions also respect the cohort minimum;
-  privacy-restricted people are excluded from organization aggregate facts.
-- Current GitHub client/model token metrics, net billed amounts and distinct
-  premium-request/AI-credit units.
-- Microsoft 365 v2 period/activity collection and minimal Entra export.
-- Metadata imports for owned gateway, credit, audit and FOCUS exports.
-- Explicit unknown cache/price/attribution states.
-- Uncached-input derivation requires reported cache-read and cache-write coverage.
-- Tenant-scoped Fabric provisioning with safe model/report binding and operation
-  polling; manual RLS/credential/refresh steps remain explicit.
-- English and Thai installation manuals plus administrator, capability,
-  data-contract and user documentation.
+## Code corrections and regression coverage
 
-Public manuals are distributed in Markdown and PDF. Rights-protected Word
-outputs from a managed authoring environment are not published or unprotected.
+- Reject missing/duplicate Settings, ambiguous demo flags and incorrect CSV row
+  widths.
+- Validate modeled fact references and all numeric suppression fields, including
+  weekly engagement bands.
+- Reject unsuppressed small or invalid active cohorts.
+- Include all thirteen completed weeks in Calendar for early-year builds.
+- Preserve GitHub model-selection-mode record identities instead of colliding
+  auto-selected and user-selected model entries.
+- Reject truthy non-Boolean activity flags and cache-write counts above input.
+- Fail explicitly when Fabric's item-listing response is malformed; valid empty
+  listings and null end-of-pagination markers remain supported.
+
+## Included capabilities
+
+Ten Power BI pages, an editable 22-table/101-measure semantic model, compiled PBIT,
+synthetic data, API collectors, metadata imports, privacy-filtered aggregates,
+tenant deployment, English/Thai manuals and the offline synthetic sample.
 
 ## Validation boundaries
 
+See [VALIDATION.md](VALIDATION.md) for the actual executed checks.
+Local results: 102 Python tests and four Node tests passed, 162 Power BI
+schema files validated, the PBIT compiled and its model metadata matched source,
+and the installer preflight/local mocked-launch checks passed.
 Automated API tests use synthetic/mock responses. They do not establish live
-permissions or vendor payload availability inside a recipient's tenant.
-Recipients must complete source, license, refresh and Viewer smoke tests.
+permissions, source availability, credentials, refresh or actual recipient RLS.
+Local installer integration tests intercept the Desktop launch; they prove
+copy/configuration/error handling, not successful Power BI rendering.
 
-Interactive Power BI Desktop loading did not complete in the managed authoring
-session, including for an isolated one-table control project. The semantic model
-serializer, official JSON schemas, compiled PBIT package parts/counts, offline
-tests, installer preflight and public-content checks passed. Interactive Desktop
-and recipient-tenant validation are not claimed as passed; do not use the preview
-in production until those checks pass in your own environment.
+Interactive Desktop loading in the original managed authoring session did not
+complete even for a one-table control project. This release does not claim that
+Desktop rendering passed. Recipients must complete Desktop and own-tenant
+acceptance checks before using the preview in production.
 
-This release does not provide automatic tenant-wide credential grants, paid
-licenses, invoice posting, employee ranking, or automatic Teams/email alerts.
-Sovereign-cloud endpoints and custom GitHub hosts are not validated.
+The illustrations are synthetic browser renderings, not verified Power BI
+screenshots. Protected source documents, rights-protected Word outputs,
+credentials and private dashboard data are not published.
+
+## Previous releases
+
+`v1.0.0` introduced the public preview. `v1.0.0-manuals.1` added the illustrated
+manuals, ten-page gallery and self-contained sample without changing its runtime.
+Those releases remain available; install 1.0.1 into a new version folder.

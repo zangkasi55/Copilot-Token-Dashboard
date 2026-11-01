@@ -59,8 +59,7 @@ def main() -> int:
                 arguments.input, arguments.output, arguments.minimum_group_size, arguments.currency)
         elif arguments.command == "validate-data":
             tables = {name: read_table(arguments.input, name) for name in TABLES}
-            minimum = int(tables["Settings"][0]["MinimumGroupSize"])
-            validate_tables(tables, minimum, arguments.production)
+            validate_tables(tables, production=arguments.production)
             result = {"validated": True, "tables": len(tables), "production": arguments.production}
         elif arguments.command == "import-source":
             result = import_source(arguments.kind, arguments.input, arguments.output, arguments.scope,

@@ -9,7 +9,7 @@ param(
     [string]$DataFolder,
     [string]$SharePointSite,
     [string]$SharePointFolder,
-    [string]$InstallFolder = (Join-Path $env:LOCALAPPDATA 'CopilotTokenDashboard\1.0.0'),
+    [string]$InstallFolder = (Join-Path $env:LOCALAPPDATA 'CopilotTokenDashboard\1.0.1'),
     [switch]$InstallDependencies,
     [switch]$Update
 )
@@ -23,6 +23,7 @@ $tables = if ($SourceMode -eq 'Demo') { Join-Path $root 'sample_data' } else { $
 if (-not $tables -or -not (Test-Path -LiteralPath $tables -PathType Container)) {
     throw 'A complete reporting-table folder is required.'
 }
+$tables = (Get-Item -LiteralPath $tables).FullName
 if ($InstallDependencies) {
     & $python.Source -m pip install $root
     if ($LASTEXITCODE -ne 0) { throw 'Declared runtime dependencies could not be installed.' }
@@ -35,6 +36,14 @@ $validation = @('-m', 'copilot_token_dashboard.cli', 'validate-data', '--input',
 if ($SourceMode -ne 'Demo') { $validation += '--production' }
 & $python.Source @validation
 if ($LASTEXITCODE -ne 0) { throw 'Data validation failed; installation stopped.' }
+$configuration = @(
+    (Join-Path $root 'tools\configure_project.py'),
+    '--mode', $SourceMode, '--data-folder', $tables
+)
+if ($SharePointSite) { $configuration += @('--sharepoint-site', $SharePointSite) }
+if ($SharePointFolder) { $configuration += @('--sharepoint-folder', $SharePointFolder) }
+& $python.Source @configuration --project $project --validate-only
+if ($LASTEXITCODE -ne 0) { throw 'Source configuration validation failed; installation stopped.' }
 if ($Action -eq 'Validate') {
     'Data and dependency checks passed. No tenant resources were created.'
     return
@@ -46,21 +55,8 @@ if ($Action -eq 'Local') {
     New-Item -ItemType Directory -Path $InstallFolder -Force | Out-Null
     Copy-Item -LiteralPath $project -Destination $InstallFolder -Recurse
     $localProject = Join-Path $InstallFolder 'powerbi'
-    $modelPath = Join-Path $localProject 'Copilot Token Dashboard.SemanticModel\model.bim'
-    $model = Get-Content -LiteralPath $modelPath -Raw | ConvertFrom-Json
-    $values = @{
-        SourceMode = $SourceMode
-        DataFolder = $tables
-        SharePointSite = $SharePointSite
-        SharePointFolder = $SharePointFolder
-    }
-    foreach ($expression in $model.model.expressions) {
-        if ($values.ContainsKey($expression.name)) {
-            $metadata = $expression.expression.Substring($expression.expression.IndexOf(' meta '))
-            $expression.expression = '"' + ([string]$values[$expression.name]).Replace('"', '""') + '"' + $metadata
-        }
-    }
-    $model | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $modelPath -Encoding utf8
+    & $python.Source @configuration --project $localProject
+    if ($LASTEXITCODE -ne 0) { throw 'Local source configuration failed; no report was opened.' }
     $file = Join-Path $localProject 'Copilot Token Dashboard.pbip'
     Start-Process -FilePath $file
     "Opened the installed project: $file"

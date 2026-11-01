@@ -51,6 +51,11 @@ source permissions are separate from report-view permissions.
 
 ## Data quality
 
+Version 1.0.1 checks the full CSV row width, singleton Settings and explicit
+demo/suppression flags. Every modeled fact reference must resolve to its
+dimension/calendar entry; an unsuppressed active cohort must meet the privacy
+minimum. Do not bypass validation by marking an unsafe cohort as reportable.
+
 Review Coverage.csv and the Data Quality page. Missing token fields mean
 unavailable information, not zero consumption. Cache ratios are blank when the
 cache coverage is incomplete. Actual billing amounts and estimated token prices
@@ -77,10 +82,19 @@ or departed users.
 
 ## Upgrades and rollback
 
+The 1.0.1 installer validates source settings before copying or provisioning and
+resolves local CSV folders to absolute paths. Malformed Fabric item-listing
+responses fail rather than being treated as an empty workspace.
+
 Use a new version-specific local installation folder. Back up your current
 report/model definitions and runtime configuration before tenant updates.
 The tenant installer requires an explicit Update flag to replace an existing
 item's definition.
+
+For GitHub data that reports the same model under different selection modes,
+reload affected authorized source reports and rebuild a complete generation.
+Do not blindly merge old/new normalized exports. Records without a reported
+selection mode retain their previous deterministic identifiers.
 
 Keep your own credentials, RLS group assignments and source configuration outside
 the release. A software update does not automatically complete those settings.

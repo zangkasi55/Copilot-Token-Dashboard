@@ -58,6 +58,8 @@ def validate_event(event: Event) -> Event:
     if any(not event.get(key) for key in required):
         raise ValueError("Usage metadata is missing a required identity, date or source field")
     result = dict(event)
+    if result.get("activity") is not None and not isinstance(result["activity"], bool):
+        raise ValueError("Activity must be an explicit Boolean when reported")
     result["date"] = day(result["date"])
     for key in ("input_tokens", "cached_input_tokens", "cache_write_tokens",
                 "output_tokens", "sessions", "agent_runs"):
@@ -69,6 +71,8 @@ def validate_event(event: Event) -> Event:
     write = result["cache_write_tokens"]
     if input_tokens is not None and cached is not None and cached > input_tokens:
         raise ValueError("Cached input cannot exceed total input")
+    if input_tokens is not None and write is not None and write > input_tokens:
+        raise ValueError("Cache-write tokens cannot exceed total input")
     if input_tokens is not None and cached is not None and write is not None:
         if cached + write > input_tokens:
             raise ValueError("Cache-read plus cache-write tokens cannot exceed total input")
@@ -118,8 +122,10 @@ def github_usage(records: Iterable[dict], login_map: dict[str, str], scope: str)
                 output.append(_github_usage_event(record, client_name, None, client, scope, upn, "client"))
                 continue
             for model in models:
+                selection_mode = model.get("model_selection_mode")
                 output.append(_github_usage_event(
-                    record, client_name, model.get("model"), model, scope, upn, "model"))
+                    record, client_name, model.get("model"), model, scope, upn,
+                    "model:" + str(selection_mode) if selection_mode else "model"))
             for counter in ("request_count",):
                 parent = number(client.get(counter), counter)
                 children = [number(model.get(counter), counter) for model in models]

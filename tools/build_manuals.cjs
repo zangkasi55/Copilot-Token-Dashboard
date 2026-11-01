@@ -7,6 +7,7 @@ const {
 } = require("docx");
 
 const root = path.resolve(__dirname, "..");
+const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
 const destination = path.join(root, "docs", "manuals");
 
 const border = { style: BorderStyle.SINGLE, size: 4, color: "DCE4EC" };
@@ -169,7 +170,7 @@ function document(content, font) {
       ] }) },
       footers: { default: new Footer({ children: [
         new Paragraph({ alignment: AlignmentType.RIGHT, children: [
-          new TextRun({ text: "1.0.0 | ", font, size: 17 }),
+          new TextRun({ text: version + " | ", font, size: 17 }),
           new TextRun({ children: [PageNumber.CURRENT], font, size: 17 }),
         ] }),
       ] }) },

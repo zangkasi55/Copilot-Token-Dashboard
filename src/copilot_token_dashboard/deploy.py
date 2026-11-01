@@ -7,8 +7,9 @@ import os
 import time
 import uuid
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
-from .http import ApiClient, retry_delay
+from .http import ApiClient, retry_delay, validate_https
 from .schema import TABLES, read_table
 from .gold import validate_tables
 
@@ -30,19 +31,42 @@ def token_tenant(token: str) -> str:
 def part(path: str, data: bytes) -> dict:
     return {"path": path, "payload": base64.b64encode(data).decode("ascii"), "payloadType": "InlineBase64"}
 
+def source_settings(mode: str, data_folder: Path | None, site: str = "", folder: str = "") -> dict[str, str]:
+    if mode not in {"Demo", "CSV", "SharePoint"}:
+        raise ValueError("Source mode must be Demo, CSV or SharePoint")
+    if mode != "Demo" and (data_folder is None or not data_folder.is_dir()):
+        raise ValueError("Customer data modes require an existing reporting-table folder")
+    if mode == "SharePoint":
+        site_url, folder_url = urlparse(site), urlparse(folder)
+        if (validate_https(site) != validate_https(folder)
+                or site_url.query or site_url.fragment or folder_url.query or folder_url.fragment
+                or not folder.startswith(site.rstrip("/") + "/") or not folder.endswith("/")
+                or ".." in unquote(folder_url.path).split("/")):
+            raise ValueError("SharePoint requires an exact HTTPS folder under its site, with a trailing slash")
+    return {
+        "SourceMode": mode, "DataFolder": str(data_folder.resolve()) if data_folder else "",
+        "SharePointSite": site, "SharePointFolder": folder,
+    }
+
+
+def configured_model(project: Path, mode: str, data_folder: Path | None, site: str = "", folder: str = "") -> dict:
+    values = source_settings(mode, data_folder, site, folder)
+    directory = project / (PRODUCT + ".SemanticModel")
+    model = json.loads((directory / "model.bim").read_text(encoding="utf-8-sig"))
+    parameters = {expression["name"]: expression for expression in model["model"]["expressions"]}
+    if not values.keys() <= parameters.keys():
+        raise ValueError("The model is missing a required source parameter")
+    for name, value in values.items():
+        old = parameters[name]["expression"]
+        if " meta " not in old:
+            raise ValueError("The model source parameter is missing its Power Query metadata")
+        parameters[name]["expression"] = '"' + value.replace('"', '""') + '"' + old[old.index(" meta "):]
+    return model
+
 
 def semantic_parts(project: Path, mode: str, data_folder: Path | None, site: str, folder: str) -> list[dict]:
     directory = project / (PRODUCT + ".SemanticModel")
-    model = json.loads((directory / "model.bim").read_text(encoding="utf-8"))
-    values = {
-        "SourceMode": mode, "DataFolder": str(data_folder or ""),
-        "SharePointSite": site, "SharePointFolder": folder,
-    }
-    for expression in model["model"]["expressions"]:
-        if expression["name"] in values:
-            old = expression["expression"]
-            metadata = old[old.index(" meta "):]
-            expression["expression"] = '"' + values[expression["name"]].replace('"', '""') + '"' + metadata
+    model = configured_model(project, mode, data_folder, site, folder)
     return [
         part("model.bim", json.dumps(model, ensure_ascii=False).encode("utf-8")),
         part("definition.pbism", (directory / "definition.pbism").read_bytes()),
@@ -107,10 +131,16 @@ class FabricDeployer:
                 raise ValueError("Fabric item listing returned a continuation cycle")
             visited.add(path)
             response = self.client.get_json(path)
-            for item in response.get("value", []):
+            items = response.get("value")
+            continuation = response.get("continuationUri")
+            if (not isinstance(items, list) or (continuation is not None and not isinstance(continuation, str))
+                    or any(not isinstance(item, dict) or not item.get("id")
+                           or not isinstance(item.get("displayName"), str) for item in items)):
+                raise ValueError("Fabric item listing has an invalid response shape")
+            for item in items:
                 if item.get("displayName") == name:
                     matches.append(item)
-            path = response.get("continuationUri", "")
+            path = continuation or ""
         if len(matches) > 1:
             raise ValueError("More than one item matches the requested display name")
         return matches[0] if matches else None
@@ -141,15 +171,12 @@ def deploy(
     update: bool = False, output: Path | None = None,
 ) -> dict:
     tenant, workspace = str(uuid.UUID(tenant)), str(uuid.UUID(workspace))
-    if mode not in {"Demo", "CSV", "SharePoint"}:
-        raise ValueError("Source mode must be Demo, CSV or SharePoint")
+    source_settings(mode, data_folder, site, folder)
     if mode != "Demo":
         if not data_folder:
             raise ValueError("Customer deployments require a locally validated reporting-table folder")
         tables = {name: read_table(data_folder, name) for name in TABLES}
-        validate_tables(tables, int(tables["Settings"][0]["MinimumGroupSize"]), production=True)
-        if mode == "SharePoint" and (not site.startswith("https://") or not folder.startswith(site)):
-            raise ValueError("SharePoint mode requires matching HTTPS site and exact folder URLs")
+        validate_tables(tables, production=True)
     token = os.environ.get("CTD_FABRIC_ACCESS_TOKEN")
     if not token:
         raise ValueError("Set CTD_FABRIC_ACCESS_TOKEN through your own tenant authentication")
@@ -178,4 +205,3 @@ def deploy(
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
-

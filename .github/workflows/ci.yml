@@ -12,11 +12,15 @@ permissions:
 jobs:
   validate:
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -27,6 +31,8 @@ jobs:
           npm ci --ignore-scripts
       - name: Unit and contract tests
         run: python -m pytest -q tests
+      - name: Build Python distribution
+        run: python -m pip wheel . --no-deps --wheel-dir .work\wheel
       - name: Build synthetic data and public project
         shell: pwsh
         run: |
@@ -37,6 +43,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tools\validate_powerbi.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Installer preflight
+        shell: pwsh
+        run: .\Install.ps1 -Action Validate
       - name: Build public manual sources
         shell: pwsh
         run: |

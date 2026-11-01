@@ -8,6 +8,7 @@ import json
 import uuid
 from pathlib import Path
 
+from copilot_token_dashboard import __version__
 from copilot_token_dashboard.schema import TABLES
 
 PRODUCT = "Copilot Token Dashboard"
@@ -650,7 +651,7 @@ def build(data: Path, output: Path) -> dict:
     })
     pages = generate_report(report)
     manifest = {
-        "product": PRODUCT, "version": "1.0.0", "pageCount": len(pages),
+        "product": PRODUCT, "version": __version__, "pageCount": len(pages),
         "visualCount": sum(page["visualCount"] for page in pages),
         "tableCount": len(model["model"]["tables"]),
         "measureCount": len(model["model"]["tables"][-1]["measures"]),

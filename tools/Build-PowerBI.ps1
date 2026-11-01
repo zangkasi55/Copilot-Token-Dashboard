@@ -16,7 +16,7 @@ $modelFolder = Join-Path $BuildFolder 'model'
 $sourceFolder = Join-Path $BuildFolder 'pbit'
 $outputFolder = Join-Path $root 'dist'
 New-Item -ItemType Directory -Path $outputFolder -Force | Out-Null
-$template = Join-Path $outputFolder 'Copilot-Token-Dashboard-1.0.0.pbit'
+$template = Join-Path $outputFolder 'Copilot-Token-Dashboard-1.0.1.pbit'
 
 python (Join-Path $root 'tools\build_powerbi.py') --data (Join-Path $root 'sample_data') --output (Join-Path $root 'powerbi')
 if ($LASTEXITCODE -ne 0) { throw 'Power BI project generation failed.' }

@@ -7,10 +7,11 @@ import shutil
 import zipfile
 from pathlib import Path
 from pypdf import PdfReader
+from copilot_token_dashboard import __version__
 
 from publication_check import inspect, public_files
 
-VERSION = "1.0.0"
+VERSION = __version__
 PREFIX = "Copilot-Token-Dashboard-" + VERSION
 
 
@@ -79,7 +80,7 @@ def build(root: Path) -> dict:
         "template": template.name, "template_verified": template_info,
         "source_files": len(files), "public_safety_errors": 0,
         "manual_languages": ["English", "Thai"],
-        "documentation_revision": "illustrated-1",
+        "documentation_revision": "thai-installation-retested-1",
         "manual_figures_per_language": 10,
         "sample_dashboard": sample_asset.name,
         "screenshot_provenance": "Synthetic browser illustrations, not verified Power BI screenshots",

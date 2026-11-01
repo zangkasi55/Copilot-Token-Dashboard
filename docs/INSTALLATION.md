@@ -1,5 +1,11 @@
 # Installation Guide
 
+**Version 1.0.1 · rechecked 2026-11-01.**
+
+See the [Thai illustrated installation guide](INSTALLATION_TH.md) and
+[validation report](VALIDATION.md). This remains a public preview: mock tests and
+schema/compiler checks are not a successful live tenant or Desktop smoke test.
+
 ## 1. What this package does
 
 Copilot Token Dashboard is a tenant-owned Power BI reference application. It
@@ -61,7 +67,7 @@ script. Follow your organization's approved script-execution process.
 
 The script creates a new version-specific folder under your local application
 data and opens the PBIP. An existing installation folder is not overwritten.
-Use `-InstallFolder C:\CTD\Demo-1.0.0` to choose a new folder.
+Use `-InstallFolder C:\CTD\Demo-1.0.1` to choose a new folder.
 
 In Power BI Desktop:
 
@@ -162,7 +168,7 @@ unpriced/unattributed records.
 ```powershell
 .\Install.ps1 -Action Local -SourceMode CSV `
   -DataFolder C:\CTD\runtime\gold-2026-05-28 `
-  -InstallFolder C:\CTD\Customer-1.0.0
+  -InstallFolder C:\CTD\Customer-1.0.1
 ```
 
 The Power BI Service cannot read your local folder without a configured
@@ -188,6 +194,11 @@ the SharePoint files after deployment, not that local mirror.
 
 A file must match its expected name and exact folder once; missing or duplicate
 matches fail explicitly. Credentials are not shipped in the model.
+
+Version 1.0.1 validates that the HTTPS folder is genuinely under the selected
+site and has its trailing slash before copying/deployment. Local CSV paths are
+resolved to absolute paths. Data validation also rejects malformed Settings,
+incorrect row widths, unknown fact references and small unsuppressed cohorts.
 
 ## 9. Security and go-live checks
 

@@ -459,7 +459,11 @@ class GoldBuilder:
                 "Value": summary["value"], "Unit": summary["unit"], "IsConcealed": False,
             })
         calendar = []
-        date = min(row["Date"] for row in rows).replace(month=1, day=1)
+        calendar_dates = [row["Date"] for row in rows]
+        calendar_dates.extend(row["ResolvedDate"] for row in self.outcomes)
+        calendar_dates.extend(row["MonthStart"] for row in self.budgets)
+        calendar_dates.append(sunday(last_complete_saturday(anchor)) - dt.timedelta(weeks=12))
+        date = min(calendar_dates).replace(month=1, day=1)
         end = anchor.replace(month=12, day=31)
         while date <= end:
             week = sunday(date)
@@ -490,38 +494,105 @@ class GoldBuilder:
 
 
 def validate_tables(tables: Tables, minimum: int = 6, production: bool = False) -> None:
-    if minimum < 6 or not tables.get("Settings") or tables["Settings"][0]["MinimumGroupSize"] < 6:
+    if len(tables.get("Settings", [])) != 1:
+        raise ValueError("Settings must contain exactly one row")
+    settings = tables["Settings"][0]
+    if not isinstance(settings.get("IsDemo"), bool):
+        raise ValueError("Settings.IsDemo must be an explicit Boolean")
+    configured_minimum = settings.get("MinimumGroupSize")
+    if (not isinstance(minimum, int) or isinstance(minimum, bool) or minimum < 6
+            or not isinstance(configured_minimum, int) or isinstance(configured_minimum, bool)
+            or configured_minimum < 6):
         raise ValueError("The privacy minimum must be at least six")
-    minimum = max(minimum, int(tables["Settings"][0]["MinimumGroupSize"]))
+    minimum = max(minimum, configured_minimum)
+    if settings.get("SchemaVersion") != "1.0" or not isinstance(settings.get("AnchorDate"), dt.date):
+        raise ValueError("Settings requires schema 1.0 and a valid anchor date")
+    currency = settings.get("BaseCurrency")
+    if not isinstance(currency, str) or len(currency) != 3 or not currency.isalpha() or not currency.isupper():
+        raise ValueError("Settings requires an uppercase three-letter base currency")
     for name, columns in TABLES.items():
         if name not in tables:
             raise ValueError(f"Required table is missing: {name}")
         for row in tables[name]:
-            if set(row) - set(columns):
-                raise ValueError(f"{name}: a row contains an unknown column")
+            if set(row) != set(columns):
+                raise ValueError(f"{name}: row columns do not match the contract")
     people = _unique(tables["People"], "PersonKey", "People")
     scopes = _unique(tables["Scopes"], "ScopeKey", "Scopes")
     models = _unique(tables["Models"], "ModelKey", "Models")
     surfaces = _unique(tables["Surfaces"], "SurfaceKey", "Surfaces")
     agents = _unique(tables["Agents"], "AgentKey", "Agents")
     accounts = _unique(tables["Accounts"], "AccountKey", "Accounts")
+    _unique(tables["UsageDaily"], "RowKey", "UsageDaily")
+    dates = {row["Date"] for row in tables["Calendar"]}
+    if None in dates or len(dates) != len(tables["Calendar"]):
+        raise ValueError("Calendar dates must be unique and nonempty")
+    if settings["AnchorDate"] not in dates:
+        raise ValueError("Settings anchor date is unknown in Calendar")
+    periods = {row["Label"] for row in tables["Periods"]}
+
+    def reference(row: Row, field: str, dictionary: dict, table: str) -> None:
+        if row[field] not in dictionary:
+            raise ValueError(f"{table} has an unknown {field}")
+
+    def calendar_reference(row: Row, field: str, table: str) -> None:
+        if row[field] not in dates:
+            raise ValueError(f"{table} has an unknown {field} in Calendar")
+
+    for row in tables["Accounts"]:
+        reference(row, "PersonKey", people, "Accounts")
+        owner = people[str(row["PersonKey"])]
+        if str(row["UPN"] or "").lower() != str(owner["UPN"] or "").lower():
+            raise ValueError("Accounts identity must match its referenced person")
+    for row in tables["PeriodSummary"]:
+        reference(row, "PersonKey", people, "PeriodSummary")
     for row in tables["UsageDaily"]:
         for field, dictionary in (("PersonKey", people), ("ModelKey", models), ("SurfaceKey", surfaces),
                                   ("AgentKey", agents), ("AccountKey", accounts)):
-            if row[field] not in dictionary:
-                raise ValueError(f"UsageDaily has an unknown {field}")
+            reference(row, field, dictionary, "UsageDaily")
+        calendar_reference(row, "Date", "UsageDaily")
+        if accounts[str(row["AccountKey"])]["PersonKey"] != row["PersonKey"]:
+            raise ValueError("UsageDaily account must belong to its referenced person")
+        if row["Currency"] != currency:
+            raise ValueError("UsageDaily must use the configured base currency")
     for scope in scopes.values():
-        if scope["MemberCount"] < minimum:
+        if not isinstance(scope["MemberCount"], int) or scope["MemberCount"] < minimum:
             raise ValueError("Published organization scopes must meet the privacy minimum")
+    for name in ("ScopeAccess", "Outcomes", "Budgets"):
+        for row in tables[name]:
+            reference(row, "ScopeKey", scopes, name)
+            if name == "Outcomes":
+                reference(row, "AgentKey", agents, name)
+                calendar_reference(row, "ResolvedDate", name)
+            elif name == "Budgets" and row["Currency"] != currency:
+                raise ValueError("Budgets must use the configured base currency")
     for name in ("ScopeDaily", "ScopeWeekly", "ScopePeriod", "AgentPeriod"):
         for row in tables[name]:
-            if row["ScopeKey"] not in scopes:
-                raise ValueError("An aggregate references an unpublished reporting scope")
+            reference(row, "ScopeKey", scopes, name)
+            if not isinstance(row["PrivacySuppressed"], bool):
+                raise ValueError(f"{name}.PrivacySuppressed must be an explicit Boolean")
+            if name == "ScopeDaily":
+                calendar_reference(row, "Date", name)
+                reference(row, "SurfaceKey", surfaces, name)
+                reference(row, "ModelKey", models, name)
+                reference(row, "AgentKey", agents, name)
+            elif name == "ScopeWeekly":
+                calendar_reference(row, "WeekStart", name)
+                if row["SurfaceKey"] != "all":
+                    reference(row, "SurfaceKey", surfaces, name)
+            elif row["PeriodLabel"] not in periods:
+                raise ValueError(f"{name} has an unknown period")
+            if name == "AgentPeriod":
+                reference(row, "AgentKey", agents, name)
             if row["PrivacySuppressed"]:
-                for field in ("Amount", "InputTokens", "CachedInputTokens", "OutputTokens",
-                              "Requests", "AgentRuns", "ActiveUsers", "UserDays"):
-                    if field in row and row[field] is not None:
+                for field, kind in TABLES[name].items():
+                    if kind in {"int", "number"} and field != "MemberCount" and row[field] is not None:
                         raise ValueError("Suppressed rows must not retain sensitive numeric facts")
+            else:
+                active = row["ActiveUsers"]
+                if (not isinstance(active, int) or isinstance(active, bool) or active < 0
+                        or active > scopes[str(row["ScopeKey"])]["MemberCount"]
+                        or 0 < active < minimum):
+                    raise ValueError("An unsuppressed active cohort must have valid counts and meet the privacy minimum")
     if production:
         if tables["Settings"][0]["IsDemo"]:
             raise ValueError("Production data cannot enable the synthetic demonstration mode")

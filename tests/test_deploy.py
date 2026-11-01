@@ -100,3 +100,20 @@ def test_report_rebinding_uses_published_model_identifier(tmp_path):
     assert "byPath" not in json.dumps(definition)
     assert all(item["payloadType"] == "InlineBase64" for item in parts)
 
+
+@pytest.mark.parametrize("body", [
+    {"unexpected": "shape"},
+    {"value": {}},
+    {"value": [None]},
+    {"value": [], "continuationUri": 1},
+])
+def test_invalid_workspace_listing_is_not_treated_as_empty(body):
+    api, session = client([Response(200, body)])
+    with pytest.raises(ValueError, match="listing"):
+        FabricDeployer(api, WORKSPACE).existing("reports", "Example")
+    assert len(session.calls) == 1
+
+
+def test_valid_empty_listing_accepts_null_continuation():
+    api, _ = client([Response(200, {"value": [], "continuationUri": None})])
+    assert FabricDeployer(api, WORKSPACE).existing("reports", "Example") is None

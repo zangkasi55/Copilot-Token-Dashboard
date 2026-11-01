@@ -6,6 +6,10 @@ spend, agent operations, and data-quality reporting.
 **Release status: public preview.** See the release notes for the exact validation
 results and required interactive Desktop/recipient-tenant smoke tests.
 
+**Current package: 1.0.1.** The [Thai installation guide](docs/INSTALLATION_TH.md)
+includes checksum commands, PBIT/PBIP setup, source preparation and a go-live
+checklist. See [recheck results](docs/VALIDATION.md) for the tested code paths.
+
 This is an independent open-source project. It is not an official Microsoft or
 GitHub product and does not include access to Microsoft-internal telemetry.
 
@@ -49,7 +53,7 @@ See the installation and operations documentation in `docs/`.
 ## Quick start
 
 1. Download the installation ZIP from
-   [the illustrated documentation release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.0-manuals.1).
+   [the retested release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1).
 2. Verify the SHA-256 checksum and extract into a new folder.
 3. Run `.\Install.ps1 -Action Validate -InstallDependencies`.
 4. Run `.\Install.ps1 -Action Local -SourceMode Demo`, or open the included PBIT
@@ -71,6 +75,7 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 - [User guide](docs/USER_GUIDE.md)
 - [Public requirements](docs/REQUIREMENTS.md)
 - [Release notes](docs/RELEASE_NOTES.md)
+- [Code and installation validation results](docs/VALIDATION.md)
 
 Portable PDF installation guides are in `docs/manuals/`; both include all ten
 sample screenshots and captions. Rights-protected Word

@@ -3,7 +3,7 @@ import datetime as dt
 import pytest
 
 from copilot_token_dashboard.normalize import (
-    github_billing, github_usage, m365_report, number, validate_event,
+    event_id, github_billing, github_usage, m365_report, number, validate_event,
 )
 
 
@@ -131,3 +131,42 @@ def test_concealed_m365_names_are_not_guessed():
     assert events == summaries == []
     assert status["concealed_records"] == 1
 
+
+def test_model_selection_modes_do_not_reuse_event_identifiers():
+    record = {
+        "day": "2026-05-28", "user_login": "example-user",
+        "totals_by_client": [{
+            "client": "copilot_cli", "request_count": 3,
+            "token_usage": {"prompt_tokens_sum": 300, "output_tokens_sum": 30},
+            "totals_by_model": [
+                {"model": "Example model", "model_selection_mode": "auto", "request_count": 1,
+                 "token_usage": {"prompt_tokens_sum": 100, "output_tokens_sum": 10}},
+                {"model": "Example model", "model_selection_mode": "user_selected", "request_count": 2,
+                 "token_usage": {"prompt_tokens_sum": 200, "output_tokens_sum": 20}},
+            ],
+        }],
+    }
+    rows = github_usage([record], {}, "example-team")
+    assert len({row["id"] for row in rows}) == 2
+    assert sum(row["input_tokens"] for row in rows) == 300
+
+
+def test_model_records_without_selection_mode_keep_existing_identifiers():
+    record = {"day": "2026-05-28", "user_login": "example-user",
+              "totals_by_client": [{"client": "copilot_cli", "totals_by_model": [
+                  {"model": "Example model", "request_count": 1},
+              ]}]}
+    row = github_usage([record], {}, "example-team")[0]
+    assert row["id"] == event_id(
+        "github-usage", "2026-05-28", "example-user", "copilot_cli", "Example model", "model")
+
+
+@pytest.mark.parametrize("flag", ["false", "true", 0, 1])
+def test_activity_flags_are_not_coerced_from_truthy_strings(flag):
+    with pytest.raises(ValueError, match="Boolean"):
+        validate_event(basic_event(activity=flag))
+
+
+def test_cache_write_cannot_exceed_input_when_cache_read_is_missing():
+    with pytest.raises(ValueError, match="Cache-write"):
+        validate_event(basic_event(input_tokens=10, cache_write_tokens=20))

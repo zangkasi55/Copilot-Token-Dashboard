@@ -1,5 +1,15 @@
 # คู่มือการติดตั้ง Copilot Token Dashboard
 
+**รุ่น 1.0.1 · ปรับปรุงและทดสอบซ้ำวันที่ 1 พฤศจิกายน 2569 (2026-11-01)**
+
+คู่มือนี้ใช้กับ [ชุดติดตั้ง v1.0.1](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1)
+และ [PDF ภาษาไทย](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf)
+ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน [รายงานการทดสอบ](VALIDATION.md)
+
+**สถานะยังเป็น public preview** การผ่าน unit tests, schema และการสร้าง PBIT
+ไม่ได้ยืนยันว่ารายงาน render หรือเชื่อมต่อ source จริงใน tenant ของคุณแล้ว
+ต้องผ่าน checklist ก่อน go-live ในหัวข้อ 9 ก่อนใช้งาน production
+
 ## 1. ภาพรวม
 
 ชุดนี้เป็นรายงาน Power BI แบบโอเพนซอร์สสำหรับติดตั้งใน tenant ขององค์กรคุณเอง
@@ -32,30 +42,103 @@
 API ในรุ่นนี้ใช้ global commercial cloud ยังไม่ได้ยืนยัน sovereign cloud
 หรือ GitHub host ที่กำหนดเอง ชุดนี้ไม่ได้แจกโปรแกรม Power BI Desktop
 
-## 3. ดาวน์โหลดและตรวจชุด
+### 2.1 เลือกเส้นทางติดตั้ง
 
-ดาวน์โหลด ZIP ของรุ่นที่ต้องการจาก GitHub Releases
-ตรวจ SHA-256 เทียบกับไฟล์ checksum แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น
-`C:\CopilotTokenDashboard`
+| สิ่งที่ต้องการ | เส้นทางที่ใช้ | สิ่งที่ต้องเตรียมเพิ่มเติม |
+|---|---|---|
+| ดูข้อมูลสมมติบนเครื่อง | เปิด PBIT ใน Desktop ตามหัวข้อ 4.1 | ไม่ต้องมี Python หรือ tenant สำหรับดูตัวอย่างใน Desktop |
+| ติดตั้ง PBIP พร้อมตรวจข้อมูล | Install.ps1 -Action Local | Python และ dependency ที่ประกาศไว้ |
+| Publish ด้วยบัญชีของคุณ | Publish จาก Desktop ตามหัวข้อ 5 | บัญชี tenant ปลายทางและ license ที่เหมาะสม |
+| สร้าง model และ report ผ่าน API | Install.ps1 -Action Tenant | TenantId, WorkspaceId, Fabric token และสิทธิ์ที่ถูกต้อง |
+
+ตรวจเครื่องมือใน terminal ก่อนเริ่ม:
 
 ```powershell
-Set-Location C:\CopilotTokenDashboard
+$PSVersionTable.PSVersion
+Get-Command python
+python --version
+```
+
+ใช้ PowerShell 7 ขึ้นไปสำหรับสคริปต์นี้ และ Python 3.10 ขึ้นไป
+ตรวจว่า python เป็น interpreter ที่คุณตั้งใจใช้ หากองค์กรกำหนด virtual environment
+ให้เปิด environment นั้นก่อนรัน Install.ps1 เพื่อให้ dependency อยู่ในที่เดียวกัน
+การดูตัวอย่างในเว็บไม่ใช่การตรวจว่า Power BI Desktop ใช้งานได้
+
+## 3. ดาวน์โหลดและตรวจชุด
+
+ดาวน์โหลดไฟล์ ZIP และ SHA256SUMS จาก release เดียวกัน:
+
+- Copilot-Token-Dashboard-1.0.1-Install.zip
+- Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt
+
+อย่าใช้ checksum ของรุ่น 1.0.0 ตรวจ ZIP รุ่น 1.0.1
+ตรวจ SHA-256 แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น
+`C:\CopilotTokenDashboard`
+
+### 3.1 ตรวจ checksum ก่อนแตก ZIP
+
+ตัวอย่างต่อไปนี้สมมติว่าทั้งสองไฟล์อยู่ในโฟลเดอร์ Downloads
+ปรับตำแหน่งให้ตรงกับไฟล์ที่คุณดาวน์โหลด:
+
+```powershell
+$zip = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-1.0.1-Install.zip'
+$sums = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt'
+$name = [IO.Path]::GetFileName($zip)
+$entry = @(Get-Content -LiteralPath $sums | Where-Object { $_.EndsWith('  ' + $name) })
+if ($entry.Count -ne 1) { throw 'Expected exactly one checksum entry.' }
+$expected = ($entry[0] -split '\s+', 2)[0]
+$actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
+if ($actual -ne $expected) { throw 'Checksum mismatch. Do not install this file.' }
+'SHA256 PASS'
+Expand-Archive -LiteralPath $zip -DestinationPath 'C:\CopilotTokenDashboard-1.0.1'
+```
+
+ผลที่ควรเห็นคือ SHA256 PASS หากไม่ตรงให้หยุดและดาวน์โหลดใหม่จาก release ที่ถูกต้อง
+อย่าใช้ Force เพื่อเขียนทับโฟลเดอร์ติดตั้งเดิมที่มีข้อมูลหรือ config ของคุณ
+
+### 3.2 ตรวจข้อมูลและ dependency โดยยังไม่สร้าง resource
+
+```powershell
+Set-Location C:\CopilotTokenDashboard-1.0.1
 .\Install.ps1 -Action Validate -InstallDependencies
 ```
 
 คำสั่งนี้ติดตั้งเฉพาะ dependency ที่ประกาศไว้ และตรวจข้อมูลสมมติทุกตาราง
 ยังไม่สร้าง resource ใน tenant
 
+ผลที่ควรเห็น:
+
+- validated เป็น true และ tables เท่ากับ 21 ซึ่งเป็นตาราง CSV ตาม data contract
+- source_validated เป็น true และ model_updated เป็น false
+- ข้อความ Data and dependency checks passed. No tenant resources were created.
+
+semantic model มี 22 ตาราง เพราะรวมตาราง Measures อีกหนึ่งตาราง
+อย่าสับสนจำนวนตาราง CSV 21 ตารางกับจำนวนตารางในโมเดล 22 ตาราง
+
 อย่าปิด execution policy หรือมาตรการรักษาความปลอดภัยขององค์กร
 ให้ใช้กระบวนการรันสคริปต์ที่องค์กรอนุมัติ
 
 ## 4. เปิดข้อมูลสาธิตบนเครื่อง
 
+### 4.1 เปิด PBIT โดยไม่ใช้สคริปต์
+
+1. เปิด Copilot-Token-Dashboard-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop
+2. เมื่อถามพารามิเตอร์ ให้ตั้ง SourceMode เป็น Demo
+3. DataFolder, SharePointSite และ SharePointFolder เว้นว่างได้ใน Demo
+4. รอให้โหลดข้อมูลหรือกด Refresh แล้วตรวจป้าย SYNTHETIC DEMO
+5. Save As เป็น PBIX ในโฟลเดอร์ทำงานของคุณ ก่อน Publish ถ้าต้องการ
+
+PBIT รวมนิยามรายงานและโมเดล ไม่ได้ให้ credentials ของ source
+ในโหมด CSV หรือ SharePoint ต้องตั้งค่าตามหัวข้อ 8
+หาก Desktop ค้างหรือ render ไม่ได้ อย่าถือว่าภาพสาธิตในเว็บเป็นผลทดสอบแทน
+
+### 4.2 ติดตั้ง PBIP ด้วยสคริปต์
+
 ```powershell
 .\Install.ps1 -Action Local -SourceMode Demo
 ```
 
-สคริปต์สร้างโฟลเดอร์เฉพาะรุ่นใน local application data แล้วเปิด PBIP
+สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\1.0.1 ใน local application data แล้วเปิด PBIP
 ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด `-InstallFolder`
 เป็นโฟลเดอร์ใหม่
 
@@ -69,6 +152,24 @@ Set-Location C:\CopilotTokenDashboard
 
 บุคคลตัวอย่างใช้โดเมน `example.com` และราคาตัวอย่างเป็นราคาสมมติ
 ไม่ใช่ราคาผู้ให้บริการหรือ rate card ที่แนะนำ
+
+### 4.3 ตรวจค่าตัวอย่างก่อน Publish
+
+เลือก Last 28 days และ Example engineering team เพื่อเทียบค่าต่อไปนี้
+ใน Desktop ที่ไม่มีสิทธิ์ scope ของข้อมูลตัวอย่าง อาจต้องเลือก scope เอง
+หน้าส่วนตัวใน Demo ใช้ user01@example.com เมื่อบัญชีปัจจุบันไม่มีอยู่ในข้อมูล:
+
+| รายการ | ค่าที่ควรเทียบ |
+|---|---|
+| วันที่ข้อมูล | 2026-05-28 |
+| Known scope spend ใน 28 วัน | USD 468.48 |
+| Active people ของ engineering | 12 |
+| Reported tokens ของ engineering | 644,590 |
+| My spend เจ็ดวัน | USD 34.00 |
+| My spend 28 วันและตั้งแต่ต้นเดือน | USD 39.04 |
+
+ตารางนี้เป็นค่าจากข้อมูลสมมติ ไม่ใช่ยอดของ tenant หรือบัญชีจริง
+ตรวจ actual Desktop และ View as แยกจากภาพ browser ในหัวข้อ 11
 
 ## 5. Publish แบบทำด้วยตนเอง
 
@@ -111,6 +212,13 @@ API ของ Microsoft ยังเป็นผู้ตรวจ signature, au
 ยังต้องกำหนดกลุ่ม RLS, credentials, gateway ถ้าจำเป็น, app audiences
 และทดสอบ Viewer ก่อนถือว่าพร้อมใช้งานจริง
 
+บันทึกผล deployment อยู่ใน runtime\deployment.json ของโฟลเดอร์ชุดติดตั้ง
+อ่าน report_url และ next_steps จากไฟล์นั้น โดยไม่ส่ง tenant IDs หรือไฟล์ config
+ที่ยังไม่ตรวจให้ public GitHub issue
+หากพบ item เดิม ให้ตรวจ workspace และสำรอง definition ก่อนใช้ -Update
+หากมี error หลังสร้าง semantic model แล้ว ให้ตรวจ resource ที่สร้างก่อนรันซ้ำ
+สคริปต์ไม่ได้ลบ resource ที่สร้างไปแล้วอัตโนมัติ
+
 ## 7. ใช้ข้อมูลของคุณเอง
 
 อย่าใส่ข้อมูลจริงหรือ secret ลงในข้อมูลสาธิตแล้ว commit ขึ้น GitHub
@@ -128,10 +236,56 @@ ctd collect-m365 --settings config\settings.json `
 ใส่เฉพาะ tenant, app และรายละเอียด source ส่วนค่าจริงของ secret
 อยู่ใน environment หรือ secret manager ที่องค์กรอนุมัติ
 
+### 7.1 ตั้ง config และสิทธิ์ source
+
+```powershell
+Copy-Item -LiteralPath config\settings.example.json -Destination config\settings.json
+```
+
+| ค่า | สิ่งที่ต้องใส่ |
+|---|---|
+| tenant_id | GUID ของ Microsoft tenant ของคุณ |
+| graph_client_id | App registration ของ tenant นั้น |
+| github.scope_type | enterprise หรือ organization ตามขอบเขตที่ได้รับสิทธิ์ |
+| github.scope_name | ชื่อ enterprise หรือ organization จริง ไม่ใช่ชื่อ repository |
+| github.root_scope_key | คีย์ scope ที่มีอยู่ใน Scopes.csv |
+| github.login_map_file | ที่อยู่ CSV ซึ่งมีคอลัมน์ login และ upn |
+| m365.period | D7, D28, D90 หรือ D180 |
+
+เก็บ token/secret จริงใน process environment เช่น CTD_GITHUB_TOKEN
+และ CTD_GRAPH_CLIENT_SECRET หรือให้ secret manager ที่องค์กรอนุมัติส่งค่าเหล่านี้
+อย่าเขียนค่าจริงลง settings.json, PBIP, PBIT หรือ commit
+อย่าวาง token ในคำสั่งที่ถูกบันทึกเป็น terminal history โดยไม่ป้องกัน
+
+Microsoft 365 collector ต้องมี Reports.Read.All พร้อม admin consent
+directory collector ต้องมี User.Read.All
+GitHub ต้องมีสิทธิ์อ่าน Copilot metrics และเปิด policy ตามเอกสาร source
+--include-billing ใช้สำหรับ enterprise scope และต้องมีสิทธิ์อ่าน billing เพิ่ม
+HTTP 403 ต้องแก้ด้วย consent/role/policy ไม่ใช่เปลี่ยนให้โค้ดข้ามการตรวจ
+
+### 7.2 เตรียมข้อมูลและรวม JSONL ให้ตรงสัญญา
+
 เตรียม People.csv, Scopes.csv และ ScopeAccess.csv ตาม data contract
 รวม metadata ที่ผ่านการตรวจเป็น usage.jsonl
 อาจเพิ่ม Models, Surfaces, Agents, Budgets และ Outcomes
 รวมทั้ง period-summaries.jsonl จากรายงาน Microsoft 365
+
+ตาราง directory ที่ collect-directory ส่งออกยังไม่ใช่ People.csv พร้อมใช้
+ต้องตรวจการจับคู่ HR, PersonKey, UPN, scope และสิทธิ์ก่อน
+ห้ามนำบุคคลตัวอย่างมาเปลี่ยนเพียง IsDemo=False เพื่อหลบการตรวจ production
+
+ถ้าเปิดทั้ง GitHub และ Microsoft 365 แล้ว ตัวอย่างการรวมไฟล์เป็นดังนี้:
+
+```powershell
+$sources = @('runtime\incoming\github.jsonl', 'runtime\incoming\m365.jsonl')
+Get-Content -LiteralPath $sources |
+  Set-Content -LiteralPath runtime\incoming\usage.jsonl -Encoding utf8
+Copy-Item -LiteralPath runtime\incoming\m365.period-summary.jsonl `
+  -Destination runtime\incoming\period-summaries.jsonl
+```
+
+รวมเฉพาะ source ที่คุณโหลดสำเร็จจริง และอย่ารวม directory export
+หรือ period-summary เข้า usage.jsonl เพราะข้อมูลมีรูปแบบคนละแบบ
 
 ห้ามกระจายยอดรวมของช่วงเวลาให้เป็นยอดรายวัน
 และห้ามเดา cached tokens จากยอด input tokens
@@ -145,6 +299,16 @@ ctd validate-data --input runtime\gold-2026-05-28 --production
 scope ที่ไม่ถึงเกณฑ์ถูกตัดออก และตัวเลขของแถวที่ถูก suppress ถูกล้างก่อนเข้าโมเดล
 รายการที่ยังไม่มีราคาและรายการที่ยังระบุเจ้าของไม่ได้ยังคงถูกแจ้งอย่างชัดเจน
 
+รุ่น 1.0.1 ตรวจ Settings ให้มีหนึ่งแถวและ IsDemo เป็น Boolean ที่ระบุชัดเจน
+ตรวจจำนวนคอลัมน์ CSV และคีย์ fact ที่อ้างถึงตารางอื่น
+แถว aggregate ที่มี active cohort ต่ำกว่าเกณฑ์แต่ไม่ได้ suppress จะถูกปฏิเสธ
+แก้ข้อมูลต้นทางตาม error แทนการลดเกณฑ์ความเป็นส่วนตัว
+
+ค่าใช้จ่ายใช้ USD เป็นค่าเริ่มต้น ไม่มีการแปลง FX อัตโนมัติจาก settings.fx_rates
+หากต้องใช้ THB ต้องมีขั้นตอน upstream ที่ Finance อนุมัติ
+และสร้างทั้ง amount, budgets และราคาของโมเดลให้เป็นสกุลฐานเดียวกัน
+ก่อนใช้ build-data --currency THB อย่าคูณเฉพาะการ์ดหรือเปลี่ยนป้ายสกุลเงิน
+
 ## 8. แหล่งข้อมูลใน Power BI
 
 ### CSV บนเครื่อง
@@ -152,7 +316,7 @@ scope ที่ไม่ถึงเกณฑ์ถูกตัดออก แ�
 ```powershell
 .\Install.ps1 -Action Local -SourceMode CSV `
   -DataFolder C:\CTD\runtime\gold-2026-05-28 `
-  -InstallFolder C:\CTD\Customer-1.0.0
+  -InstallFolder C:\CTD\Customer-1.0.1
 ```
 
 Power BI Service อ่านโฟลเดอร์บนเครื่องไม่ได้ถ้าไม่มี on-premises data gateway
@@ -177,6 +341,12 @@ DataFolder เป็นสำเนาบนเครื่องที่ตร
 ต้องพบชื่อไฟล์และ folder ตรงกันเพียงไฟล์เดียว ไม่เช่นนั้นเกิด error
 credentials ไม่ได้รวมอยู่ในโมเดล
 
+โหมด SharePoint ต้องใช้ HTTPS และ folder อยู่ใต้ site เดียวกันจริง
+ชื่อ site ที่เป็นเพียง prefix ของอีก site ไม่ถือว่าตรงกัน
+folder ต้องมี slash ท้ายตามตัวอย่าง และคงรูปแบบ URL/encoding ที่คัดลอกมา
+รุ่นนี้ตรวจค่านั้นก่อนคัดลอกโปรเจกต์หรือเริ่ม deployment
+โหมด CSV จะบันทึก DataFolder เป็น absolute path แม้คุณส่ง relative path เข้ามา
+
 ## 9. ความปลอดภัยก่อน go-live
 
 - ใช้ role Viewer; การซ่อนหน้าใน App ไม่ใช่การป้องกันข้อมูล
@@ -194,6 +364,36 @@ credentials ไม่ได้รวมอยู่ในโมเดล
 จึงต้องเป็นผู้ดูแลข้อมูลที่เชื่อถือได้ ชุดนี้ไม่ใช่การรับรอง PDPA หรือ GDPR
 และไม่ใช่เครื่องมือวัดผลการทำงานของพนักงาน
 
+### 9.1 Checklist ยอมรับงานก่อน production
+
+| รายการตรวจ | ต้องยืนยัน |
+|---|---|
+| ชุดติดตั้ง | checksum ตรงกับ release และ Validate ผ่าน |
+| Desktop จริง | เปิด PBIT/PBIP, Refresh และ render ครบ 10 หน้าได้ |
+| ข้อมูลจริง | IsDemo=False, ไม่มีบุคคลตัวอย่าง, schema และคีย์อ้างอิงผ่าน |
+| source ที่เปิดใช้ | สิทธิ์ API และผล response ถูกต้องใน tenant เป้าหมาย |
+| Viewer RLS | ผู้ใช้ A เห็นเฉพาะข้อมูลส่วนตัว A และไม่เห็นข้อมูล B |
+| scope | ผู้ใช้ไม่มีสิทธิ์ไม่เห็น scope และกลุ่มต่ำกว่าเกณฑ์ถูกป้องกัน |
+| refresh | credentials/gateway ถูกต้องและรอ generation ครบก่อน refresh |
+| Finance | ราคากับ billed/estimated และ FX ถูกตรวจ ไม่มีการแทน unknown ด้วยศูนย์ |
+| governance | sensitivity label, app access และรอบทบทวนสิทธิ์พร้อม |
+
+unit tests และภาพสาธิตช่วยตรวจโค้ดบางส่วน แต่ไม่แทน checklist ข้างต้น
+ดูผลที่ตรวจได้จริงและรายการที่ยังไม่ได้ตรวจใน VALIDATION.md
+
+### 9.2 อัปเกรดจากรุ่นก่อนหน้า
+
+1. สำรอง definition ของรายงาน/โมเดลและ config ที่องค์กรอนุมัติ
+2. แตก ZIP 1.0.1 ลงโฟลเดอร์ใหม่ อย่าเขียนทับ runtime หรือข้อมูลจริงของรุ่นเดิม
+3. สร้าง generation ข้อมูลใหม่และรัน validate-data --production
+4. กรณี GitHub รายงานโมเดลเดียวกันแยก auto กับ user_selected
+   ให้โหลดช่วงข้อมูลที่เกี่ยวข้องใหม่จาก source ที่มีสิทธิ์ แล้ว rebuild
+   อย่ารวมไฟล์ normalized เก่าและใหม่โดยไม่ตรวจการซ้ำของ record
+5. อัปเดต tenant ด้วย -Update หลังตรวจปลายทาง แล้วทดสอบ Viewer/refresh ซ้ำ
+
+รุ่นนี้เก็บ identifier เดิมไว้สำหรับรายการ GitHub ที่ไม่มี model_selection_mode
+และแยก identifier เมื่อ source ระบุโหมด เพื่อไม่ให้ข้อมูลสองโหมดชนกัน
+
 ## 10. การแก้ปัญหา
 
 | อาการ | สิ่งที่ควรตรวจ |
@@ -208,6 +408,16 @@ credentials ไม่ได้รวมอยู่ในโมเดล
 | Item เดิมมีอยู่แล้ว | ตรวจปลายทางก่อนใช้ Update |
 | Refresh ล้มเหลว | ตรวจ credentials, gateway และ folder permission |
 | Operation timeout | ตรวจ workspace ก่อนสร้าง item ซ้ำ |
+| CSV มีคอลัมน์เกินหรือแถวสั้น | ตรวจจำนวนค่าของแต่ละแถว ไม่ใช่เฉพาะ header |
+| Settings ไม่ถูกต้อง | ต้องมีหนึ่งแถว, IsDemo เป็น true/false, schema 1.0 และขั้นต่ำหกคน |
+| Shared folder URL ไม่ผ่าน | ตรวจ HTTPS, site เดียวกันและ slash ท้าย ไม่ใช้ query token |
+| Unknown fact key | แก้คีย์อ้างอิงใน People, Accounts, Models, Agents, Scopes หรือ Calendar |
+| Fabric item listing ผิดรูปแบบ | หยุด provisioning และตรวจ API; ไม่ตีความเป็น workspace ว่าง |
+
+เวลาขอความช่วยเหลือ ให้แนบ software version, source name, HTTP status
+และข้อความ error ที่ลบข้อมูลอ่อนไหวแล้ว
+อย่าแนบ token, secret, URL ดาวน์โหลดแบบ signed, prompt หรือ employee export
+ไปยัง public GitHub issue
 
 ## 11. คู่มือภาพประกอบแดชบอร์ดตัวอย่าง
 

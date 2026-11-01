@@ -69,6 +69,9 @@ th{background:var(--cp-surface-soft)}tr{break-inside:avoid}pre{white-space:pre-w
 p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,"Courier New",Courier,monospace}
 figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;height:auto;border:1px solid var(--cp-border);border-radius:.625rem}figcaption{font-size:9pt;color:var(--cp-text-muted);margin-top:6pt}
 </style></head><body><h1>คู่มือการติดตั้ง Copilot Token Dashboard</h1>
+<p>รุ่น 1.0.1 · ปรับปรุงและทดสอบซ้ำวันที่ 1 พฤศจิกายน 2569 (2026-11-01)</p>
+<p>คู่มือนี้ใช้กับ ชุดติดตั้ง v1.0.1 (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1) และ PDF ภาษาไทย (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf) ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน รายงานการทดสอบ (VALIDATION.md)</p>
+<p>สถานะยังเป็น public preview การผ่าน unit tests, schema และการสร้าง PBIT ไม่ได้ยืนยันว่ารายงาน render หรือเชื่อมต่อ source จริงใน tenant ของคุณแล้ว ต้องผ่าน checklist ก่อน go-live ในหัวข้อ 9 ก่อนใช้งาน production</p>
 <h2>1. ภาพรวม</h2>
 <p>ชุดนี้เป็นรายงาน Power BI แบบโอเพนซอร์สสำหรับติดตั้งใน tenant ขององค์กรคุณเอง มี 10 หน้า ครอบคลุมการใช้งานส่วนตัว ข้อมูลรวมขององค์กร agent โมเดล งบประมาณ สมมติฐานด้านคุณค่า และคุณภาพข้อมูล</p>
 <p>ชุดนี้ไม่ได้ให้สิทธิ์อ่านข้อมูลขององค์กรอื่น และไม่ได้เชื่อมต่อข้อมูลภายในของ Microsoft ผู้ติดตั้งต้องใช้ tenant, workspace, สิทธิ์, ข้อมูล และ secret ของตนเอง ข้อมูลที่ให้มาสาธิตเป็นข้อมูลสมมติและมีป้ายกำกับทุกหน้า</p>
@@ -76,15 +79,52 @@ figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;heig
 <h2>2. สิ่งที่ต้องเตรียม</h2>
 <table><tr><th>รายการ</th><th>ใช้สำหรับ</th></tr><tr><td>Windows และ Power BI Desktop รุ่นปัจจุบัน</td><td>เปิดและตรวจรายงานบนเครื่อง</td></tr><tr><td>Python 3.10 ขึ้นไป</td><td>ตัวเก็บข้อมูล การสร้างข้อมูลรายงาน และ deployment</td></tr><tr><td>PowerShell 7</td><td>สคริปต์ติดตั้ง</td></tr><tr><td>Power BI Pro, PPU หรือ Fabric capacity ที่เหมาะสม</td><td>เผยแพร่และแชร์ตามเงื่อนไข license</td></tr><tr><td>สิทธิ์ Contributor ขึ้นไปใน workspace</td><td>สร้าง semantic model และรายงาน</td></tr><tr><td>Azure CLI หรือ Fabric access token ของ tenant เป้าหมาย</td><td>deployment แบบอัตโนมัติ</td></tr><tr><td>การอนุมัติสิทธิ์จากเจ้าของข้อมูล</td><td>เก็บข้อมูลจริงผ่าน API</td></tr></table>
 <p>API ในรุ่นนี้ใช้ global commercial cloud ยังไม่ได้ยืนยัน sovereign cloud หรือ GitHub host ที่กำหนดเอง ชุดนี้ไม่ได้แจกโปรแกรม Power BI Desktop</p>
+<h3>2.1 เลือกเส้นทางติดตั้ง</h3>
+<table><tr><th>สิ่งที่ต้องการ</th><th>เส้นทางที่ใช้</th><th>สิ่งที่ต้องเตรียมเพิ่มเติม</th></tr><tr><td>ดูข้อมูลสมมติบนเครื่อง</td><td>เปิด PBIT ใน Desktop ตามหัวข้อ 4.1</td><td>ไม่ต้องมี Python หรือ tenant สำหรับดูตัวอย่างใน Desktop</td></tr><tr><td>ติดตั้ง PBIP พร้อมตรวจข้อมูล</td><td>Install.ps1 -Action Local</td><td>Python และ dependency ที่ประกาศไว้</td></tr><tr><td>Publish ด้วยบัญชีของคุณ</td><td>Publish จาก Desktop ตามหัวข้อ 5</td><td>บัญชี tenant ปลายทางและ license ที่เหมาะสม</td></tr><tr><td>สร้าง model และ report ผ่าน API</td><td>Install.ps1 -Action Tenant</td><td>TenantId, WorkspaceId, Fabric token และสิทธิ์ที่ถูกต้อง</td></tr></table>
+<p>ตรวจเครื่องมือใน terminal ก่อนเริ่ม:</p>
+<pre><code>$PSVersionTable.PSVersion
+Get-Command python
+python --version</code></pre>
+<p>ใช้ PowerShell 7 ขึ้นไปสำหรับสคริปต์นี้ และ Python 3.10 ขึ้นไป ตรวจว่า python เป็น interpreter ที่คุณตั้งใจใช้ หากองค์กรกำหนด virtual environment ให้เปิด environment นั้นก่อนรัน Install.ps1 เพื่อให้ dependency อยู่ในที่เดียวกัน การดูตัวอย่างในเว็บไม่ใช่การตรวจว่า Power BI Desktop ใช้งานได้</p>
 <h2>3. ดาวน์โหลดและตรวจชุด</h2>
-<p>ดาวน์โหลด ZIP ของรุ่นที่ต้องการจาก GitHub Releases ตรวจ SHA-256 เทียบกับไฟล์ checksum แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น C:\CopilotTokenDashboard</p>
-<pre><code>Set-Location C:\CopilotTokenDashboard
+<p>ดาวน์โหลดไฟล์ ZIP และ SHA256SUMS จาก release เดียวกัน:</p>
+<p class="list">&#8226; Copilot-Token-Dashboard-1.0.1-Install.zip</p>
+<p class="list">&#8226; Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt</p>
+<p>อย่าใช้ checksum ของรุ่น 1.0.0 ตรวจ ZIP รุ่น 1.0.1 ตรวจ SHA-256 แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น C:\CopilotTokenDashboard</p>
+<h3>3.1 ตรวจ checksum ก่อนแตก ZIP</h3>
+<p>ตัวอย่างต่อไปนี้สมมติว่าทั้งสองไฟล์อยู่ในโฟลเดอร์ Downloads ปรับตำแหน่งให้ตรงกับไฟล์ที่คุณดาวน์โหลด:</p>
+<pre><code>$zip = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-1.0.1-Install.zip&#39;
+$sums = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt&#39;
+$name = [IO.Path]::GetFileName($zip)
+$entry = @(Get-Content -LiteralPath $sums | Where-Object { $_.EndsWith(&#39;  &#39; + $name) })
+if ($entry.Count -ne 1) { throw &#39;Expected exactly one checksum entry.&#39; }
+$expected = ($entry[0] -split &#39;\s+&#39;, 2)[0]
+$actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
+if ($actual -ne $expected) { throw &#39;Checksum mismatch. Do not install this file.&#39; }
+&#39;SHA256 PASS&#39;
+Expand-Archive -LiteralPath $zip -DestinationPath &#39;C:\CopilotTokenDashboard-1.0.1&#39;</code></pre>
+<p>ผลที่ควรเห็นคือ SHA256 PASS หากไม่ตรงให้หยุดและดาวน์โหลดใหม่จาก release ที่ถูกต้อง อย่าใช้ Force เพื่อเขียนทับโฟลเดอร์ติดตั้งเดิมที่มีข้อมูลหรือ config ของคุณ</p>
+<h3>3.2 ตรวจข้อมูลและ dependency โดยยังไม่สร้าง resource</h3>
+<pre><code>Set-Location C:\CopilotTokenDashboard-1.0.1
 .\Install.ps1 -Action Validate -InstallDependencies</code></pre>
 <p>คำสั่งนี้ติดตั้งเฉพาะ dependency ที่ประกาศไว้ และตรวจข้อมูลสมมติทุกตาราง ยังไม่สร้าง resource ใน tenant</p>
+<p>ผลที่ควรเห็น:</p>
+<p class="list">&#8226; validated เป็น true และ tables เท่ากับ 21 ซึ่งเป็นตาราง CSV ตาม data contract</p>
+<p class="list">&#8226; source_validated เป็น true และ model_updated เป็น false</p>
+<p class="list">&#8226; ข้อความ Data and dependency checks passed. No tenant resources were created.</p>
+<p>semantic model มี 22 ตาราง เพราะรวมตาราง Measures อีกหนึ่งตาราง อย่าสับสนจำนวนตาราง CSV 21 ตารางกับจำนวนตารางในโมเดล 22 ตาราง</p>
 <p>อย่าปิด execution policy หรือมาตรการรักษาความปลอดภัยขององค์กร ให้ใช้กระบวนการรันสคริปต์ที่องค์กรอนุมัติ</p>
 <h2>4. เปิดข้อมูลสาธิตบนเครื่อง</h2>
+<h3>4.1 เปิด PBIT โดยไม่ใช้สคริปต์</h3>
+<p class="list">1. เปิด Copilot-Token-Dashboard-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop</p>
+<p class="list">2. เมื่อถามพารามิเตอร์ ให้ตั้ง SourceMode เป็น Demo</p>
+<p class="list">3. DataFolder, SharePointSite และ SharePointFolder เว้นว่างได้ใน Demo</p>
+<p class="list">4. รอให้โหลดข้อมูลหรือกด Refresh แล้วตรวจป้าย SYNTHETIC DEMO</p>
+<p class="list">5. Save As เป็น PBIX ในโฟลเดอร์ทำงานของคุณ ก่อน Publish ถ้าต้องการ</p>
+<p>PBIT รวมนิยามรายงานและโมเดล ไม่ได้ให้ credentials ของ source ในโหมด CSV หรือ SharePoint ต้องตั้งค่าตามหัวข้อ 8 หาก Desktop ค้างหรือ render ไม่ได้ อย่าถือว่าภาพสาธิตในเว็บเป็นผลทดสอบแทน</p>
+<h3>4.2 ติดตั้ง PBIP ด้วยสคริปต์</h3>
 <pre><code>.\Install.ps1 -Action Local -SourceMode Demo</code></pre>
-<p>สคริปต์สร้างโฟลเดอร์เฉพาะรุ่นใน local application data แล้วเปิด PBIP ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด -InstallFolder เป็นโฟลเดอร์ใหม่</p>
+<p>สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\1.0.1 ใน local application data แล้วเปิด PBIP ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด -InstallFolder เป็นโฟลเดอร์ใหม่</p>
 <p>ใน Power BI Desktop:</p>
 <p class="list">1. รอให้โปรเจกต์เปิดเสร็จ แล้วกด Refresh ถ้ายังไม่มีข้อมูล</p>
 <p class="list">2. ตรวจป้ายข้อมูลสมมติและวันที่ Data through</p>
@@ -92,6 +132,10 @@ figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;heig
 <p class="list">4. เลือก agent ด้วยตัวเลือกในหน้า Agent Detail</p>
 <p class="list">5. ใช้ Modeling &gt; View as ทดสอบ role Viewer กับ UPN ตัวอย่าง</p>
 <p>บุคคลตัวอย่างใช้โดเมน example.com และราคาตัวอย่างเป็นราคาสมมติ ไม่ใช่ราคาผู้ให้บริการหรือ rate card ที่แนะนำ</p>
+<h3>4.3 ตรวจค่าตัวอย่างก่อน Publish</h3>
+<p>เลือก Last 28 days และ Example engineering team เพื่อเทียบค่าต่อไปนี้ ใน Desktop ที่ไม่มีสิทธิ์ scope ของข้อมูลตัวอย่าง อาจต้องเลือก scope เอง หน้าส่วนตัวใน Demo ใช้ user01@example.com เมื่อบัญชีปัจจุบันไม่มีอยู่ในข้อมูล:</p>
+<table><tr><th>รายการ</th><th>ค่าที่ควรเทียบ</th></tr><tr><td>วันที่ข้อมูล</td><td>2026-05-28</td></tr><tr><td>Known scope spend ใน 28 วัน</td><td>USD 468.48</td></tr><tr><td>Active people ของ engineering</td><td>12</td></tr><tr><td>Reported tokens ของ engineering</td><td>644,590</td></tr><tr><td>My spend เจ็ดวัน</td><td>USD 34.00</td></tr><tr><td>My spend 28 วันและตั้งแต่ต้นเดือน</td><td>USD 39.04</td></tr></table>
+<p>ตารางนี้เป็นค่าจากข้อมูลสมมติ ไม่ใช่ยอดของ tenant หรือบัญชีจริง ตรวจ actual Desktop และ View as แยกจากภาพ browser ในหัวข้อ 11</p>
 <h2>5. Publish แบบทำด้วยตนเอง</h2>
 <p>วิธีนี้ไม่ต้องใช้ token สำหรับ deployment อัตโนมัติ:</p>
 <p class="list">1. ลงชื่อเข้าใช้ Power BI Desktop ด้วยบัญชีของ tenant ปลายทาง</p>
@@ -110,6 +154,7 @@ figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;heig
 <p>สคริปต์ตรวจว่า token เป็นของ tenant เป้าหมายก่อนส่งคำขอ API ของ Microsoft ยังเป็นผู้ตรวจ signature, audience และสิทธิ์จริง</p>
 <p>ระบบสร้าง semantic model ก่อน แล้วผูกรายงานด้วย model ID ที่สร้าง รอผล long-running operation และไม่เขียนทับ item เดิมโดยเงียบ ใช้ -Update หลังตรวจปลายทางและสำรอง definition แล้วเท่านั้น</p>
 <p>สถานะที่ได้คือ สร้าง resource แล้ว แต่ยังต้องตั้งค่าความปลอดภัยและ refresh ยังต้องกำหนดกลุ่ม RLS, credentials, gateway ถ้าจำเป็น, app audiences และทดสอบ Viewer ก่อนถือว่าพร้อมใช้งานจริง</p>
+<p>บันทึกผล deployment อยู่ใน runtime\deployment.json ของโฟลเดอร์ชุดติดตั้ง อ่าน report_url และ next_steps จากไฟล์นั้น โดยไม่ส่ง tenant IDs หรือไฟล์ config ที่ยังไม่ตรวจให้ public GitHub issue หากพบ item เดิม ให้ตรวจ workspace และสำรอง definition ก่อนใช้ -Update หากมี error หลังสร้าง semantic model แล้ว ให้ตรวจ resource ที่สร้างก่อนรันซ้ำ สคริปต์ไม่ได้ลบ resource ที่สร้างไปแล้วอัตโนมัติ</p>
 <h2>7. ใช้ข้อมูลของคุณเอง</h2>
 <p>อย่าใส่ข้อมูลจริงหรือ secret ลงในข้อมูลสาธิตแล้ว commit ขึ้น GitHub ให้ทำงานในโฟลเดอร์ runtime ที่ถูกตัดออกจาก source control</p>
 <pre><code>python -m pip install .
@@ -118,16 +163,32 @@ ctd collect-github --settings config\settings.json `
 ctd collect-m365 --settings config\settings.json `
   --output runtime\incoming\m365.jsonl</code></pre>
 <p>คัดลอก settings.example.json เป็น settings.json ซึ่งถูก ignore ไว้ ใส่เฉพาะ tenant, app และรายละเอียด source ส่วนค่าจริงของ secret อยู่ใน environment หรือ secret manager ที่องค์กรอนุมัติ</p>
+<h3>7.1 ตั้ง config และสิทธิ์ source</h3>
+<pre><code>Copy-Item -LiteralPath config\settings.example.json -Destination config\settings.json</code></pre>
+<table><tr><th>ค่า</th><th>สิ่งที่ต้องใส่</th></tr><tr><td>tenant_id</td><td>GUID ของ Microsoft tenant ของคุณ</td></tr><tr><td>graph_client_id</td><td>App registration ของ tenant นั้น</td></tr><tr><td>github.scope_type</td><td>enterprise หรือ organization ตามขอบเขตที่ได้รับสิทธิ์</td></tr><tr><td>github.scope_name</td><td>ชื่อ enterprise หรือ organization จริง ไม่ใช่ชื่อ repository</td></tr><tr><td>github.root_scope_key</td><td>คีย์ scope ที่มีอยู่ใน Scopes.csv</td></tr><tr><td>github.login_map_file</td><td>ที่อยู่ CSV ซึ่งมีคอลัมน์ login และ upn</td></tr><tr><td>m365.period</td><td>D7, D28, D90 หรือ D180</td></tr></table>
+<p>เก็บ token/secret จริงใน process environment เช่น CTD_GITHUB_TOKEN และ CTD_GRAPH_CLIENT_SECRET หรือให้ secret manager ที่องค์กรอนุมัติส่งค่าเหล่านี้ อย่าเขียนค่าจริงลง settings.json, PBIP, PBIT หรือ commit อย่าวาง token ในคำสั่งที่ถูกบันทึกเป็น terminal history โดยไม่ป้องกัน</p>
+<p>Microsoft 365 collector ต้องมี Reports.Read.All พร้อม admin consent directory collector ต้องมี User.Read.All GitHub ต้องมีสิทธิ์อ่าน Copilot metrics และเปิด policy ตามเอกสาร source --include-billing ใช้สำหรับ enterprise scope และต้องมีสิทธิ์อ่าน billing เพิ่ม HTTP 403 ต้องแก้ด้วย consent/role/policy ไม่ใช่เปลี่ยนให้โค้ดข้ามการตรวจ</p>
+<h3>7.2 เตรียมข้อมูลและรวม JSONL ให้ตรงสัญญา</h3>
 <p>เตรียม People.csv, Scopes.csv และ ScopeAccess.csv ตาม data contract รวม metadata ที่ผ่านการตรวจเป็น usage.jsonl อาจเพิ่ม Models, Surfaces, Agents, Budgets และ Outcomes รวมทั้ง period-summaries.jsonl จากรายงาน Microsoft 365</p>
+<p>ตาราง directory ที่ collect-directory ส่งออกยังไม่ใช่ People.csv พร้อมใช้ ต้องตรวจการจับคู่ HR, PersonKey, UPN, scope และสิทธิ์ก่อน ห้ามนำบุคคลตัวอย่างมาเปลี่ยนเพียง IsDemo=False เพื่อหลบการตรวจ production</p>
+<p>ถ้าเปิดทั้ง GitHub และ Microsoft 365 แล้ว ตัวอย่างการรวมไฟล์เป็นดังนี้:</p>
+<pre><code>$sources = @(&#39;runtime\incoming\github.jsonl&#39;, &#39;runtime\incoming\m365.jsonl&#39;)
+Get-Content -LiteralPath $sources |
+  Set-Content -LiteralPath runtime\incoming\usage.jsonl -Encoding utf8
+Copy-Item -LiteralPath runtime\incoming\m365.period-summary.jsonl `
+  -Destination runtime\incoming\period-summaries.jsonl</code></pre>
+<p>รวมเฉพาะ source ที่คุณโหลดสำเร็จจริง และอย่ารวม directory export หรือ period-summary เข้า usage.jsonl เพราะข้อมูลมีรูปแบบคนละแบบ</p>
 <p>ห้ามกระจายยอดรวมของช่วงเวลาให้เป็นยอดรายวัน และห้ามเดา cached tokens จากยอด input tokens</p>
 <pre><code>ctd build-data --input runtime\incoming --output runtime\gold-2026-05-28
 ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
 <p>ข้อมูลจริงถูกสร้างโดยปิด demo mode scope ที่ไม่ถึงเกณฑ์ถูกตัดออก และตัวเลขของแถวที่ถูก suppress ถูกล้างก่อนเข้าโมเดล รายการที่ยังไม่มีราคาและรายการที่ยังระบุเจ้าของไม่ได้ยังคงถูกแจ้งอย่างชัดเจน</p>
+<p>รุ่น 1.0.1 ตรวจ Settings ให้มีหนึ่งแถวและ IsDemo เป็น Boolean ที่ระบุชัดเจน ตรวจจำนวนคอลัมน์ CSV และคีย์ fact ที่อ้างถึงตารางอื่น แถว aggregate ที่มี active cohort ต่ำกว่าเกณฑ์แต่ไม่ได้ suppress จะถูกปฏิเสธ แก้ข้อมูลต้นทางตาม error แทนการลดเกณฑ์ความเป็นส่วนตัว</p>
+<p>ค่าใช้จ่ายใช้ USD เป็นค่าเริ่มต้น ไม่มีการแปลง FX อัตโนมัติจาก settings.fx_rates หากต้องใช้ THB ต้องมีขั้นตอน upstream ที่ Finance อนุมัติ และสร้างทั้ง amount, budgets และราคาของโมเดลให้เป็นสกุลฐานเดียวกัน ก่อนใช้ build-data --currency THB อย่าคูณเฉพาะการ์ดหรือเปลี่ยนป้ายสกุลเงิน</p>
 <h2>8. แหล่งข้อมูลใน Power BI</h2>
 <h3>CSV บนเครื่อง</h3>
 <pre><code>.\Install.ps1 -Action Local -SourceMode CSV `
   -DataFolder C:\CTD\runtime\gold-2026-05-28 `
-  -InstallFolder C:\CTD\Customer-1.0.0</code></pre>
+  -InstallFolder C:\CTD\Customer-1.0.1</code></pre>
 <p>Power BI Service อ่านโฟลเดอร์บนเครื่องไม่ได้ถ้าไม่มี on-premises data gateway snapshot ที่ Publish แล้วดูได้ แต่ไม่ใช่ pipeline สดที่ refresh ได้เอง</p>
 <h3>SharePoint ใน tenant ของคุณ</h3>
 <p>อัปโหลด CSV ครบทั้งรุ่นข้อมูลที่ตรวจแล้วไปยังโฟลเดอร์ที่อนุมัติ กำหนด URL ของ site และ folder ให้ตรง รวม slash ท้าย folder และใช้ organizational OAuth credentials</p>
@@ -137,6 +198,7 @@ ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
   -SharePointSite &#39;https://&lt;your-tenant&gt;.sharepoint.com/sites/AIReporting&#39; `
   -SharePointFolder &#39;https://&lt;your-tenant&gt;.sharepoint.com/sites/AIReporting/Shared Documents/Gold/&#39;</code></pre>
 <p>DataFolder เป็นสำเนาบนเครื่องที่ตรวจแล้วสำหรับ preflight หลัง deployment โมเดลอ่าน SharePoint ไม่ได้อ่านสำเนานั้น ต้องพบชื่อไฟล์และ folder ตรงกันเพียงไฟล์เดียว ไม่เช่นนั้นเกิด error credentials ไม่ได้รวมอยู่ในโมเดล</p>
+<p>โหมด SharePoint ต้องใช้ HTTPS และ folder อยู่ใต้ site เดียวกันจริง ชื่อ site ที่เป็นเพียง prefix ของอีก site ไม่ถือว่าตรงกัน folder ต้องมี slash ท้ายตามตัวอย่าง และคงรูปแบบ URL/encoding ที่คัดลอกมา รุ่นนี้ตรวจค่านั้นก่อนคัดลอกโปรเจกต์หรือเริ่ม deployment โหมด CSV จะบันทึก DataFolder เป็น absolute path แม้คุณส่ง relative path เข้ามา</p>
 <h2>9. ความปลอดภัยก่อน go-live</h2>
 <p class="list">&#8226; ใช้ role Viewer; การซ่อนหน้าใน App ไม่ใช่การป้องกันข้อมูล</p>
 <p class="list">&#8226; ผู้ใช้ทั่วไปควรมี Viewer หรือ app access ไม่ใช่ Member หรือ Contributor</p>
@@ -149,8 +211,20 @@ ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
 <p class="list">&#8226; ตรวจว่าไม่มีบุคคลสมมติคงอยู่ในข้อมูล production</p>
 <p class="list">&#8226; ทบทวนสิทธิ์และ coverage ตามรอบ</p>
 <p>ผู้ดูแล workspace bypass RLS ตามการทำงานของ Power BI จึงต้องเป็นผู้ดูแลข้อมูลที่เชื่อถือได้ ชุดนี้ไม่ใช่การรับรอง PDPA หรือ GDPR และไม่ใช่เครื่องมือวัดผลการทำงานของพนักงาน</p>
+<h3>9.1 Checklist ยอมรับงานก่อน production</h3>
+<table><tr><th>รายการตรวจ</th><th>ต้องยืนยัน</th></tr><tr><td>ชุดติดตั้ง</td><td>checksum ตรงกับ release และ Validate ผ่าน</td></tr><tr><td>Desktop จริง</td><td>เปิด PBIT/PBIP, Refresh และ render ครบ 10 หน้าได้</td></tr><tr><td>ข้อมูลจริง</td><td>IsDemo=False, ไม่มีบุคคลตัวอย่าง, schema และคีย์อ้างอิงผ่าน</td></tr><tr><td>source ที่เปิดใช้</td><td>สิทธิ์ API และผล response ถูกต้องใน tenant เป้าหมาย</td></tr><tr><td>Viewer RLS</td><td>ผู้ใช้ A เห็นเฉพาะข้อมูลส่วนตัว A และไม่เห็นข้อมูล B</td></tr><tr><td>scope</td><td>ผู้ใช้ไม่มีสิทธิ์ไม่เห็น scope และกลุ่มต่ำกว่าเกณฑ์ถูกป้องกัน</td></tr><tr><td>refresh</td><td>credentials/gateway ถูกต้องและรอ generation ครบก่อน refresh</td></tr><tr><td>Finance</td><td>ราคากับ billed/estimated และ FX ถูกตรวจ ไม่มีการแทน unknown ด้วยศูนย์</td></tr><tr><td>governance</td><td>sensitivity label, app access และรอบทบทวนสิทธิ์พร้อม</td></tr></table>
+<p>unit tests และภาพสาธิตช่วยตรวจโค้ดบางส่วน แต่ไม่แทน checklist ข้างต้น ดูผลที่ตรวจได้จริงและรายการที่ยังไม่ได้ตรวจใน VALIDATION.md</p>
+<h3>9.2 อัปเกรดจากรุ่นก่อนหน้า</h3>
+<p class="list">1. สำรอง definition ของรายงาน/โมเดลและ config ที่องค์กรอนุมัติ</p>
+<p class="list">2. แตก ZIP 1.0.1 ลงโฟลเดอร์ใหม่ อย่าเขียนทับ runtime หรือข้อมูลจริงของรุ่นเดิม</p>
+<p class="list">3. สร้าง generation ข้อมูลใหม่และรัน validate-data --production</p>
+<p class="list">4. กรณี GitHub รายงานโมเดลเดียวกันแยก auto กับ user_selected</p>
+<p>   ให้โหลดช่วงข้อมูลที่เกี่ยวข้องใหม่จาก source ที่มีสิทธิ์ แล้ว rebuild    อย่ารวมไฟล์ normalized เก่าและใหม่โดยไม่ตรวจการซ้ำของ record</p>
+<p class="list">5. อัปเดต tenant ด้วย -Update หลังตรวจปลายทาง แล้วทดสอบ Viewer/refresh ซ้ำ</p>
+<p>รุ่นนี้เก็บ identifier เดิมไว้สำหรับรายการ GitHub ที่ไม่มี model_selection_mode และแยก identifier เมื่อ source ระบุโหมด เพื่อไม่ให้ข้อมูลสองโหมดชนกัน</p>
 <h2>10. การแก้ปัญหา</h2>
-<table><tr><th>อาการ</th><th>สิ่งที่ควรตรวจ</th></tr><tr><td>Dependency ไม่ครบ</td><td>ติดตั้งเฉพาะ package ที่ประกาศไว้</td></tr><tr><td>CSV header หรือ type ไม่ตรง</td><td>ตรวจชื่อ ลำดับ และชนิดตาม contract</td></tr><tr><td>Token หรือ cache ไม่มีข้อมูล</td><td>ตรวจ coverage ไม่แทนด้วยศูนย์</td></tr><tr><td>ยอดค่าใช้จ่ายไม่ตรง</td><td>ตรวจ billed/estimated, unattributed และ privacy suppression</td></tr><tr><td>Personal view ว่าง</td><td>ตรวจ UPN mapping และสมาชิก role Viewer</td></tr><tr><td>Organization scope ว่าง</td><td>ตรวจสิทธิ์ scope และเกณฑ์หกคน</td></tr><tr><td>HTTP 403</td><td>ขอ consent หรือ role ที่ถูกต้อง ไม่ bypass</td></tr><tr><td>Item เดิมมีอยู่แล้ว</td><td>ตรวจปลายทางก่อนใช้ Update</td></tr><tr><td>Refresh ล้มเหลว</td><td>ตรวจ credentials, gateway และ folder permission</td></tr><tr><td>Operation timeout</td><td>ตรวจ workspace ก่อนสร้าง item ซ้ำ</td></tr></table>
+<table><tr><th>อาการ</th><th>สิ่งที่ควรตรวจ</th></tr><tr><td>Dependency ไม่ครบ</td><td>ติดตั้งเฉพาะ package ที่ประกาศไว้</td></tr><tr><td>CSV header หรือ type ไม่ตรง</td><td>ตรวจชื่อ ลำดับ และชนิดตาม contract</td></tr><tr><td>Token หรือ cache ไม่มีข้อมูล</td><td>ตรวจ coverage ไม่แทนด้วยศูนย์</td></tr><tr><td>ยอดค่าใช้จ่ายไม่ตรง</td><td>ตรวจ billed/estimated, unattributed และ privacy suppression</td></tr><tr><td>Personal view ว่าง</td><td>ตรวจ UPN mapping และสมาชิก role Viewer</td></tr><tr><td>Organization scope ว่าง</td><td>ตรวจสิทธิ์ scope และเกณฑ์หกคน</td></tr><tr><td>HTTP 403</td><td>ขอ consent หรือ role ที่ถูกต้อง ไม่ bypass</td></tr><tr><td>Item เดิมมีอยู่แล้ว</td><td>ตรวจปลายทางก่อนใช้ Update</td></tr><tr><td>Refresh ล้มเหลว</td><td>ตรวจ credentials, gateway และ folder permission</td></tr><tr><td>Operation timeout</td><td>ตรวจ workspace ก่อนสร้าง item ซ้ำ</td></tr><tr><td>CSV มีคอลัมน์เกินหรือแถวสั้น</td><td>ตรวจจำนวนค่าของแต่ละแถว ไม่ใช่เฉพาะ header</td></tr><tr><td>Settings ไม่ถูกต้อง</td><td>ต้องมีหนึ่งแถว, IsDemo เป็น true/false, schema 1.0 และขั้นต่ำหกคน</td></tr><tr><td>Shared folder URL ไม่ผ่าน</td><td>ตรวจ HTTPS, site เดียวกันและ slash ท้าย ไม่ใช้ query token</td></tr><tr><td>Unknown fact key</td><td>แก้คีย์อ้างอิงใน People, Accounts, Models, Agents, Scopes หรือ Calendar</td></tr><tr><td>Fabric item listing ผิดรูปแบบ</td><td>หยุด provisioning และตรวจ API; ไม่ตีความเป็น workspace ว่าง</td></tr></table>
+<p>เวลาขอความช่วยเหลือ ให้แนบ software version, source name, HTTP status และข้อความ error ที่ลบข้อมูลอ่อนไหวแล้ว อย่าแนบ token, secret, URL ดาวน์โหลดแบบ signed, prompt หรือ employee export ไปยัง public GitHub issue</p>
 <h2>11. คู่มือภาพประกอบแดชบอร์ดตัวอย่าง</h2>
 <p>ภาพต่อไปนี้จับจากแดชบอร์ดสาธิตบนเบราว์เซอร์ โดยใช้ CSV ข้อมูลสมมติที่มากับชุด ไม่ใช่ภาพ Power BI Desktop ที่ยืนยันการทำงานแล้ว รูปแบบและสีของตัวอย่างต่างจาก Power BI และไม่ได้รัน DAX เรียก API ตรวจการเข้าสู่ระบบ หรือบังคับ RLS ต้องทดสอบโปรเจกต์ Power BI จริงใน tenant ของคุณก่อนยอมรับว่าใช้งาน production ได้</p>
 <p>ภาพ 1–6 และ 8–10 ใช้ Last 28 days และ Example engineering team ภาพ 7 ใช้ Example operations team หน้าส่วนตัวใช้บุคคลสมมติ user01@example.com วันที่ข้อมูลตัวอย่างคือ 2026-05-28 คลิกภาพบน GitHub เพื่อดู PNG ต้นฉบับความกว้าง 1600 พิกเซล PDF ฝังภาพไว้ในไฟล์และขยายดูรายละเอียดแบบออฟไลน์ได้</p>

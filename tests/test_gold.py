@@ -125,3 +125,71 @@ def test_privacy_restricted_people_are_excluded_from_scope_facts(demo):
     row = copy.deepcopy(tables["UsageDaily"][0])
     builder.people_by_key[str(row["PersonKey"])]["IsPrivacyRestricted"] = True
     assert builder.rows_for_scope([row], "demo-root") == []
+
+
+@pytest.mark.parametrize("flag", [None, "False", 0])
+def test_demo_flag_must_be_an_explicit_boolean(demo, flag):
+    _, tables, _ = demo
+    tables["Settings"][0]["IsDemo"] = flag
+    with pytest.raises(ValueError, match="Boolean"):
+        validate_tables(tables)
+
+
+def test_settings_must_contain_exactly_one_row(demo):
+    _, tables, _ = demo
+    tables["Settings"].append(dict(tables["Settings"][0]))
+    with pytest.raises(ValueError, match="exactly one"):
+        validate_tables(tables)
+
+
+def test_unsuppressed_small_active_cohort_is_rejected(demo):
+    _, tables, _ = demo
+    tables["ScopeDaily"][0].update(ActiveUsers=1, PrivacySuppressed=False)
+    with pytest.raises(ValueError, match="cohort"):
+        validate_tables(tables)
+
+
+@pytest.mark.parametrize("count", [None, -1, 99])
+def test_unsuppressed_cohort_requires_a_valid_reported_count(demo, count):
+    _, tables, _ = demo
+    tables["ScopeDaily"][0].update(ActiveUsers=count, PrivacySuppressed=False)
+    with pytest.raises(ValueError, match="cohort"):
+        validate_tables(tables)
+
+
+def test_suppressed_weekly_bands_cannot_retain_counts(demo):
+    _, tables, _ = demo
+    row = tables["ScopeWeekly"][0]
+    row.update(PrivacySuppressed=True)
+    for field in ("Amount", "InputTokens", "OutputTokens", "Requests", "AgentRuns",
+                  "ActiveUsers", "UserDays"):
+        row[field] = None
+    row["High"] = 1
+    with pytest.raises(ValueError, match="retain"):
+        validate_tables(tables)
+
+
+@pytest.mark.parametrize("table,field,value", [
+    ("Outcomes", "AgentKey", "nonexistent-agent"),
+    ("Outcomes", "ScopeKey", "nonexistent-scope"),
+    ("Accounts", "PersonKey", "nonexistent-person"),
+    ("ScopeDaily", "ModelKey", "nonexistent-model"),
+])
+def test_all_reported_fact_references_must_exist(demo, table, field, value):
+    _, tables, _ = demo
+    tables[table][0][field] = value
+    with pytest.raises(ValueError, match="unknown"):
+        validate_tables(tables)
+
+
+def test_early_year_build_includes_all_completed_week_dates(demo):
+    _, _, inputs = demo
+    event = {
+        "id": "january-example", "date": "2026-01-02", "upn": "user01@example.com",
+        "scope": "demo-engineering", "platform": "AI gateway", "surface": "Example API",
+        "model": "Example model", "source": "Example", "activity": True,
+        "requests": 1, "currency": "USD",
+    }
+    tables = GoldBuilder(inputs).build([event], is_demo=True)
+    dates = {row["Date"] for row in tables["Calendar"]}
+    assert all(row["WeekStart"] in dates for row in tables["ScopeWeekly"])

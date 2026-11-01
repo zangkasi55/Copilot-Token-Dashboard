@@ -69,6 +69,8 @@ th{background:var(--cp-surface-soft)}tr{break-inside:avoid}pre{white-space:pre-w
 p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,"Courier New",Courier,monospace}
 figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;height:auto;border:1px solid var(--cp-border);border-radius:.625rem}figcaption{font-size:9pt;color:var(--cp-text-muted);margin-top:6pt}
 </style></head><body><h1>Installation Guide</h1>
+<p>Version 1.0.1 · rechecked 2026-11-01.</p>
+<p>See the Thai illustrated installation guide (INSTALLATION_TH.md) and validation report (VALIDATION.md). This remains a public preview: mock tests and schema/compiler checks are not a successful live tenant or Desktop smoke test.</p>
 <h2>1. What this package does</h2>
 <p>Copilot Token Dashboard is a tenant-owned Power BI reference application. It provides ten report pages for personal usage, organization aggregates, agent operations, models, value scenarios, budgets and data quality.</p>
 <p>It does not grant access to another organization&#39;s data. Every recipient uses their own Microsoft tenant, Power BI workspace, source permissions and secrets. The installation demonstration is synthetic and is marked on every page.</p>
@@ -86,7 +88,7 @@ figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;heig
 <p>Do not disable enterprise execution policies or security controls to run the script. Follow your organization&#39;s approved script-execution process.</p>
 <h2>4. Open the demonstration locally</h2>
 <pre><code>.\Install.ps1 -Action Local -SourceMode Demo</code></pre>
-<p>The script creates a new version-specific folder under your local application data and opens the PBIP. An existing installation folder is not overwritten. Use -InstallFolder C:\CTD\Demo-1.0.0 to choose a new folder.</p>
+<p>The script creates a new version-specific folder under your local application data and opens the PBIP. An existing installation folder is not overwritten. Use -InstallFolder C:\CTD\Demo-1.0.1 to choose a new folder.</p>
 <p>In Power BI Desktop:</p>
 <p class="list">1. Wait for the project to open.</p>
 <p class="list">2. Select Refresh if the data is not yet loaded.</p>
@@ -136,7 +138,7 @@ ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
 <h3>CSV</h3>
 <pre><code>.\Install.ps1 -Action Local -SourceMode CSV `
   -DataFolder C:\CTD\runtime\gold-2026-05-28 `
-  -InstallFolder C:\CTD\Customer-1.0.0</code></pre>
+  -InstallFolder C:\CTD\Customer-1.0.1</code></pre>
 <p>The Power BI Service cannot read your local folder without a configured on-premises data gateway. A Desktop-published snapshot can be viewed without scheduled refresh, but it is not a live pipeline.</p>
 <h3>SharePoint</h3>
 <p>Upload a complete, validated generation of the contract CSV files to an approved folder in your own tenant. Use the exact folder URL, including its trailing slash, and configure organizational OAuth credentials:</p>
@@ -147,6 +149,7 @@ ctd validate-data --input runtime\gold-2026-05-28 --production</code></pre>
   -SharePointFolder &#39;https://&lt;your-tenant&gt;.sharepoint.com/sites/AIReporting/Shared Documents/Gold/&#39;</code></pre>
 <p>The local validated folder is required as a preflight mirror. The model reads the SharePoint files after deployment, not that local mirror.</p>
 <p>A file must match its expected name and exact folder once; missing or duplicate matches fail explicitly. Credentials are not shipped in the model.</p>
+<p>Version 1.0.1 validates that the HTTPS folder is genuinely under the selected site and has its trailing slash before copying/deployment. Local CSV paths are resolved to absolute paths. Data validation also rejects malformed Settings, incorrect row widths, unknown fact references and small unsuppressed cohorts.</p>
 <h2>9. Security and go-live checks</h2>
 <p class="list">&#8226; Use the Viewer RLS role; app page visibility is not a security boundary.</p>
 <p class="list">&#8226; Give consumers Viewer/app access, not Workspace Member or Contributor.</p>
