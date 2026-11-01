@@ -14,6 +14,7 @@ from .schema import TABLES, read_table
 from .gold import validate_tables
 
 PRODUCT = "Copilot Token Dashboard"
+DISPLAY_NAME = "SCBX Copilot Token Dashboard"
 
 
 def token_tenant(token: str) -> str:
@@ -185,9 +186,9 @@ def deploy(
     client = ApiClient("https://api.fabric.microsoft.com", token)
     publisher = FabricDeployer(client, workspace)
     model = publisher.publish(
-        "semanticModels", PRODUCT, semantic_parts(project, mode, data_folder, site, folder), update)
+        "semanticModels", DISPLAY_NAME, semantic_parts(project, mode, data_folder, site, folder), update)
     report = publisher.publish(
-        "reports", PRODUCT, report_parts(project, model["id"]), update)
+        "reports", DISPLAY_NAME, report_parts(project, model["id"]), update)
     result = {
         "tenant_id": tenant, "workspace_id": workspace, "semantic_model_id": model["id"],
         "report_id": report["id"], "source_mode": mode,

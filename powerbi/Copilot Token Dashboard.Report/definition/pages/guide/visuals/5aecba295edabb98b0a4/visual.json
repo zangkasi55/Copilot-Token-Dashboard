@@ -3,9 +3,9 @@
   "name": "5aecba295edabb98b0a4",
   "position": {
     "x": 1160,
-    "y": 12,
-    "width": 424,
-    "height": 68,
+    "y": 0,
+    "width": 440,
+    "height": 80,
     "z": 1,
     "tabOrder": 1
   },
@@ -56,16 +56,23 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#17324D'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13"
+                  "Value": "12"
                 }
               }
             }
@@ -87,7 +94,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#8F47BF'"
                     }
                   }
                 }
@@ -109,7 +116,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -118,9 +125,16 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#DCE4EC'"
+                      "Value": "'#E7DCF3'"
                     }
                   }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8"
                 }
               }
             }
@@ -134,6 +148,52 @@
               "expr": {
                 "Literal": {
                   "Value": "'Data freshness. Read metric coverage before interpretation.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

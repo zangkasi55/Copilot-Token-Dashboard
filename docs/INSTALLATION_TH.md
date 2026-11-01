@@ -1,9 +1,13 @@
 # คู่มือการติดตั้ง Copilot Token Dashboard
 
+**สาขา scbx:** ใช้ [คำแนะนำและชุดติดตั้ง SCBX](SCBX.md)
+ธีม SCBX Bright ใช้กับ PBIR/PBIT จริง ส่วนภาพเดิมในคู่มือเป็นตัวอย่างกลางบนเบราว์เซอร์
+ไม่ใช่ภาพ Power BI รุ่น SCBX ที่ยืนยันการ render แล้ว
+
 **รุ่น 1.0.1 · ปรับปรุงและทดสอบซ้ำวันที่ 1 พฤศจิกายน 2569 (2026-11-01)**
 
-คู่มือนี้ใช้กับ [ชุดติดตั้ง v1.0.1](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1)
-และ [PDF ภาษาไทย](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf)
+คู่มือนี้ใช้กับ [ชุดติดตั้ง SCBX v1.0.1](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1)
+และ [PDF ภาษาไทย](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/scbx-v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf)
 ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน [รายงานการทดสอบ](VALIDATION.md)
 
 **สถานะยังเป็น public preview** การผ่าน unit tests, schema และการสร้าง PBIT
@@ -68,8 +72,8 @@ python --version
 
 ดาวน์โหลดไฟล์ ZIP และ SHA256SUMS จาก release เดียวกัน:
 
-- Copilot-Token-Dashboard-1.0.1-Install.zip
-- Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt
+- Copilot-Token-Dashboard-SCBX-1.0.1-Install.zip
+- Copilot-Token-Dashboard-SCBX-1.0.1-SHA256SUMS.txt
 
 อย่าใช้ checksum ของรุ่น 1.0.0 ตรวจ ZIP รุ่น 1.0.1
 ตรวจ SHA-256 แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น
@@ -81,8 +85,8 @@ python --version
 ปรับตำแหน่งให้ตรงกับไฟล์ที่คุณดาวน์โหลด:
 
 ```powershell
-$zip = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-1.0.1-Install.zip'
-$sums = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt'
+$zip = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-SCBX-1.0.1-Install.zip'
+$sums = Join-Path $env:USERPROFILE 'Downloads\Copilot-Token-Dashboard-SCBX-1.0.1-SHA256SUMS.txt'
 $name = [IO.Path]::GetFileName($zip)
 $entry = @(Get-Content -LiteralPath $sums | Where-Object { $_.EndsWith('  ' + $name) })
 if ($entry.Count -ne 1) { throw 'Expected exactly one checksum entry.' }
@@ -90,7 +94,7 @@ $expected = ($entry[0] -split '\s+', 2)[0]
 $actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
 if ($actual -ne $expected) { throw 'Checksum mismatch. Do not install this file.' }
 'SHA256 PASS'
-Expand-Archive -LiteralPath $zip -DestinationPath 'C:\CopilotTokenDashboard-1.0.1'
+Expand-Archive -LiteralPath $zip -DestinationPath 'C:\CopilotTokenDashboard-SCBX-1.0.1'
 ```
 
 ผลที่ควรเห็นคือ SHA256 PASS หากไม่ตรงให้หยุดและดาวน์โหลดใหม่จาก release ที่ถูกต้อง
@@ -99,7 +103,7 @@ Expand-Archive -LiteralPath $zip -DestinationPath 'C:\CopilotTokenDashboard-1.0.
 ### 3.2 ตรวจข้อมูลและ dependency โดยยังไม่สร้าง resource
 
 ```powershell
-Set-Location C:\CopilotTokenDashboard-1.0.1
+Set-Location C:\CopilotTokenDashboard-SCBX-1.0.1
 .\Install.ps1 -Action Validate -InstallDependencies
 ```
 
@@ -122,7 +126,7 @@ semantic model มี 22 ตาราง เพราะรวมตาราง
 
 ### 4.1 เปิด PBIT โดยไม่ใช้สคริปต์
 
-1. เปิด Copilot-Token-Dashboard-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop
+1. เปิด Copilot-Token-Dashboard-SCBX-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop
 2. เมื่อถามพารามิเตอร์ ให้ตั้ง SourceMode เป็น Demo
 3. DataFolder, SharePointSite และ SharePointFolder เว้นว่างได้ใน Demo
 4. รอให้โหลดข้อมูลหรือกด Refresh แล้วตรวจป้าย SYNTHETIC DEMO
@@ -138,7 +142,7 @@ PBIT รวมนิยามรายงานและโมเดล ไม�
 .\Install.ps1 -Action Local -SourceMode Demo
 ```
 
-สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\1.0.1 ใน local application data แล้วเปิด PBIP
+สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\SCBX\1.0.1 ใน local application data แล้วเปิด PBIP
 ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด `-InstallFolder`
 เป็นโฟลเดอร์ใหม่
 

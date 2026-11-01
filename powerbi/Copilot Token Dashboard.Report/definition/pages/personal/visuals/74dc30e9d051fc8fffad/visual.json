@@ -126,16 +126,23 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#17324D'"
+                      "Value": "'#4B2885'"
                     }
                   }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13"
+                  "Value": "12"
                 }
               }
             }
@@ -188,9 +195,16 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#DCE4EC'"
+                      "Value": "'#E7DCF3'"
                     }
                   }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8"
                 }
               }
             }

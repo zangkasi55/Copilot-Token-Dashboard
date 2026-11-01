@@ -4,5 +4,31 @@
   "displayName": "My AI Usage",
   "displayOption": "FitToWidth",
   "width": 1600,
-  "height": 1850
+  "height": 1850,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F7F3FC'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
 }

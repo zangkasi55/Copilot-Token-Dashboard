@@ -69,8 +69,9 @@ th{background:var(--cp-surface-soft)}tr{break-inside:avoid}pre{white-space:pre-w
 p{margin:6pt 0}.list{padding-left:12pt}code{font-family:Consolas,"Courier New",Courier,monospace}
 figure{margin:12pt 0;break-inside:avoid}figure img{display:block;width:100%;height:auto;border:1px solid var(--cp-border);border-radius:.625rem}figcaption{font-size:9pt;color:var(--cp-text-muted);margin-top:6pt}
 </style></head><body><h1>คู่มือการติดตั้ง Copilot Token Dashboard</h1>
+<p>สาขา scbx: ใช้ คำแนะนำและชุดติดตั้ง SCBX (SCBX.md) ธีม SCBX Bright ใช้กับ PBIR/PBIT จริง ส่วนภาพเดิมในคู่มือเป็นตัวอย่างกลางบนเบราว์เซอร์ ไม่ใช่ภาพ Power BI รุ่น SCBX ที่ยืนยันการ render แล้ว</p>
 <p>รุ่น 1.0.1 · ปรับปรุงและทดสอบซ้ำวันที่ 1 พฤศจิกายน 2569 (2026-11-01)</p>
-<p>คู่มือนี้ใช้กับ ชุดติดตั้ง v1.0.1 (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1) และ PDF ภาษาไทย (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf) ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน รายงานการทดสอบ (VALIDATION.md)</p>
+<p>คู่มือนี้ใช้กับ ชุดติดตั้ง SCBX v1.0.1 (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1) และ PDF ภาษาไทย (https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/scbx-v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf) ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน รายงานการทดสอบ (VALIDATION.md)</p>
 <p>สถานะยังเป็น public preview การผ่าน unit tests, schema และการสร้าง PBIT ไม่ได้ยืนยันว่ารายงาน render หรือเชื่อมต่อ source จริงใน tenant ของคุณแล้ว ต้องผ่าน checklist ก่อน go-live ในหัวข้อ 9 ก่อนใช้งาน production</p>
 <h2>1. ภาพรวม</h2>
 <p>ชุดนี้เป็นรายงาน Power BI แบบโอเพนซอร์สสำหรับติดตั้งใน tenant ขององค์กรคุณเอง มี 10 หน้า ครอบคลุมการใช้งานส่วนตัว ข้อมูลรวมขององค์กร agent โมเดล งบประมาณ สมมติฐานด้านคุณค่า และคุณภาพข้อมูล</p>
@@ -88,13 +89,13 @@ python --version</code></pre>
 <p>ใช้ PowerShell 7 ขึ้นไปสำหรับสคริปต์นี้ และ Python 3.10 ขึ้นไป ตรวจว่า python เป็น interpreter ที่คุณตั้งใจใช้ หากองค์กรกำหนด virtual environment ให้เปิด environment นั้นก่อนรัน Install.ps1 เพื่อให้ dependency อยู่ในที่เดียวกัน การดูตัวอย่างในเว็บไม่ใช่การตรวจว่า Power BI Desktop ใช้งานได้</p>
 <h2>3. ดาวน์โหลดและตรวจชุด</h2>
 <p>ดาวน์โหลดไฟล์ ZIP และ SHA256SUMS จาก release เดียวกัน:</p>
-<p class="list">&#8226; Copilot-Token-Dashboard-1.0.1-Install.zip</p>
-<p class="list">&#8226; Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt</p>
+<p class="list">&#8226; Copilot-Token-Dashboard-SCBX-1.0.1-Install.zip</p>
+<p class="list">&#8226; Copilot-Token-Dashboard-SCBX-1.0.1-SHA256SUMS.txt</p>
 <p>อย่าใช้ checksum ของรุ่น 1.0.0 ตรวจ ZIP รุ่น 1.0.1 ตรวจ SHA-256 แล้วแตกไฟล์ลงโฟลเดอร์ใหม่ เช่น C:\CopilotTokenDashboard</p>
 <h3>3.1 ตรวจ checksum ก่อนแตก ZIP</h3>
 <p>ตัวอย่างต่อไปนี้สมมติว่าทั้งสองไฟล์อยู่ในโฟลเดอร์ Downloads ปรับตำแหน่งให้ตรงกับไฟล์ที่คุณดาวน์โหลด:</p>
-<pre><code>$zip = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-1.0.1-Install.zip&#39;
-$sums = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-1.0.1-SHA256SUMS.txt&#39;
+<pre><code>$zip = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-SCBX-1.0.1-Install.zip&#39;
+$sums = Join-Path $env:USERPROFILE &#39;Downloads\Copilot-Token-Dashboard-SCBX-1.0.1-SHA256SUMS.txt&#39;
 $name = [IO.Path]::GetFileName($zip)
 $entry = @(Get-Content -LiteralPath $sums | Where-Object { $_.EndsWith(&#39;  &#39; + $name) })
 if ($entry.Count -ne 1) { throw &#39;Expected exactly one checksum entry.&#39; }
@@ -102,10 +103,10 @@ $expected = ($entry[0] -split &#39;\s+&#39;, 2)[0]
 $actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
 if ($actual -ne $expected) { throw &#39;Checksum mismatch. Do not install this file.&#39; }
 &#39;SHA256 PASS&#39;
-Expand-Archive -LiteralPath $zip -DestinationPath &#39;C:\CopilotTokenDashboard-1.0.1&#39;</code></pre>
+Expand-Archive -LiteralPath $zip -DestinationPath &#39;C:\CopilotTokenDashboard-SCBX-1.0.1&#39;</code></pre>
 <p>ผลที่ควรเห็นคือ SHA256 PASS หากไม่ตรงให้หยุดและดาวน์โหลดใหม่จาก release ที่ถูกต้อง อย่าใช้ Force เพื่อเขียนทับโฟลเดอร์ติดตั้งเดิมที่มีข้อมูลหรือ config ของคุณ</p>
 <h3>3.2 ตรวจข้อมูลและ dependency โดยยังไม่สร้าง resource</h3>
-<pre><code>Set-Location C:\CopilotTokenDashboard-1.0.1
+<pre><code>Set-Location C:\CopilotTokenDashboard-SCBX-1.0.1
 .\Install.ps1 -Action Validate -InstallDependencies</code></pre>
 <p>คำสั่งนี้ติดตั้งเฉพาะ dependency ที่ประกาศไว้ และตรวจข้อมูลสมมติทุกตาราง ยังไม่สร้าง resource ใน tenant</p>
 <p>ผลที่ควรเห็น:</p>
@@ -116,7 +117,7 @@ Expand-Archive -LiteralPath $zip -DestinationPath &#39;C:\CopilotTokenDashboard-
 <p>อย่าปิด execution policy หรือมาตรการรักษาความปลอดภัยขององค์กร ให้ใช้กระบวนการรันสคริปต์ที่องค์กรอนุมัติ</p>
 <h2>4. เปิดข้อมูลสาธิตบนเครื่อง</h2>
 <h3>4.1 เปิด PBIT โดยไม่ใช้สคริปต์</h3>
-<p class="list">1. เปิด Copilot-Token-Dashboard-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop</p>
+<p class="list">1. เปิด Copilot-Token-Dashboard-SCBX-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop</p>
 <p class="list">2. เมื่อถามพารามิเตอร์ ให้ตั้ง SourceMode เป็น Demo</p>
 <p class="list">3. DataFolder, SharePointSite และ SharePointFolder เว้นว่างได้ใน Demo</p>
 <p class="list">4. รอให้โหลดข้อมูลหรือกด Refresh แล้วตรวจป้าย SYNTHETIC DEMO</p>
@@ -124,7 +125,7 @@ Expand-Archive -LiteralPath $zip -DestinationPath &#39;C:\CopilotTokenDashboard-
 <p>PBIT รวมนิยามรายงานและโมเดล ไม่ได้ให้ credentials ของ source ในโหมด CSV หรือ SharePoint ต้องตั้งค่าตามหัวข้อ 8 หาก Desktop ค้างหรือ render ไม่ได้ อย่าถือว่าภาพสาธิตในเว็บเป็นผลทดสอบแทน</p>
 <h3>4.2 ติดตั้ง PBIP ด้วยสคริปต์</h3>
 <pre><code>.\Install.ps1 -Action Local -SourceMode Demo</code></pre>
-<p>สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\1.0.1 ใน local application data แล้วเปิด PBIP ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด -InstallFolder เป็นโฟลเดอร์ใหม่</p>
+<p>สคริปต์สร้างโฟลเดอร์ CopilotTokenDashboard\SCBX\1.0.1 ใน local application data แล้วเปิด PBIP ไม่เขียนทับโฟลเดอร์ติดตั้งเดิม หากมีโฟลเดอร์แล้วให้กำหนด -InstallFolder เป็นโฟลเดอร์ใหม่</p>
 <p>ใน Power BI Desktop:</p>
 <p class="list">1. รอให้โปรเจกต์เปิดเสร็จ แล้วกด Refresh ถ้ายังไม่มีข้อมูล</p>
 <p class="list">2. ตรวจป้ายข้อมูลสมมติและวันที่ Data through</p>

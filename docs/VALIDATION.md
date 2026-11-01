@@ -1,4 +1,24 @@
-# Code and Installation Recheck - 1.0.1
+# SCBX Branch Validation - 1.0.1
+
+The **scbx** variant passed **108 Python tests**, four Node manual tests,
+**172 PBIR/schema checks** and Microsoft theme schema **2.159**.
+The exact supplied theme settings are preserved and registered in PBIR.
+The compiled PBIT contains the matching theme resource and binding, ten pages,
+**156 visuals**, 22 tables and 101 measures.
+
+The ten additional visuals are decorative gold header lines. Core measures,
+security rules and synthetic CSV values are unchanged. Git normalized CSV line
+endings in 21 embedded import payloads; this does not change their parsed values.
+
+The installer preflight passed with a separate SCBX local folder and SCBX tenant
+item display names. `main` remains separate. Original mockups/private source data
+are not part of the branch.
+
+Desktop rendering and real tenant acceptance remain unverified. Existing
+browser screenshots are neutral synthetic illustrations, not SCBX captures.
+See [SCBX.md](SCBX.md) for details.
+
+## Original core code and installation recheck - 1.0.1
 
 Recheck date: **2026-11-01**. Release channel: **public preview**.
 

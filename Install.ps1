@@ -9,7 +9,7 @@ param(
     [string]$DataFolder,
     [string]$SharePointSite,
     [string]$SharePointFolder,
-    [string]$InstallFolder = (Join-Path $env:LOCALAPPDATA 'CopilotTokenDashboard\1.0.1'),
+    [string]$InstallFolder = (Join-Path $env:LOCALAPPDATA 'CopilotTokenDashboard\SCBX\1.0.1'),
     [switch]$InstallDependencies,
     [switch]$Update
 )

@@ -12,6 +12,37 @@ import requests
 from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT7
 
+THEME_SCHEMA_URL = (
+    "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/"
+    "Report%20Theme%20JSON%20Schema/reportThemeSchema-2.159.json"
+)
+
+
+def validate_scbx_theme(folder: Path, cache: Path) -> list[str]:
+    theme_path = folder / "SCBX_Theme.json"
+    if not theme_path.is_file():
+        return ["The SCBX branch requires its supplied SCBX_Theme.json"]
+    cache.mkdir(parents=True, exist_ok=True)
+    schema_path = cache / "reportThemeSchema-2.159.json"
+    if not schema_path.is_file():
+        response = requests.get(THEME_SCHEMA_URL, timeout=(15, 45))
+        response.raise_for_status()
+        schema_path.write_bytes(response.content)
+    theme = json.loads(theme_path.read_text(encoding="utf-8"))
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    problems = [
+        "SCBX theme: " + "/".join(map(str, error.path)) + ": " + error.message
+        for error in jsonschema.Draft7Validator(schema).iter_errors(theme)
+    ]
+    reports = list(folder.glob("*.Report"))
+    if len(reports) != 1:
+        problems.append("The SCBX theme must bind to exactly one report")
+    else:
+        embedded = reports[0] / "StaticResources" / "RegisteredResources" / theme_path.name
+        if not embedded.is_file() or embedded.read_bytes() != theme_path.read_bytes():
+            problems.append("The report's registered SCBX theme must match the canonical theme file")
+    return problems
+
 
 def schema_loader(cache: Path):
     cache.mkdir(parents=True, exist_ok=True)
@@ -39,7 +70,7 @@ def schema_loader(cache: Path):
 
 def validate(folder: Path, cache: Path) -> dict:
     load = schema_loader(cache)
-    problems, validated = [], 0
+    problems, validated = validate_scbx_theme(folder, cache), 0
     for path in sorted(folder.rglob("*")):
         if not path.is_file() or ".pbi" in path.parts:
             continue
@@ -109,7 +140,8 @@ def validate(folder: Path, cache: Path) -> dict:
         pages = list(folder.glob("*.Report/definition/pages/*/page.json"))
         if len(pages) != 10:
             problems.append("The release must contain all ten report pages")
-    result = {"schema_files_validated": validated, "errors": len(problems), "problems": problems}
+    result = {"schema_files_validated": validated, "theme_schema": "Microsoft 2.159",
+              "errors": len(problems), "problems": problems}
     if problems:
         for problem in problems:
             print(problem, file=sys.stderr)

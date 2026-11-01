@@ -31,12 +31,30 @@ def build(project: Path, model_source: Path, output: Path) -> dict:
     shutil.copytree(model_source, output / "Model")
     manifest = json.loads((project / "build-manifest.json").read_text(encoding="utf-8"))
     report = project / (PRODUCT + ".Report")
+    report_definition = json.loads((report / "definition" / "report.json").read_text(encoding="utf-8"))
+    package_types = {"RegisteredResources": 1, "SharedResources": 2}
+    item_types = {"Image": 100, "ShapeMap": 200, "CustomTheme": 201, "BaseTheme": 202}
+    themes = {}
+    for name, theme in report_definition["themeCollection"].items():
+        if theme["type"] not in package_types:
+            raise ValueError("The compiler source contains an unsupported theme package type")
+        themes[name] = {**theme, "type": package_types[theme["type"]]}
+    resource_packages = []
+    for package in report_definition.get("resourcePackages", []):
+        if package["type"] not in package_types or any(item["type"] not in item_types for item in package["items"]):
+            raise ValueError("The compiler source contains an unsupported resource package")
+        resource_packages.append({"resourcePackage": {
+            **package, "type": package_types[package["type"]],
+            "items": [{**item, "type": item_types[item["type"]]} for item in package["items"]],
+        }})
+    if (report / "StaticResources").is_dir():
+        shutil.copytree(report / "StaticResources", output / "StaticResources")
     sections = []
     for ordinal, page in enumerate(manifest["pages"]):
         containers = []
         for visual in page["visuals"]:
             source = json.loads((report / "definition" / "pages" / page["name"] / "visuals" / visual["id"] / "visual.json").read_text(encoding="utf-8"))
-            query_state = source["visual"]["query"]["queryState"]
+            query_state = source["visual"].get("query", {}).get("queryState", {})
             entities = []
             for state in query_state.values():
                 for projection in state["projections"]:
@@ -60,16 +78,18 @@ def build(project: Path, model_source: Path, output: Path) -> dict:
                 "Select": selections,
             }
             position = source["position"]
+            single_visual = {
+                "visualType": source["visual"]["visualType"],
+                "vcObjects": source["visual"]["visualContainerObjects"],
+                "objects": source["visual"].get("objects", {}),
+                "drillFilterOtherVisuals": True,
+            }
+            if selections:
+                single_visual.update({"projections": projections, "prototypeQuery": prototype})
             config = {
                 "name": visual["id"],
                 "layouts": [{"id": 0, "position": position}],
-                "singleVisual": {
-                    "visualType": source["visual"]["visualType"],
-                    "projections": projections, "prototypeQuery": prototype,
-                    "vcObjects": source["visual"]["visualContainerObjects"],
-                    "objects": source["visual"].get("objects", {}),
-                    "drillFilterOtherVisuals": True,
-                },
+                "singleVisual": single_visual,
             }
             binding = {
                 "Primary": {"Groupings": [{"Projections": list(range(len(selections)))}]},
@@ -79,17 +99,21 @@ def build(project: Path, model_source: Path, output: Path) -> dict:
             query = {"Commands": [{"SemanticQueryDataShapeCommand": {
                 "Query": prototype, "Binding": binding, "ExecutionMetricsKind": 1,
             }}]}
-            containers.append({
+            container = {
                 "x": position["x"], "y": position["y"], "z": position["z"],
                 "width": position["width"], "height": position["height"],
-                "config": json.dumps(config), "query": json.dumps(query), "filters": "[]",
-            })
+                "config": json.dumps(config), "filters": "[]",
+            }
+            if selections:
+                container["query"] = json.dumps(query)
+            containers.append(container)
         page_definition = json.loads((report / "definition" / "pages" / page["name"] / "page.json").read_text(encoding="utf-8"))
         sections.append({
             "name": page["name"], "displayName": page["title"], "ordinal": ordinal,
             "width": page_definition["width"], "height": page_definition["height"],
             "displayOption": 1 if page_definition["height"] > 1000 else 0,
-            "visualContainers": containers, "filters": "[]", "config": "{}",
+            "visualContainers": containers, "filters": "[]",
+            "config": json.dumps({"objects": page_definition.get("objects", {})}),
         })
     layout = {
         "id": 0, "reportId": "public-template", "sections": sections,
@@ -97,13 +121,10 @@ def build(project: Path, model_source: Path, output: Path) -> dict:
             "version": "5.57", "activeSectionIndex": 0,
             "defaultDrillFilterOtherVisuals": True,
             "settings": {"useStylableVisualContainerHeader": True, "exportDataMode": 1},
-            "themeCollection": {
-                "baseTheme": {"name": "CY24SU10", "type": 2,
-                              "reportVersionAtImport": {"visual": "2.4.0", "page": "2.0.0", "report": "3.0.0"}},
-            },
+            "themeCollection": themes,
         }),
         "filters": "[]",
-        "resourcePackages": [],
+        "resourcePackages": resource_packages,
     }
     write(output / "Report" / "report.json", layout)
     write(output / ".pbixproj.json", {

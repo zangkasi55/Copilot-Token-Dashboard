@@ -1,5 +1,10 @@
 # Installation Guide
 
+**SCBX branch:** use the [SCBX-specific notes and release](SCBX.md), not the
+neutral main-branch template. Local default installations go into
+`CopilotTokenDashboard\SCBX\1.0.1`; tenant item names use the SCBX prefix.
+Existing screenshot figures illustrate the neutral browser sample.
+
 **Version 1.0.1 · rechecked 2026-11-01.**
 
 See the [Thai illustrated installation guide](INSTALLATION_TH.md) and

@@ -1,4 +1,18 @@
-# Release 1.0.1 - Thai installation guide and code recheck
+# SCBX Theme Variant - 1.0.1 Public Preview
+
+Branch/release: `scbx` / `scbx-v1.0.1`.
+
+- Applied the supplied SCBX Bright palette, typography and table/page styles.
+- Added SCBX purple headers, white header text and ten gold header dividers.
+- Registered the theme in PBIR and embedded it in the compiled PBIT.
+- Preserved the core model, data contract, ten pages and six-person privacy rule.
+- Used separate local-installation folders and SCBX tenant item display names.
+- The original PDF/private source documents and real tenant data are not included.
+
+See [SCBX.md](SCBX.md) for branch-specific setup and validation. Existing browser
+screenshots remain neutral illustrations, not SCBX Power BI rendering evidence.
+
+## Core Release 1.0.1 - Thai installation guide and code recheck
 
 Public preview, updated 2026-11-01.
 

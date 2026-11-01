@@ -2,7 +2,7 @@
   "product": "Copilot Token Dashboard",
   "version": "1.0.1",
   "pageCount": 10,
-  "visualCount": 146,
+  "visualCount": 156,
   "tableCount": 22,
   "measureCount": 101,
   "roles": [
@@ -13,7 +13,7 @@
     {
       "name": "overview",
       "title": "Overview",
-      "visualCount": 15,
+      "visualCount": 16,
       "visuals": [
         {
           "id": "4d8cbf3103554dd8c941",
@@ -29,10 +29,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -52,9 +52,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -373,13 +373,27 @@
             "z": 14,
             "tabOrder": 14
           }
+        },
+        {
+          "id": "51880f1e1e0beb01f5d1",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 15,
+            "tabOrder": 15
+          }
         }
       ]
     },
     {
       "name": "personal",
       "title": "My AI Usage",
-      "visualCount": 16,
+      "visualCount": 17,
       "visuals": [
         {
           "id": "057be0bc06faa2f3d5d3",
@@ -395,10 +409,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -418,9 +432,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -819,13 +833,27 @@
             "z": 15,
             "tabOrder": 15
           }
+        },
+        {
+          "id": "18326aaabfa8a656e574",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 16,
+            "tabOrder": 16
+          }
         }
       ]
     },
     {
       "name": "organization",
       "title": "Organization Usage",
-      "visualCount": 14,
+      "visualCount": 15,
       "visuals": [
         {
           "id": "6c72b6cc44c5bbae5578",
@@ -841,10 +869,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -864,9 +892,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -1168,13 +1196,27 @@
             "z": 13,
             "tabOrder": 13
           }
+        },
+        {
+          "id": "1c7d88eacd31d715bc3c",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 14,
+            "tabOrder": 14
+          }
         }
       ]
     },
     {
       "name": "momentum",
       "title": "Adoption and Momentum",
-      "visualCount": 9,
+      "visualCount": 10,
       "visuals": [
         {
           "id": "b6026258449c1c0de756",
@@ -1190,10 +1232,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -1213,9 +1255,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -1409,13 +1451,27 @@
             "z": 8,
             "tabOrder": 8
           }
+        },
+        {
+          "id": "2e982ace04e265bb0795",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 9,
+            "tabOrder": 9
+          }
         }
       ]
     },
     {
       "name": "agents",
       "title": "Agents",
-      "visualCount": 13,
+      "visualCount": 14,
       "visuals": [
         {
           "id": "66c00bc9330a6462d60b",
@@ -1431,10 +1487,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -1454,9 +1510,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -1752,13 +1808,27 @@
             "z": 12,
             "tabOrder": 12
           }
+        },
+        {
+          "id": "f519a16077452f971711",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 13,
+            "tabOrder": 13
+          }
         }
       ]
     },
     {
       "name": "agent_detail",
       "title": "Agent Detail",
-      "visualCount": 15,
+      "visualCount": 16,
       "visuals": [
         {
           "id": "7e04c334311b4d663446",
@@ -1774,10 +1844,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -1797,9 +1867,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -2139,13 +2209,27 @@
             "z": 14,
             "tabOrder": 14
           }
+        },
+        {
+          "id": "5a9a94ef3aa756440f68",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 15,
+            "tabOrder": 15
+          }
         }
       ]
     },
     {
       "name": "outcomes",
       "title": "Agent Outcomes",
-      "visualCount": 15,
+      "visualCount": 16,
       "visuals": [
         {
           "id": "ed2bc047d48d6906ee18",
@@ -2161,10 +2245,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -2184,9 +2268,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -2517,13 +2601,27 @@
             "z": 14,
             "tabOrder": 14
           }
+        },
+        {
+          "id": "1134a948c8b7d9f7f795",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 15,
+            "tabOrder": 15
+          }
         }
       ]
     },
     {
       "name": "value",
       "title": "Value and Budget",
-      "visualCount": 18,
+      "visualCount": 19,
       "visuals": [
         {
           "id": "f6118a20137af89ea3f9",
@@ -2539,10 +2637,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -2562,9 +2660,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -2945,13 +3043,27 @@
             "z": 17,
             "tabOrder": 17
           }
+        },
+        {
+          "id": "4239413d134f52adb50c",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 18,
+            "tabOrder": 18
+          }
         }
       ]
     },
     {
       "name": "models",
       "title": "Models and Efficiency",
-      "visualCount": 15,
+      "visualCount": 16,
       "visuals": [
         {
           "id": "fe9af1b8bb0101b12b27",
@@ -2967,10 +3079,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -2990,9 +3102,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -3316,13 +3428,27 @@
             "z": 14,
             "tabOrder": 14
           }
+        },
+        {
+          "id": "a299f226c9ade03c2889",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 15,
+            "tabOrder": 15
+          }
         }
       ]
     },
     {
       "name": "guide",
       "title": "Data Quality and Guide",
-      "visualCount": 16,
+      "visualCount": 17,
       "visuals": [
         {
           "id": "7252250d3b31e4a8ca8a",
@@ -3338,10 +3464,10 @@
             ]
           },
           "position": {
-            "x": 16,
-            "y": 12,
-            "width": 1130,
-            "height": 68,
+            "x": 0,
+            "y": 0,
+            "width": 1160,
+            "height": 80,
             "z": 0,
             "tabOrder": 0
           }
@@ -3361,9 +3487,9 @@
           },
           "position": {
             "x": 1160,
-            "y": 12,
-            "width": 424,
-            "height": 68,
+            "y": 0,
+            "width": 440,
+            "height": 80,
             "z": 1,
             "tabOrder": 1
           }
@@ -3700,8 +3826,25 @@
             "z": 15,
             "tabOrder": 15
           }
+        },
+        {
+          "id": "140c155233c96369f845",
+          "type": "shape",
+          "title": "SCBX gold header accent",
+          "roles": {},
+          "position": {
+            "x": 0,
+            "y": 80,
+            "width": 1600,
+            "height": 4,
+            "z": 16,
+            "tabOrder": 16
+          }
         }
       ]
     }
-  ]
+  ],
+  "variant": "SCBX",
+  "theme": "SCBX Bright",
+  "themeFile": "SCBX_Theme.json"
 }

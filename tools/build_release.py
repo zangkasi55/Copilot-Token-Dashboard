@@ -12,7 +12,7 @@ from copilot_token_dashboard import __version__
 from publication_check import inspect, public_files
 
 VERSION = __version__
-PREFIX = "Copilot-Token-Dashboard-" + VERSION
+PREFIX = "Copilot-Token-Dashboard-SCBX-" + VERSION
 
 
 def verify_template(template: Path) -> dict:
@@ -27,9 +27,18 @@ def verify_template(template: Path) -> dict:
         pages = len(layout["sections"])
         visuals = sum(len(page["visualContainers"]) for page in layout["sections"])
         measures = sum(len(table.get("measures", [])) for table in model["model"]["tables"])
-        if pages != 10 or visuals < 100 or measures < 80:
+        if pages != 10 or visuals != 156 or measures != 101:
             raise ValueError("The compiled template does not contain the complete report/model")
-        return {"pages": pages, "visuals": visuals, "tables": len(model["model"]["tables"]), "measures": measures}
+        configuration = json.loads(layout["config"])
+        theme = configuration["themeCollection"].get("customTheme", {})
+        if theme.get("name") != "SCBX_Theme" or theme.get("type") != 1:
+            raise ValueError("The SCBX template is missing its registered custom-theme binding")
+        resources = [name for name in archive.namelist() if name.endswith("/SCBX_Theme.json")]
+        expected = Path(__file__).resolve().parents[1] / "powerbi" / "SCBX_Theme.json"
+        if len(resources) != 1 or archive.read(resources[0]) != expected.read_bytes():
+            raise ValueError("The compiled SCBX theme resource does not match the supplied theme")
+        return {"pages": pages, "visuals": visuals, "tables": len(model["model"]["tables"]),
+                "measures": measures, "theme": "SCBX Bright"}
 
 
 def build(root: Path) -> dict:
@@ -69,13 +78,16 @@ def build(root: Path) -> dict:
         manual_assets.append(target)
     sample_asset = destination / "Copilot-Token-Dashboard-Sample.html"
     shutil.copyfile(sample, sample_asset)
-    artifacts = [archive_path, template] + manual_assets + [sample_asset]
+    theme_asset = destination / "SCBX_Theme.json"
+    shutil.copyfile(root / "powerbi" / "SCBX_Theme.json", theme_asset)
+    artifacts = [archive_path, template] + manual_assets + [sample_asset, theme_asset]
     checksums = []
     for file in artifacts:
         checksums.append(hashlib.sha256(file.read_bytes()).hexdigest() + "  " + file.name)
     (destination / (PREFIX + "-SHA256SUMS.txt")).write_text("\n".join(checksums) + "\n", encoding="utf-8")
     result = {
         "version": VERSION, "installation_zip": archive_path.name,
+        "variant": "SCBX", "branch": "scbx",
         "channel": "public-preview",
         "template": template.name, "template_verified": template_info,
         "source_files": len(files), "public_safety_errors": 0,

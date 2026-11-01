@@ -5,6 +5,7 @@ import base64
 import csv
 import hashlib
 import json
+import shutil
 import uuid
 from pathlib import Path
 
@@ -16,6 +17,17 @@ SCHEMAS = "https://developer.microsoft.com/json-schemas/fabric/"
 REPORT_SCHEMA = SCHEMAS + "item/report/definition/report/3.0.0/schema.json"
 PAGE_SCHEMA = SCHEMAS + "item/report/definition/page/2.0.0/schema.json"
 VISUAL_SCHEMA = SCHEMAS + "item/report/definition/visualContainer/2.4.0/schema.json"
+THEME_FILE = Path(__file__).resolve().parents[1] / "powerbi" / "SCBX_Theme.json"
+THEME = json.loads(THEME_FILE.read_text(encoding="utf-8"))
+PALETTE = {
+    "primary": THEME["tableAccent"],
+    "gold": THEME["dataColors"][1],
+    "title": THEME["textClasses"]["title"]["color"],
+    "page": THEME["minimum"],
+    "surface": THEME["background"],
+    "text": THEME["foreground"],
+    "border": THEME["visualStyles"]["*"]["*"]["border"][0]["color"]["solid"]["color"],
+}
 
 
 def save_json(path: Path, value: dict) -> None:
@@ -410,11 +422,17 @@ class Page:
             "$schema": PAGE_SCHEMA, "name": name, "displayName": title,
             "displayOption": "FitToWidth" if height > 1000 else "FitToPage",
             "width": 1600, "height": height,
+            "objects": {
+                "background": [{"properties": {
+                    "color": {"solid": {"color": literal(PALETTE["page"])}},
+                    "transparency": literal(0),
+                }}],
+            },
         })
 
     def visual(
         self, kind: str, title: str, roles: dict[str, list[tuple[str, str, bool]]],
-        x: int, y: int, width: int, height: int,
+        x: int, y: int, width: int, height: int, header: bool = False,
     ) -> None:
         name = ident(self.name, title, str(len(self.visuals)))
         query_state = {}
@@ -426,18 +444,32 @@ class Page:
         visual = {
             "visualType": kind, "query": {"queryState": query_state},
             "visualContainerObjects": {
-                "title": [{"properties": {"show": literal(True), "text": literal(title),
-                                          "fontColor": {"solid": {"color": literal("#17324D")}},
-                                          "fontSize": literal(13)}}],
+                "title": [{"properties": {
+                    "show": literal(True),
+                    "text": literal("SCBX - " + title if header and title == self.title else title),
+                    "fontColor": {"solid": {"color": literal(PALETTE["surface"] if header else PALETTE["title"])}},
+                    "fontFamily": literal("Segoe UI Semibold"),
+                    "fontSize": literal(20 if header and title == self.title else 12),
+                }}],
                 "background": [{"properties": {"show": literal(True),
-                    "color": {"solid": {"color": literal("#FFFFFF")}}, "transparency": literal(0)}}],
-                "border": [{"properties": {"show": literal(True),
-                    "color": {"solid": {"color": literal("#DCE4EC")}}}}],
+                    "color": {"solid": {"color": literal(PALETTE["primary"] if header else PALETTE["surface"])}},
+                    "transparency": literal(0)}}],
+                "border": [{"properties": {"show": literal(not header),
+                    "color": {"solid": {"color": literal(PALETTE["border"])}}, "radius": literal(8)}}],
                 "general": [{"properties": {"altText": literal(title + ". Read metric coverage before interpretation.")}}],
             },
         }
         if kind == "slicer":
             visual["objects"] = {"selection": [{"properties": {"singleSelect": literal(True)}}]}
+        elif kind == "card":
+            visual["objects"] = {
+                "labels": [{"properties": {
+                    "color": {"solid": {"color": literal(PALETTE["surface"] if header else PALETTE["title"])}},
+                    "fontFamily": literal("Segoe UI" if header else "Segoe UI Semibold"),
+                    "fontSize": literal(12 if header else 24),
+                }}],
+                "categoryLabels": [{"properties": {"show": literal(False)}}],
+            }
         definition = {
             "$schema": VISUAL_SCHEMA, "name": name,
             "position": {"x": x, "y": y, "width": width, "height": height,
@@ -448,12 +480,14 @@ class Page:
         self.visuals.append({"id": name, "type": kind, "title": title, "roles": roles,
                              "position": definition["position"]})
 
-    def card(self, title: str, measure: str, x: int, y: int, width: int = 248, height: int = 112) -> None:
-        self.visual("card", title, {"Values": [("Measures", measure, True)]}, x, y, width, height)
+    def card(self, title: str, measure: str, x: int, y: int, width: int = 248,
+             height: int = 112, header: bool = False) -> None:
+        self.visual("card", title, {"Values": [("Measures", measure, True)]},
+                    x, y, width, height, header)
 
     def common(self, personal: bool = False) -> None:
-        self.card(self.title, "Data Banner", 16, 12, 1130, 68)
-        self.card("Data freshness", "Data Date Label", 1160, 12, 424, 68)
+        self.card(self.title, "Data Banner", 0, 0, 1160, 80, header=True)
+        self.card("Data freshness", "Data Date Label", 1160, 0, 440, 80, header=True)
         self.visual("slicer", "Period", {"Values": [("Periods", "Label", False)]}, 16, 90, 300, 72)
         if not personal:
             self.visual("slicer", "Reporting scope", {"Values": [("Scopes", "Name", False)]}, 330, 90, 650, 72)
@@ -465,6 +499,33 @@ class Page:
 
     def table(self, title: str, selections: list[tuple[str, str, bool]], y: int, height: int = 280) -> None:
         self.visual("tableEx", title, {"Values": selections}, 16, y, 1568, height)
+
+    def accent_line(self) -> None:
+        name = ident(self.name, "SCBX gold header accent")
+        definition = {
+            "$schema": VISUAL_SCHEMA, "name": name,
+            "position": {"x": 0, "y": 80, "width": 1600, "height": 4,
+                         "z": len(self.visuals), "tabOrder": len(self.visuals)},
+            "visual": {
+                "visualType": "shape",
+                "objects": {
+                    "shape": [{"properties": {"tileShape": literal("rectangle")}}],
+                    "fill": [{"properties": {"show": literal(True),
+                        "fillColor": {"solid": {"color": literal(PALETTE["gold"])}},
+                        "transparency": literal(0)}, "selector": {"id": "default"}}],
+                    "outline": [{"properties": {"show": literal(False)}, "selector": {"id": "default"}}],
+                },
+                "visualContainerObjects": {
+                    "title": [{"properties": {"show": literal(False)}}],
+                    "background": [{"properties": {"show": literal(False)}}],
+                    "border": [{"properties": {"show": literal(False)}}],
+                    "general": [{"properties": {"altText": literal("SCBX gold header accent; decorative")}}],
+                },
+            },
+        }
+        save_json(self.folder / "visuals" / name / "visual.json", definition)
+        self.visuals.append({"id": name, "type": "shape", "title": "SCBX gold header accent",
+                             "roles": {}, "position": definition["position"]})
 
 
 def generate_report(folder: Path) -> list[dict]:
@@ -615,16 +676,31 @@ def generate_report(folder: Path) -> list[dict]:
     )):
         p.card(title, metric, 16, 682 + index * 150, 1568, 138)
     order = [item.name for item in pages]
+    for item in pages:
+        item.accent_line()
+    resources = folder / "StaticResources" / "RegisteredResources"
+    resources.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(THEME_FILE, resources / THEME_FILE.name)
     save_json(folder / "definition" / "pages" / "pages.json", {
         "$schema": SCHEMAS + "item/report/definition/pagesMetadata/1.0.0/schema.json",
         "pageOrder": order, "activePageName": order[0],
     })
     save_json(folder / "definition" / "report.json", {
         "$schema": REPORT_SCHEMA,
-        "themeCollection": {"baseTheme": {
-            "name": "CY24SU10", "type": "SharedResources",
-            "reportVersionAtImport": {"visual": "2.4.0", "page": "2.0.0", "report": "3.0.0"},
-        }},
+        "themeCollection": {
+            "baseTheme": {
+                "name": "CY24SU10", "type": "SharedResources",
+                "reportVersionAtImport": {"visual": "2.4.0", "page": "2.0.0", "report": "3.0.0"},
+            },
+            "customTheme": {
+                "name": THEME_FILE.stem, "type": "RegisteredResources",
+                "reportVersionAtImport": {"visual": "2.4.0", "page": "2.0.0", "report": "3.0.0"},
+            },
+        },
+        "resourcePackages": [{
+            "name": "RegisteredResources", "type": "RegisteredResources",
+            "items": [{"name": THEME_FILE.stem, "path": THEME_FILE.name, "type": "CustomTheme"}],
+        }],
         "settings": {"useStylableVisualContainerHeader": True, "exportDataMode": "AllowSummarized"},
     })
     return [{"name": item.name, "title": item.title, "visualCount": len(item.visuals),
@@ -656,6 +732,7 @@ def build(data: Path, output: Path) -> dict:
         "tableCount": len(model["model"]["tables"]),
         "measureCount": len(model["model"]["tables"][-1]["measures"]),
         "roles": ["Viewer"], "defaultMode": "Demo", "pages": pages,
+        "variant": "SCBX", "theme": THEME["name"], "themeFile": THEME_FILE.name,
     }
     save_json(output / "build-manifest.json", manifest)
     return {key: value for key, value in manifest.items() if key != "pages"}

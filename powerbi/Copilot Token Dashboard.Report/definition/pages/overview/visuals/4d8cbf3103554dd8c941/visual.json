@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "4d8cbf3103554dd8c941",
   "position": {
-    "x": 16,
-    "y": 12,
-    "width": 1130,
-    "height": 68,
+    "x": 0,
+    "y": 0,
+    "width": 1160,
+    "height": 80,
     "z": 0,
     "tabOrder": 0
   },
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Overview'"
+                  "Value": "'SCBX - Overview'"
                 }
               }
             },
@@ -56,16 +56,23 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#17324D'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13"
+                  "Value": "20"
                 }
               }
             }
@@ -87,7 +94,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#8F47BF'"
                     }
                   }
                 }
@@ -109,7 +116,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -118,9 +125,16 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#DCE4EC'"
+                      "Value": "'#E7DCF3'"
                     }
                   }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8"
                 }
               }
             }
@@ -134,6 +148,52 @@
               "expr": {
                 "Literal": {
                   "Value": "'Overview. Read metric coverage before interpretation.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

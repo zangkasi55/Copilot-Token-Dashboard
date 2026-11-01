@@ -2,7 +2,7 @@ name: Validate public package
 
 on:
   push:
-    branches: [main]
+    branches: [scbx]
   pull_request:
   workflow_dispatch:
 

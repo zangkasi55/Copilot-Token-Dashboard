@@ -1,5 +1,12 @@
 # Copilot Token Dashboard
 
+## SCBX branch
+
+This is the **scbx** visual variant, using the supplied **SCBX Bright** Power BI
+theme and the mockups' purple/gold hierarchy. See [SCBX setup and scope](docs/SCBX.md).
+The theme is registered in the editable report and embedded in its compiled PBIT.
+Only synthetic data is included; the original mockup PDF is not published.
+
 A tenant-owned Power BI installation package for AI usage, token consumption,
 spend, agent operations, and data-quality reporting.
 
@@ -14,6 +21,9 @@ This is an independent open-source project. It is not an official Microsoft or
 GitHub product and does not include access to Microsoft-internal telemetry.
 
 ## Sample dashboard
+
+The browser image below is the retained **neutral** synthetic companion, not an
+SCBX Power BI capture. The SCBX palette is applied to the actual report/template.
 
 ![Browser-rendered synthetic dashboard illustration, not a verified Power BI screenshot.](docs/images/01-overview.png)
 
@@ -53,7 +63,7 @@ See the installation and operations documentation in `docs/`.
 ## Quick start
 
 1. Download the installation ZIP from
-   [the retested release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/v1.0.1).
+   [the SCBX preview release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1).
 2. Verify the SHA-256 checksum and extract into a new folder.
 3. Run `.\Install.ps1 -Action Validate -InstallDependencies`.
 4. Run `.\Install.ps1 -Action Local -SourceMode Demo`, or open the included PBIT
@@ -76,6 +86,7 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 - [Public requirements](docs/REQUIREMENTS.md)
 - [Release notes](docs/RELEASE_NOTES.md)
 - [Code and installation validation results](docs/VALIDATION.md)
+- [SCBX theme variant and installation notes](docs/SCBX.md)
 
 Portable PDF installation guides are in `docs/manuals/`; both include all ten
 sample screenshots and captions. Rights-protected Word
