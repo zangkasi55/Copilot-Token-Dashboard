@@ -195,8 +195,15 @@ function html(content, language) {
   }).join("\n");
   const theme = fs.readFileSync(path.join(__dirname, "clawpilot-theme.html"), "utf8");
   return `<!doctype html><html lang="${language}"><head><meta charset="utf-8">
-<title>Copilot Token Dashboard Installation Guide</title>${theme}<style>
+<title>Copilot Token Dashboard Installation Guide</title>${theme}<script>
+(() => {
+  const screenTheme = document.documentElement.getAttribute("data-theme");
+  window.addEventListener("beforeprint", () => document.documentElement.setAttribute("data-theme", "light"));
+  window.addEventListener("afterprint", () => document.documentElement.setAttribute("data-theme", screenTheme));
+})();
+</script><style>
 @page{size:Letter;margin:18mm 20mm}body{font-family:"Segoe UI",Aptos,Calibri,-apple-system,BlinkMacSystemFont,sans-serif;font-size:10.5pt;line-height:1.5;color:var(--cp-text);background:var(--cp-surface)}
+html[lang="th"] body{font-family:"Segoe UI",Tahoma,Aptos,Calibri,-apple-system,BlinkMacSystemFont,sans-serif}
 h1{font-size:21pt}h2{font-size:15pt;margin-top:18pt}h3{font-size:12pt}h1,h2,h3{break-after:avoid}
 table{width:100%;border-collapse:collapse;font-size:9pt;margin:12pt 0}td,th{border:1px solid var(--cp-border);padding:6pt;text-align:left}
 th{background:var(--cp-surface-soft)}tr{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--cp-surface-soft);padding:10pt;font-size:8.5pt}

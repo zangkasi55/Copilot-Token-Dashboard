@@ -1,17 +1,20 @@
 # คู่มือการติดตั้ง Copilot Token Dashboard
 
 **สาขา scbx:** ใช้ [คำแนะนำและชุดติดตั้ง SCBX](SCBX.md)
-ธีม SCBX Bright ใช้กับ PBIR/PBIT จริง ส่วนภาพเดิมในคู่มือเป็นตัวอย่างกลางบนเบราว์เซอร์
-ไม่ใช่ภาพ Power BI รุ่น SCBX ที่ยืนยันการ render แล้ว
+ภาพในหัวข้อ 11 จับจาก **Power BI Desktop จริง รุ่น SCBX**
+ด้วยข้อมูลสมมติที่ติดตั้งและ Refresh แล้ว ไม่ใช่ภาพที่วาดในเบราว์เซอร์
 
 **รุ่น 1.0.1 · ปรับปรุงและทดสอบซ้ำวันที่ 1 พฤศจิกายน 2569 (2026-11-01)**
 
-คู่มือนี้ใช้กับ [ชุดติดตั้ง SCBX v1.0.1](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1)
-และ [PDF ภาษาไทย](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/download/scbx-v1.0.1/Copilot-Token-Dashboard-Installation-TH.pdf)
+ให้ใช้ [source ของสาขา scbx ที่แก้สำหรับ Desktop แล้ว](https://github.com/zangkasi55/Copilot-Token-Dashboard/tree/scbx)
+และ [PDF ภาษาไทยพร้อมภาพ Power BI จริง](manuals/Copilot%20Token%20Dashboard%20-%20Installation%20TH.pdf)
 ผลการตรวจโค้ดและขอบเขตที่ยังต้องทดสอบใน tenant อยู่ใน [รายงานการทดสอบ](VALIDATION.md)
 
-**สถานะยังเป็น public preview** การผ่าน unit tests, schema และการสร้าง PBIT
-ไม่ได้ยืนยันว่ารายงาน render หรือเชื่อมต่อ source จริงใน tenant ของคุณแล้ว
+PBIP ที่แก้แล้วผ่านการเปิด Refresh บันทึก และเปิดซ้ำใน Power BI Desktop
+**2.160.407.0** บนเครื่องทดสอบครบสิบหน้าโดยไม่มี visual error
+**สถานะยังเป็น public preview** ยังไม่ได้ตรวจ source สด การ Publish ใน cloud
+หรือ RLS ด้วยผู้ใช้จริงใน tenant ปลายทาง
+PBIT ของ release เดิมยังไม่ผ่านการเปิดจริง ให้ใช้ PBIP จากสาขาที่แก้แล้วแทน
 ต้องผ่าน checklist ก่อน go-live ในหัวข้อ 9 ก่อนใช้งาน production
 
 ## 1. ภาพรวม
@@ -50,7 +53,7 @@ API ในรุ่นนี้ใช้ global commercial cloud ยังไม
 
 | สิ่งที่ต้องการ | เส้นทางที่ใช้ | สิ่งที่ต้องเตรียมเพิ่มเติม |
 |---|---|---|
-| ดูข้อมูลสมมติบนเครื่อง | เปิด PBIT ใน Desktop ตามหัวข้อ 4.1 | ไม่ต้องมี Python หรือ tenant สำหรับดูตัวอย่างใน Desktop |
+| ดูข้อมูลสมมติบนเครื่อง | ใช้ PBIP ของสาขา scbx ที่แก้แล้วตามหัวข้อ 4.2 | Python และ dependency ที่ประกาศไว้ ไม่ต้องมี tenant เพื่อดู demo |
 | ติดตั้ง PBIP พร้อมตรวจข้อมูล | Install.ps1 -Action Local | Python และ dependency ที่ประกาศไว้ |
 | Publish ด้วยบัญชีของคุณ | Publish จาก Desktop ตามหัวข้อ 5 | บัญชี tenant ปลายทางและ license ที่เหมาะสม |
 | สร้าง model และ report ผ่าน API | Install.ps1 -Action Tenant | TenantId, WorkspaceId, Fabric token และสิทธิ์ที่ถูกต้อง |
@@ -70,7 +73,24 @@ python --version
 
 ## 3. ดาวน์โหลดและตรวจชุด
 
-ดาวน์โหลดไฟล์ ZIP และ SHA256SUMS จาก release เดียวกัน:
+### 3.0 เส้นทางแนะนำ: source ที่แก้และทดสอบ Desktop แล้ว
+
+ดาวน์โหลด [SCBX source ZIP](https://github.com/zangkasi55/Copilot-Token-Dashboard/archive/refs/heads/scbx.zip)
+แล้วแตกลงโฟลเดอร์ใหม่ หรือ clone สาขาโดยตรง:
+
+```powershell
+git clone --branch scbx --single-branch https://github.com/zangkasi55/Copilot-Token-Dashboard.git
+Set-Location Copilot-Token-Dashboard
+```
+
+source นี้มี PBIP ที่แก้ metadata, ชื่อตาราง/ตัวแปร DAX และชนิด visual
+ตามการทดสอบจริงบน Desktop แล้ว
+ZIP/PBIT ของ [release เดิม](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1)
+ไม่มีการแก้เหล่านี้ ภาพจริงในคู่มือนี้ไม่ใช่หลักฐานว่า PBIT เก่าเปิดได้
+ไม่ได้ออก PBIT ที่อ้างว่าผ่านการเปิดจริงในรอบอัปเดตภาพนี้
+
+หัวข้อ 3.1 เก็บคำสั่งตรวจ checksum สำหรับตรวจ release เก่าไว้
+ถ้าตรวจไฟล์ release ต้องดาวน์โหลด ZIP และ SHA256SUMS จาก release เดียวกัน:
 
 - Copilot-Token-Dashboard-SCBX-1.0.1-Install.zip
 - Copilot-Token-Dashboard-SCBX-1.0.1-SHA256SUMS.txt
@@ -102,8 +122,9 @@ Expand-Archive -LiteralPath $zip -DestinationPath 'C:\CopilotTokenDashboard-SCBX
 
 ### 3.2 ตรวจข้อมูลและ dependency โดยยังไม่สร้าง resource
 
+รันจากโฟลเดอร์ source ที่ clone หรือแตกไฟล์แล้ว:
+
 ```powershell
-Set-Location C:\CopilotTokenDashboard-SCBX-1.0.1
 .\Install.ps1 -Action Validate -InstallDependencies
 ```
 
@@ -116,7 +137,7 @@ Set-Location C:\CopilotTokenDashboard-SCBX-1.0.1
 - source_validated เป็น true และ model_updated เป็น false
 - ข้อความ Data and dependency checks passed. No tenant resources were created.
 
-semantic model มี 22 ตาราง เพราะรวมตาราง Measures อีกหนึ่งตาราง
+semantic model มี 22 ตาราง เพราะรวมตาราง _Measures อีกหนึ่งตาราง
 อย่าสับสนจำนวนตาราง CSV 21 ตารางกับจำนวนตารางในโมเดล 22 ตาราง
 
 อย่าปิด execution policy หรือมาตรการรักษาความปลอดภัยขององค์กร
@@ -124,17 +145,13 @@ semantic model มี 22 ตาราง เพราะรวมตาราง
 
 ## 4. เปิดข้อมูลสาธิตบนเครื่อง
 
-### 4.1 เปิด PBIT โดยไม่ใช้สคริปต์
+### 4.1 PBIT ของ release เดิม: ไม่ใช่เส้นทางที่ผ่านการเปิดจริง
 
-1. เปิด Copilot-Token-Dashboard-SCBX-1.0.1.pbit จากโฟลเดอร์ชุดติดตั้งด้วย Power BI Desktop
-2. เมื่อถามพารามิเตอร์ ให้ตั้ง SourceMode เป็น Demo
-3. DataFolder, SharePointSite และ SharePointFolder เว้นว่างได้ใน Demo
-4. รอให้โหลดข้อมูลหรือกด Refresh แล้วตรวจป้าย SYNTHETIC DEMO
-5. Save As เป็น PBIX ในโฟลเดอร์ทำงานของคุณ ก่อน Publish ถ้าต้องการ
-
-PBIT รวมนิยามรายงานและโมเดล ไม่ได้ให้ credentials ของ source
-ในโหมด CSV หรือ SharePoint ต้องตั้งค่าตามหัวข้อ 8
-หาก Desktop ค้างหรือ render ไม่ได้ อย่าถือว่าภาพสาธิตในเว็บเป็นผลทดสอบแทน
+ไฟล์ Copilot-Token-Dashboard-SCBX-1.0.1.pbit เดิมผ่านการตรวจโครงสร้าง
+แต่ล้มเหลวเมื่อเปิดจริงใน Desktop จึงไม่แนะนำให้ใช้ไฟล์นั้นสำหรับ demo
+ให้ใช้ PBIP ที่แก้แล้วตามหัวข้อ 4.2
+PBIT ที่สร้างใหม่ต้องผ่านการเปิด Refresh และตรวจทุกหน้าก่อนอ้างว่าใช้งานได้
+การผ่าน schema หรือการเห็นภาพในเว็บไม่ใช่ผลทดสอบแทนการเปิดจริง
 
 ### 4.2 ติดตั้ง PBIP ด้วยสคริปต์
 
@@ -148,11 +165,15 @@ PBIT รวมนิยามรายงานและโมเดล ไม�
 
 ใน Power BI Desktop:
 
-1. รอให้โปรเจกต์เปิดเสร็จ แล้วกด Refresh ถ้ายังไม่มีข้อมูล
+1. รอให้โปรเจกต์เปิดเสร็จ แล้วกดปุ่มหลัก **Home > Refresh** ถ้ายังไม่มีข้อมูล
+   ไม่ใช่ Refresh now ในข้อความแจ้งเรื่อง relationship
 2. ตรวจป้ายข้อมูลสมมติและวันที่ Data through
 3. เปิดตรวจรายงานครบทั้ง 10 หน้า
 4. เลือก agent ด้วยตัวเลือกในหน้า Agent Detail
 5. ใช้ Modeling > View as ทดสอบ role Viewer กับ UPN ตัวอย่าง
+6. บันทึกโปรเจกต์แล้วเปิดซ้ำเพื่อตรวจว่าข้อมูลสาธิตยังอยู่
+   หากมีข้อความอัปเกรดโมเดลเป็น TMDL Preview ให้เลือก **Don't upgrade**
+   เพื่อคงรูปแบบโมเดลที่ใช้ในการตรวจครั้งนี้
 
 บุคคลตัวอย่างใช้โดเมน `example.com` และราคาตัวอย่างเป็นราคาสมมติ
 ไม่ใช่ราคาผู้ให้บริการหรือ rate card ที่แนะนำ
@@ -173,7 +194,8 @@ PBIT รวมนิยามรายงานและโมเดล ไม�
 | My spend 28 วันและตั้งแต่ต้นเดือน | USD 39.04 |
 
 ตารางนี้เป็นค่าจากข้อมูลสมมติ ไม่ใช่ยอดของ tenant หรือบัญชีจริง
-ตรวจ actual Desktop และ View as แยกจากภาพ browser ในหัวข้อ 11
+ภาพในหัวข้อ 11 เป็นผล render ของ Desktop จริงด้วยข้อมูลสมมตินี้
+ยังต้องตรวจ View as และผู้ใช้จริงใน tenant แยกจากการดูภาพ
 
 ## 5. Publish แบบทำด้วยตนเอง
 
@@ -425,22 +447,29 @@ unit tests และภาพสาธิตช่วยตรวจโค้ด
 
 ## 11. คู่มือภาพประกอบแดชบอร์ดตัวอย่าง
 
-ภาพต่อไปนี้จับจากแดชบอร์ดสาธิตบนเบราว์เซอร์ โดยใช้ CSV ข้อมูลสมมติที่มากับชุด
-**ไม่ใช่ภาพ Power BI Desktop ที่ยืนยันการทำงานแล้ว**
-รูปแบบและสีของตัวอย่างต่างจาก Power BI และไม่ได้รัน DAX เรียก API
-ตรวจการเข้าสู่ระบบ หรือบังคับ RLS ต้องทดสอบโปรเจกต์ Power BI จริงใน tenant
-ของคุณก่อนยอมรับว่าใช้งาน production ได้
+ภาพต่อไปนี้จับจาก **Power BI Desktop 2.160.407.0 จริง รุ่น SCBX**
+ที่ติดตั้ง Refresh บันทึกและเปิดซ้ำด้วย CSV ข้อมูลสมมติที่มากับชุด
+ครบสิบหน้าโดยไม่มี visual error ไม่ใช่ภาพวาดจาก HTML หรือ export ของข้อมูลส่วนตัว
+ภาพแสดงเฉพาะ canvas ของรายงาน ตัดบัญชีผู้ใช้ แถบโปรแกรม desktop
+และข้อความแจ้ง recovery ออก ไม่ได้วาดตัวเลขหรือ visual ใหม่ทับภาพ
+
+ผลนี้ยืนยันเฉพาะ PBIP สมมติบนเครื่องทดสอบ ไม่ได้ยืนยัน source สด
+การ Publish ใน cloud หรือ RLS ด้วยผู้ใช้จริงใน tenant ของคุณ
+PBIT ของ release เดิมยังไม่ผ่านการเปิดจริง ต้องทำ checklist ก่อน production
 
 ภาพ 1–6 และ 8–10 ใช้ **Last 28 days** และ **Example engineering team**
 ภาพ 7 ใช้ **Example operations team**
 หน้าส่วนตัวใช้บุคคลสมมติ **user01@example.com**
 วันที่ข้อมูลตัวอย่างคือ **2026-05-28**
-คลิกภาพบน GitHub เพื่อดู PNG ต้นฉบับความกว้าง 1600 พิกเซล
+คลิกภาพบน GitHub เพื่อดู PNG ต้นฉบับตามความละเอียดของ native canvas
 PDF ฝังภาพไว้ในไฟล์และขยายดูรายละเอียดแบบออฟไลน์ได้
+[manifest การจับภาพ](images/native/provenance.json) มี filter, ขนาดภาพ, SHA-256
+และค่าที่อ่านได้จากรายงานจริง การ์ดข้อความยาวบางใบแสดงจุดไข่ปลาใน Fit to page
+ให้อ่านวันที่เต็มและคำอธิบายในคู่มือประกอบ
 
 ### ภาพที่ 1. Overview: ตรวจขอบเขตและวันที่ข้อมูล
 
-![ภาพที่ 1 Overview จากเบราว์เซอร์และข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/01-overview.png)
+![ภาพที่ 1 SCBX Overview จับจาก Power BI Desktop จริงด้วยข้อมูลสมมติ](images/native/01-overview.png)
 
 1. ตรวจป้าย SYNTHETIC DEMO และวันที่ Data through ก่อนอ่านค่า
 2. ตัวอย่างทีม engineering มียอดที่ทราบใน 28 วัน **USD 468.48**
@@ -451,28 +480,30 @@ PDF ฝังภาพไว้ในไฟล์และขยายดูร�
 
 ### ภาพที่ 2. My AI Usage: ตรวจหน้าส่วนตัวสมมติ
 
-![ภาพที่ 2 การใช้งานส่วนตัวสมมติของ user01@example.com ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/02-personal.png)
+![ภาพที่ 2 SCBX My AI Usage จับจาก Power BI Desktop จริงสำหรับ user01@example.com สมมติ](images/native/02-personal.png)
 
 บุคคลตัวอย่างมียอด **USD 34.00 ในเจ็ดวัน**
 **USD 39.04 ใน 28 วัน** และ **USD 39.04 ตั้งแต่ต้นเดือน**
 ตารางแสดงบัญชีที่ปิดบังบางส่วน token ของโมเดล และข้อมูลที่ไม่มีรายงานอย่างชัดเจน
 
 ใน Power BI จริงต้องทดสอบ role Viewer ด้วย UPN จริงอย่างน้อยสองบัญชี
-อย่าใช้บุคคลคงที่ใน HTML นี้เป็นหลักฐานว่า RLS ของ tenant ทำงานแล้ว
+อย่าใช้บุคคลคงที่ใน Demo นี้เป็นหลักฐานว่า RLS ของ tenant ทำงานแล้ว
+ตาราง source period summaries ว่างเพราะไม่มีข้อมูลเสริมใน sample นี้
+ไม่ได้สร้างยอดรายวันขึ้นมาแทนข้อมูลที่ขาด
 
 ### ภาพที่ 3. Organization Usage: เข้าใจความเป็นส่วนตัว
 
-![ภาพที่ 3 ข้อมูลรวมขององค์กรจากเบราว์เซอร์และข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/03-organization.png)
+![ภาพที่ 3 SCBX Organization Usage จับจาก Power BI Desktop จริงด้วยข้อมูลรวมสมมติ](images/native/03-organization.png)
 
 ทีม engineering มี **12 คน**
 ทีมตัวอย่างขนาดสี่คนไม่อยู่ในรายการ scope ที่เผยแพร่ เพราะเกณฑ์ขั้นต่ำคือหกคน
 High engagement หมายถึงมีข้อมูลกิจกรรมอย่างน้อยสี่วันในสัปดาห์ที่จบแล้ว
-ไม่ใช่คะแนนผลงาน HTML ไม่มีระบบกำหนดสิทธิ์จริง
-การป้องกัน production มาจาก pipeline ที่ตรวจแล้วและ role Viewer ของ Power BI
+ไม่ใช่คะแนนผลงาน การป้องกัน production มาจาก pipeline ที่ตรวจแล้ว
+และ role Viewer ของ Power BI ไม่ใช่จากภาพหรือ HTML ประกอบ
 
 ### ภาพที่ 4. Adoption and Momentum: อ่านอัตราเติบโตให้ถูก
 
-![ภาพที่ 4 การยอมรับและความเข้มข้นของการใช้งานสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/04-momentum.png)
+![ภาพที่ 4 SCBX Adoption and Momentum จับจาก Power BI Desktop จริงด้วยข้อมูลสมมติ](images/native/04-momentum.png)
 
 เปรียบเทียบหกสัปดาห์ล่าสุดที่จบแล้วกับหกสัปดาห์ก่อนหน้า
 จำนวนผู้ใช้และ requests ต่อ active user-week เป็นคนละตัววัด
@@ -481,7 +512,7 @@ High engagement หมายถึงมีข้อมูลกิจกรร�
 
 ### ภาพที่ 5. Agents: ตรวจสัญญาณค่าใช้จ่าย
 
-![ภาพที่ 5 รายการ agent และสัญญาณค่าใช้จ่ายจากข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/05-agents.png)
+![ภาพที่ 5 SCBX Agents จับจาก Power BI Desktop จริงด้วยรายการ agent สมมติ](images/native/05-agents.png)
 
 build helper ตัวอย่างมี **384 runs** ในช่วงที่เลือก
 ยอดเจ็ดวันล่าสุดคือ **USD 408.00** เทียบค่าเฉลี่ยรายสัปดาห์ของสี่สัปดาห์ก่อนหน้า
@@ -490,7 +521,7 @@ build helper ตัวอย่างมี **384 runs** ในช่วงท�
 
 ### ภาพที่ 6. Agent Detail: เลือก agent ตัวอย่าง
 
-![ภาพที่ 6 รายละเอียด agent จากเบราว์เซอร์และข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/06-agent-detail.png)
+![ภาพที่ 6 SCBX Agent Detail จับจาก Power BI Desktop จริงโดยเลือก Example build helper สมมติ](images/native/06-agent-detail.png)
 
 เปิด Agent Detail แล้วใช้ตัวเลือก agent
 ต้นทุนที่ทราบต่อ run ของ build helper ประมาณ **USD 1.22**
@@ -502,7 +533,7 @@ build helper ตัวอย่างมี **384 runs** ในช่วงท�
 
 ### ภาพที่ 7. Agent Outcomes: ใช้ตัวอย่างทีม operations
 
-![ภาพที่ 7 ผลลัพธ์งานสมมติของทีม operations ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/07-outcomes.png)
+![ภาพที่ 7 SCBX Agent Outcomes จับจาก Power BI Desktop จริงด้วยทีม operations สมมติ](images/native/07-outcomes.png)
 
 เลือก **Example operations team** ตัวอย่างมีงานที่ปิดแล้ว **56 รายการ**
 แบ่งเป็นคนทำเอง 20 รายการ agent ช่วย 18 รายการ และ agent ปิดเอง 18 รายการ
@@ -511,17 +542,17 @@ build helper ตัวอย่างมี **384 runs** ในช่วงท�
 
 ### ภาพที่ 8. Value and Budget: ทดลองสมมติฐาน
 
-![ภาพที่ 8 สมมติฐานคุณค่าและงบประมาณจากข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/08-value.png)
+![ภาพที่ 8 SCBX Value and Budget จับจาก Power BI Desktop จริงด้วยสมมติฐานสาธิต](images/native/08-value.png)
 
-ที่ **USD 20 ต่อชั่วโมง** build helper มีเวลาประหยัดโดยประมาณ **48 ชั่วโมง**
+ที่อัตราเริ่มต้นสมมติ **USD 20 ต่อชั่วโมง** build helper มีเวลาประหยัดโดยประมาณ **48 ชั่วโมง**
 และคุณค่าแบบ scenario **USD 960.00**
-เปลี่ยน slider เป็น USD 40 แล้วค่าเพิ่มเป็น USD 1,920.00
+ใช้ตัวเลือกอัตราต่อชั่วโมงเปลี่ยนเป็น USD 40 แล้วค่าเพิ่มเป็น USD 1,920.00
 แต่ค่าใช้จ่ายที่วัดไม่เปลี่ยน และไม่ได้พิสูจน์ productivity
 งบประมาณถูกเฉลี่ยตามวันที่ anchor ที่แสดง
 
 ### ภาพที่ 9. Models and Efficiency: ตรวจยอดที่ทราบ
 
-![ภาพที่ 9 โมเดลและ token จากเบราว์เซอร์และข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/09-models.png)
+![ภาพที่ 9 SCBX Models and Efficiency จับจาก Power BI Desktop จริงด้วยโมเดลและ token สมมติ](images/native/09-models.png)
 
 Input รวม cached-input อยู่แล้ว **อย่าบวก cached tokens ซ้ำ**
 ตรวจยอดรวมโมเดลและ surface เทียบยอด scope รวมทั้งส่วนต่างที่ซ่อนเพื่อความเป็นส่วนตัว
@@ -530,13 +561,16 @@ cache ในข้อมูลสมมติไม่ได้รับปร�
 
 ### ภาพที่ 10. Data Quality and Guide: ทำ checklist ให้ครบ
 
-![ภาพที่ 10 coverage และขั้นตอนติดตั้งจากข้อมูลสมมติ ไม่ใช่ภาพ Power BI ที่ยืนยันการทำงานแล้ว](images/10-guide.png)
+![ภาพที่ 10 SCBX Data Quality and Guide จับจาก Power BI Desktop จริงด้วย coverage สมมติ](images/native/10-guide.png)
 
 ตารางตัวอย่างมี source-field ที่รายงานได้ **8 รายการ**
-บางส่วน **0 รายการ** และไม่มีรายงาน **4 รายการ**
+และไม่มีรายงาน **4 รายการ** ไม่มีแถว Partial
+การ์ด Partial จริงแสดง **(Blank)** ไม่ได้แก้ภาพให้เป็นศูนย์
+ค่า My model reconciliation คือ **0.0000**
 นี่เป็นข้อมูลสาธิต ไม่ใช่ผลทดสอบการเชื่อมต่อสด
 ทำ Validate ตรวจ Desktop ตั้ง tenant และ source ทดสอบ Viewer
 และยืนยัน refresh ก่อนแชร์
 
-ดูวิธีทดลอง HTML แบบออฟไลน์และภาพต้นฉบับครบทุกหน้าได้ใน
+ดูภาพ Power BI จริงครบทุกหน้า พร้อม caption ภาษาไทย และ HTML ประกอบซึ่งเป็น
+ตัวอย่างกลางแยกต่างหากได้ใน
 [แกลเลอรีแดชบอร์ดตัวอย่าง](SAMPLE_DASHBOARD.md)

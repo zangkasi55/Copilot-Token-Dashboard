@@ -71,6 +71,14 @@ def schema_loader(cache: Path):
 def validate(folder: Path, cache: Path) -> dict:
     load = schema_loader(cache)
     problems, validated = validate_scbx_theme(folder, cache), 0
+    reports = list(folder.glob("*.Report"))
+    if len(reports) != 1:
+        problems.append("The package must contain exactly one report")
+    else:
+        for relative in ("definition.pbir", "definition/version.json",
+                         "definition/report.json", "definition/pages/pages.json"):
+            if not reports[0].joinpath(*relative.split("/")).is_file():
+                problems.append(f"Required Power BI report file is missing: {relative}")
     for path in sorted(folder.rglob("*")):
         if not path.is_file() or ".pbi" in path.parts:
             continue
@@ -96,6 +104,8 @@ def validate(folder: Path, cache: Path) -> dict:
     else:
         model = json.loads(models[0].read_text(encoding="utf-8"))["model"]
         table_names = [table["name"] for table in model["tables"]]
+        if any(name.lower() == "measures" for name in table_names):
+            problems.append("Power BI does not support the reserved table name Measures; use _Measures")
         if len(table_names) != len(set(table_names)):
             problems.append("Semantic model table names are duplicated")
         columns = {table["name"]: {column["name"] for column in table["columns"]}

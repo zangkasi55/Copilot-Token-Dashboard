@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Budget Used Ratio"
                 }
               },
-              "queryRef": "Measures.Budget Used Ratio",
+              "queryRef": "_Measures.Budget Used Ratio",
               "nativeQueryRef": "Budget Used Ratio"
             }
           ]

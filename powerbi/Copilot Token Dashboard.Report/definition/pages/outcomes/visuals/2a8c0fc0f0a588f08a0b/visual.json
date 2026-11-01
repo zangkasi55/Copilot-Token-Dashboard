@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Resolved Share"
                 }
               },
-              "queryRef": "Measures.Agent Resolved Share",
+              "queryRef": "_Measures.Agent Resolved Share",
               "nativeQueryRef": "Agent Resolved Share"
             }
           ]

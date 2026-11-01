@@ -6,6 +6,7 @@ import csv
 import hashlib
 import json
 import shutil
+import stat
 import uuid
 from pathlib import Path
 
@@ -139,9 +140,9 @@ def measures() -> list[dict]:
     }
     for name, (column, formatting) in personal.items():
         expression = (
-            f'VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] '
+            f'VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] '
             f'RETURN CALCULATE(SUM(UsageDaily[{column}]),KEEPFILTERS(People[UPN]=u),'
-            'KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))'
+            'KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))'
         )
         if column == "Amount":
             expression += "*[Currency Multiplier]"
@@ -186,7 +187,7 @@ def measures() -> list[dict]:
             'IF(SELECTEDVALUE(UsageDaily[BillingKind])="licence-included","Not usage billed",'
             'IF(ISBLANK([My Known Spend]),"Not reported",FORMAT([My Known Spend],"0.00")))', "", "Personal"),
         "My Model Reconciliation": (
-            '[My Known Spend]-SUMX(VALUES(Models[ModelKey]),[My Known Spend])', "0.0000", "Quality"),
+            "[My Known Spend]-SUMX(VALUES('Models'[ModelKey]),[My Known Spend])", "0.0000", "Quality"),
     })
     scope_fields = {
         "Known Spend": ("Amount", "#,0.00"),
@@ -198,8 +199,8 @@ def measures() -> list[dict]:
     }
     for name, (column, formatting) in scope_fields.items():
         expression = (
-            f'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN '
-            f'CALCULATE(SUM(ScopePeriod[{column}]),KEEPFILTERS(Scopes[ScopeKey]=scope),'
+            f'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN '
+            f'CALCULATE(SUM(ScopePeriod[{column}]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),'
             'KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())'
         )
         if column == "Amount":
@@ -209,32 +210,32 @@ def measures() -> list[dict]:
         "Scope Reported Tokens": ("[Scope Input Tokens]+[Scope Output Tokens]", "#,0", "Organization"),
         "Scope Adoption": ("DIVIDE([Scope Active Users],[Scope Member Count])", "0.0%", "Organization"),
         "Scope MTD Spend": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopePeriod[Amount]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopePeriod[PeriodLabel]="Month to date",'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopePeriod[Amount]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopePeriod[PeriodLabel]="Month to date",'
             'ScopePeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]', '"USD "#,0.00', "Organization"),
         "Scope Breakdown Spend": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[Amount]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeDaily[PrivacySuppressed]=FALSE(),'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[Amount]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeDaily[PrivacySuppressed]=FALSE(),'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))*[Currency Multiplier]',
             '"USD "#,0.00', "Organization"),
         "Scope Breakdown Tokens": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[InputTokens])+SUM(ScopeDaily[OutputTokens]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeDaily[PrivacySuppressed]=FALSE(),'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[InputTokens])+SUM(ScopeDaily[OutputTokens]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeDaily[PrivacySuppressed]=FALSE(),'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "#,0", "Organization"),
         "Scope Weekly Spend": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Amount]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]="all",'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Amount]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]="all",'
             'ScopeWeekly[PrivacySuppressed]=FALSE())*[Currency Multiplier]', '"USD "#,0.00', "Organization"),
         "Scope Weekly Active Users": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[ActiveUsers]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]="all",'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[ActiveUsers]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]="all",'
             'ScopeWeekly[PrivacySuppressed]=FALSE())', "#,0", "Organization"),
         "Hidden Breakdown Difference": ("[Scope Known Spend]-[Scope Breakdown Spend]", '"USD "#,0.00', "Quality"),
     })
     for band in ("High", "Moderate", "Low", "None", "NoRecorded"):
         expressions["Weekly " + band] = (
-            f'VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[{band}]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]="all",'
+            f'VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[{band}]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]="all",'
             'ScopeWeekly[PrivacySuppressed]=FALSE())', "#,0", "Organization")
     for name, column, formatting in (
         ("Spend", "Amount", '"USD "#,0.00'), ("Runs", "AgentRuns", "#,0"),
@@ -242,8 +243,8 @@ def measures() -> list[dict]:
         ("Output Tokens", "OutputTokens", "#,0"), ("Cached Input", "CachedInputTokens", "#,0"),
     ):
         expression = (
-            f'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[{column}]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),'
+            f'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[{column}]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),'
             'AgentPeriod[PrivacySuppressed]=FALSE())'
         )
         if column == "Amount":
@@ -251,54 +252,54 @@ def measures() -> list[dict]:
         expressions["Agent " + name] = (expression, formatting, "Agents")
     expressions.update({
         "Active Agents": (
-            'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period,AgentPeriod[AgentRuns]>0,'
+            'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period,AgentPeriod[AgentRuns]>0,'
             'AgentPeriod[PrivacySuppressed]=FALSE())', "#,0", "Agents"),
         "Agent Cost per Run": ("DIVIDE([Agent Spend],[Agent Runs])", '"USD "#,0.00', "Agents"),
         "Agent Tokens per Run": ("DIVIDE([Agent Input Tokens]+[Agent Output Tokens],[Agent Runs])", "#,0", "Agents"),
         "Agent Cache Ratio": ("DIVIDE([Agent Cached Input],[Agent Input Tokens])", "0.0%", "Agents"),
         "Agent Name": ('SELECTEDVALUE(Agents[Name],"Select one agent on this page")', "", "Agents"),
         "Agent User Growth": (
-            'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[UserGrowth]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)', "0.0%", "Agents"),
+            'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[UserGrowth]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)', "0.0%", "Agents"),
         "Agent Intensity Growth": (
-            'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[IntensityGrowth]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)', "0.0%", "Agents"),
+            'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[IntensityGrowth]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)', "0.0%", "Agents"),
         "Agent Trend": (
-            'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SELECTEDVALUE(AgentPeriod[TrendClass]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)', "", "Agents"),
+            'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SELECTEDVALUE(AgentPeriod[TrendClass]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)', "", "Agents"),
         "Spend Spike Agents": (
-            'VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period,'
+            'VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period,'
             'AgentPeriod[SpikeFlag]=TRUE())', "#,0", "Agents"),
         "Resolved Work Items": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scope),'
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "#,0", "Outcomes"),
         "AI Involved Share": (
-            'VAR scope=[Selected Scope] VAR involved=CALCULATE(COUNTROWS(Outcomes),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]<>"Human only",'
+            'VAR scopeKey=[Selected Scope] VAR involved=CALCULATE(COUNTROWS(Outcomes),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]<>"Human only",'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) '
             'RETURN DIVIDE(involved,[Resolved Work Items])', "0.0%", "Outcomes"),
         "Agent Resolved Share": (
-            'VAR scope=[Selected Scope] VAR resolved=CALCULATE(COUNTROWS(Outcomes),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]="Agent-resolved",'
+            'VAR scopeKey=[Selected Scope] VAR resolved=CALCULATE(COUNTROWS(Outcomes),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]="Agent-resolved",'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) '
             'RETURN DIVIDE(resolved,[Resolved Work Items])', "0.0%", "Outcomes"),
         "Resolution Hours": (
-            'VAR scope=[Selected Scope] RETURN CALCULATE(AVERAGE(Outcomes[ResolutionHours]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "0.00", "Outcomes"),
+            'VAR scopeKey=[Selected Scope] RETURN CALCULATE(AVERAGE(Outcomes[ResolutionHours]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))', "0.00", "Outcomes"),
         "Human Resolution Hours": (
             'CALCULATE([Resolution Hours],Outcomes[HandlingMode]="Human only")', "0.00", "Outcomes"),
         "Agent Resolution Hours": (
             'CALCULATE([Resolution Hours],Outcomes[HandlingMode]<>"Human only")', "0.00", "Outcomes"),
         "Measured Effort Saved Hours": (
-            'VAR scope=[Selected Scope] VAR baseline=CALCULATE(AVERAGE(Outcomes[HumanEffortMinutes]),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]="Human only",REMOVEFILTERS(Agents),'
+            'VAR scopeKey=[Selected Scope] VAR baseline=CALCULATE(AVERAGE(Outcomes[HumanEffortMinutes]),'
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]="Human only",REMOVEFILTERS(Agents),'
             'DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) '
             'RETURN IF(NOT ISBLANK(baseline),CALCULATE(SUMX(Outcomes,'
             'IF(Outcomes[HandlingMode]<>"Human only" && NOT ISBLANK(Outcomes[HumanEffortMinutes]),'
             'MAX(0,baseline-Outcomes[HumanEffortMinutes])/60)),'
-            'KEEPFILTERS(Scopes[ScopeKey]=scope),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])))',
+            'KEEPFILTERS(Scopes[ScopeKey]=scopeKey),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])))',
             "0.0", "Outcomes"),
         "Estimated Hours Saved": (
             'SUMX(VALUES(Agents[AgentKey]),DIVIDE([Agent Runs]*CALCULATE(MAX(Agents[MinutesSavedPerRun])),60))', "0.0", "Value"),
@@ -306,8 +307,8 @@ def measures() -> list[dict]:
         "Net Scenario Value": ("[Estimated Value]-[Agent Spend]", '"USD "#,0.00', "Value"),
         "Scenario Value Cost Ratio": ("DIVIDE([Estimated Value],[Agent Spend])", "0.0", "Value"),
         "Month Budget": (
-            'VAR scope=[Selected Scope] VAR month=DATE(YEAR([Anchor Date]),MONTH([Anchor Date]),1) '
-            'RETURN CALCULATE(SUM(Budgets[BudgetAmount]),KEEPFILTERS(Scopes[ScopeKey]=scope),'
+            'VAR scopeKey=[Selected Scope] VAR month=DATE(YEAR([Anchor Date]),MONTH([Anchor Date]),1) '
+            'RETURN CALCULATE(SUM(Budgets[BudgetAmount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),'
             'Budgets[MonthStart]=month)*[Currency Multiplier]', '"USD "#,0.00', "Budget"),
         "Prorated Budget": ("[Month Budget]*DIVIDE(DAY([Anchor Date]),DAY(EOMONTH([Anchor Date],0)))", '"USD "#,0.00', "Budget"),
         "Budget Used Ratio": ("DIVIDE([Scope MTD Spend],[Prorated Budget])", "0.0%", "Budget"),
@@ -361,8 +362,8 @@ def model_definition(data: Path) -> dict:
             "isHidden": name in {"Settings", "ScopeAccess", "UsageDaily", "ScopeDaily", "ScopeWeekly", "ScopePeriod", "AgentPeriod"},
         })
     tables.append({
-        "name": "Measures", "columns": [{"name": "Value", "sourceColumn": "Value", "dataType": "int64", "isHidden": True}],
-        "partitions": [{"name": "Measures", "mode": "import", "source": {"type": "m", "expression": "#table(type table [Value=Int64.Type],{{0}})"}}],
+        "name": "_Measures", "columns": [{"name": "Value", "sourceColumn": "Value", "dataType": "int64", "isHidden": True}],
+        "partitions": [{"name": "_Measures", "mode": "import", "source": {"type": "m", "expression": "#table(type table [Value=Int64.Type],{{0}})"}}],
         "measures": measures(),
     })
     expressions = [
@@ -482,7 +483,7 @@ class Page:
 
     def card(self, title: str, measure: str, x: int, y: int, width: int = 248,
              height: int = 112, header: bool = False) -> None:
-        self.visual("card", title, {"Values": [("Measures", measure, True)]},
+        self.visual("card", title, {"Values": [("_Measures", measure, True)]},
                     x, y, width, height, header)
 
     def common(self, personal: bool = False) -> None:
@@ -527,9 +528,27 @@ class Page:
         self.visuals.append({"id": name, "type": "shape", "title": "SCBX gold header accent",
                              "roles": {}, "position": definition["position"]})
 
+    def remove_obsolete_visuals(self) -> None:
+        expected = {visual["id"] for visual in self.visuals}
+        for directory in (self.folder / "visuals").iterdir():
+            if not directory.is_dir() or directory.name in expected:
+                continue
+            paths = list(directory.iterdir())
+            if paths and (len(paths) != 1 or paths[0].name != "visual.json"):
+                raise ValueError("An obsolete generated visual contains custom files; preserve them before rebuilding")
+            if paths:
+                paths[0].unlink()
+            if getattr(directory.stat(), "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_READONLY", 0):
+                directory.chmod(stat.S_IREAD | stat.S_IWRITE)
+            directory.rmdir()
+
 
 def generate_report(folder: Path) -> list[dict]:
     pages = []
+    save_json(folder / "definition" / "version.json", {
+        "$schema": SCHEMAS + "item/report/definition/versionMetadata/1.0.0/schema.json",
+        "version": "2.0.0",
+    })
 
     def page(name: str, title: str, height: int = 1000, personal: bool = False) -> Page:
         result = Page(folder, name, title, height)
@@ -542,13 +561,13 @@ def generate_report(folder: Path) -> list[dict]:
              ("Prorated budget used", "Budget Used Ratio"), ("Active people", "Scope Active Users"),
              ("Active agents", "Active Agents"), ("Reported tokens", "Scope Reported Tokens")])
     p.visual("lineChart", "Weekly known spend: 13 completed weeks",
-             {"Category": [("Calendar", "WeekStart", False)], "Y": [("Measures", "Scope Weekly Spend", True)]},
+             {"Category": [("Calendar", "WeekStart", False)], "Y": [("_Measures", "Scope Weekly Spend", True)]},
              16, 306, 768, 270)
     p.visual("donutChart", "Visible spend by surface",
-             {"Category": [("Surfaces", "Name", False)], "Y": [("Measures", "Scope Breakdown Spend", True)]},
+             {"Category": [("Surfaces", "Name", False)], "Y": [("_Measures", "Scope Breakdown Spend", True)]},
              800, 306, 784, 270)
-    p.table("Agent portfolio", [("Agents", "Name", False), ("Measures", "Agent Spend", True),
-            ("Measures", "Agent Runs", True), ("Measures", "Agent Cost per Run", True)], 590, 270)
+    p.table("Agent portfolio", [("Agents", "Name", False), ("_Measures", "Agent Spend", True),
+            ("_Measures", "Agent Runs", True), ("_Measures", "Agent Cost per Run", True)], 590, 270)
     p.card("Purpose", "Usage Note", 16, 876, 1568, 102)
 
     p = page("personal", "My AI Usage", 1850, True)
@@ -558,14 +577,14 @@ def generate_report(folder: Path) -> list[dict]:
     p.table("My accounts", [("Accounts", "Platform", False), ("Accounts", "AccountType", False),
             ("Accounts", "MaskedId", False), ("Accounts", "DataThroughDate", False)], 306, 210)
     p.visual("lineChart", "My known spend over time",
-             {"Category": [("Calendar", "Date", False)], "Y": [("Measures", "My Known Spend", True)]},
+             {"Category": [("Calendar", "Date", False)], "Y": [("_Measures", "My Known Spend", True)]},
              16, 530, 1568, 270)
-    p.table("My surfaces and agents", [("Surfaces", "Name", False), ("Measures", "My Cost Label", True),
-            ("Measures", "My Requests", True), ("Measures", "My Agent Runs", True),
-            ("Measures", "My Reported Tokens", True)], 814, 270)
+    p.table("My surfaces and agents", [("Surfaces", "Name", False), ("_Measures", "My Cost Label", True),
+            ("_Measures", "My Requests", True), ("_Measures", "My Agent Runs", True),
+            ("_Measures", "My Reported Tokens", True)], 814, 270)
     p.table("My model usage", [("Models", "Name", False), ("Models", "Provider", False),
-            ("Models", "Tier", False), ("Measures", "My Reported Tokens", True),
-            ("Measures", "My Cached Input Tokens", True), ("Measures", "My Known Spend", True)], 1098, 270)
+            ("Models", "Tier", False), ("_Measures", "My Reported Tokens", True),
+            ("_Measures", "My Cached Input Tokens", True), ("_Measures", "My Known Spend", True)], 1098, 270)
     p.table("Source period summaries: not daily counts", [("PeriodSummary", "Source", False),
             ("PeriodSummary", "StartDate", False), ("PeriodSummary", "EndDate", False),
             ("PeriodSummary", "Metric", False), ("PeriodSummary", "Value", False)], 1382, 270)
@@ -576,24 +595,24 @@ def generate_report(folder: Path) -> list[dict]:
              ("Recorded adoption", "Scope Adoption"), ("Active user-days", "Scope User Days"),
              ("Known spend", "Scope Known Spend"), ("Privacy minimum", "Privacy Minimum")])
     p.visual("lineChart", "Weekly active people: completed weeks",
-             {"Category": [("Calendar", "WeekStart", False)], "Y": [("Measures", "Scope Weekly Active Users", True)]},
+             {"Category": [("Calendar", "WeekStart", False)], "Y": [("_Measures", "Scope Weekly Active Users", True)]},
              16, 306, 1568, 250)
-    p.visual("stackedColumnChart", "Recorded weekly engagement bands",
+    p.visual("columnChart", "Recorded weekly engagement bands",
              {"Category": [("Calendar", "WeekStart", False)], "Y": [
-                 ("Measures", "Weekly High", True), ("Measures", "Weekly Moderate", True),
-                 ("Measures", "Weekly Low", True), ("Measures", "Weekly None", True),
-                 ("Measures", "Weekly NoRecorded", True)]}, 16, 570, 1568, 260)
+                 ("_Measures", "Weekly High", True), ("_Measures", "Weekly Moderate", True),
+                 ("_Measures", "Weekly Low", True), ("_Measures", "Weekly None", True),
+                 ("_Measures", "Weekly NoRecorded", True)]}, 16, 570, 1568, 260)
     p.card("Interpretation", "Usage Note", 16, 846, 1568, 130)
 
     p = page("momentum", "Adoption and Momentum")
     p.card("Method", "Momentum Note", 16, 176, 1568, 100)
     p.visual("scatterChart", "Agent adoption versus intensity",
-             {"Category": [("Agents", "Name", False)], "X": [("Measures", "Agent User Growth", True)],
-              "Y": [("Measures", "Agent Intensity Growth", True)], "Size": [("Measures", "Agent Spend", True)]},
+             {"Category": [("Agents", "Name", False)], "X": [("_Measures", "Agent User Growth", True)],
+              "Y": [("_Measures", "Agent Intensity Growth", True)], "Size": [("_Measures", "Agent Spend", True)]},
              16, 292, 768, 350)
     p.visual("tableEx", "Trend classification", {"Values": [
-        ("Agents", "Name", False), ("Measures", "Agent User Growth", True),
-        ("Measures", "Agent Intensity Growth", True), ("Measures", "Agent Trend", True)]},
+        ("Agents", "Name", False), ("_Measures", "Agent User Growth", True),
+        ("_Measures", "Agent Intensity Growth", True), ("_Measures", "Agent Trend", True)]},
         800, 292, 784, 350)
     p.card("Data caution", "Data Quality Note", 16, 660, 1568, 180)
 
@@ -603,8 +622,8 @@ def generate_report(folder: Path) -> list[dict]:
              ("Eligible agent users", "Agent Users"), ("Spend-spike agents", "Spend Spike Agents")])
     p.table("Agent portfolio: use the selector on Agent Detail",
             [("Agents", "Name", False), ("Agents", "Type", False), ("Agents", "Status", False),
-             ("Measures", "Agent Spend", True), ("Measures", "Agent Runs", True),
-             ("Measures", "Agent Cost per Run", True), ("Measures", "Agent Users", True)], 306, 350)
+             ("_Measures", "Agent Spend", True), ("_Measures", "Agent Runs", True),
+             ("_Measures", "Agent Cost per Run", True), ("_Measures", "Agent Users", True)], 306, 350)
     p.table("Registered agent metadata", [("Agents", "Name", False), ("Agents", "Platform", False),
             ("Agents", "Status", False), ("Agents", "Risk", False), ("Agents", "OwnerContact", False)], 674, 280)
 
@@ -616,9 +635,9 @@ def generate_report(folder: Path) -> list[dict]:
     p.table("Agent profile", [("Agents", "Name", False), ("Agents", "Type", False),
             ("Agents", "Platform", False), ("Agents", "OwnerContact", False),
             ("Agents", "Status", False), ("Agents", "Risk", False)], 306, 250)
-    p.table("Agent reported period metrics", [("Agents", "Name", False), ("Measures", "Agent Spend", True),
-            ("Measures", "Agent Runs", True), ("Measures", "Agent Users", True),
-            ("Measures", "Agent Input Tokens", True), ("Measures", "Agent Output Tokens", True)], 572, 250)
+    p.table("Agent reported period metrics", [("Agents", "Name", False), ("_Measures", "Agent Spend", True),
+            ("_Measures", "Agent Runs", True), ("_Measures", "Agent Users", True),
+            ("_Measures", "Agent Input Tokens", True), ("_Measures", "Agent Output Tokens", True)], 572, 250)
     p.card("Caution", "Value Note", 16, 840, 1568, 130)
 
     p = page("outcomes", "Agent Outcomes")
@@ -626,14 +645,14 @@ def generate_report(folder: Path) -> list[dict]:
              ("Agent-resolved share", "Agent Resolved Share"), ("Human resolution hours", "Human Resolution Hours"),
              ("Agent resolution hours", "Agent Resolution Hours"), ("Measured effort saved", "Measured Effort Saved Hours")])
     p.visual("clusteredColumnChart", "Resolution hours by handling mode",
-             {"Category": [("Outcomes", "HandlingMode", False)], "Y": [("Measures", "Resolution Hours", True)]},
+             {"Category": [("Outcomes", "HandlingMode", False)], "Y": [("_Measures", "Resolution Hours", True)]},
              16, 306, 768, 280)
-    p.visual("stackedColumnChart", "Resolved work by category",
+    p.visual("columnChart", "Resolved work by category",
              {"Category": [("Outcomes", "Category", False)], "Series": [("Outcomes", "HandlingMode", False)],
-              "Y": [("Measures", "Resolved Work Items", True)]}, 800, 306, 784, 280)
+              "Y": [("_Measures", "Resolved Work Items", True)]}, 800, 306, 784, 280)
     p.table("Outcome categories", [("Outcomes", "Category", False), ("Outcomes", "Priority", False),
-            ("Outcomes", "HandlingMode", False), ("Measures", "Resolved Work Items", True),
-            ("Measures", "Resolution Hours", True)], 602, 250)
+            ("Outcomes", "HandlingMode", False), ("_Measures", "Resolved Work Items", True),
+            ("_Measures", "Resolution Hours", True)], 602, 250)
     p.card("Interpretation", "Value Note", 16, 868, 1568, 110)
 
     p = page("value", "Value and Budget")
@@ -642,8 +661,8 @@ def generate_report(folder: Path) -> list[dict]:
              ("Known agent cost", "Agent Spend"), ("Net scenario value", "Net Scenario Value"),
              ("Value / cost ratio", "Scenario Value Cost Ratio"), ("Budget variance MTD", "Budget Variance")])
     p.table("Value assumptions by agent", [("Agents", "Name", False), ("Agents", "MinutesSavedPerRun", False),
-            ("Measures", "Agent Runs", True), ("Measures", "Estimated Hours Saved", True),
-            ("Measures", "Estimated Value", True), ("Measures", "Agent Spend", True)], 306, 310)
+            ("_Measures", "Agent Runs", True), ("_Measures", "Estimated Hours Saved", True),
+            ("_Measures", "Estimated Value", True), ("_Measures", "Agent Spend", True)], 306, 310)
     p.cards([("Month budget", "Month Budget"), ("Prorated budget", "Prorated Budget"),
              ("Known spend MTD", "Scope MTD Spend"), ("Prorated budget used", "Budget Used Ratio")], 632)
     p.card("Scenario limits", "Value Note", 16, 774, 1568, 200)
@@ -653,14 +672,14 @@ def generate_report(folder: Path) -> list[dict]:
              ("Reported output", "Scope Output Tokens"), ("Reported tokens", "Scope Reported Tokens"),
              ("Unpriced records", "Scope Unpriced Records"), ("Hidden breakdown difference", "Hidden Breakdown Difference")])
     p.visual("donutChart", "Visible spend by provider",
-             {"Category": [("Models", "Provider", False)], "Y": [("Measures", "Scope Breakdown Spend", True)]},
+             {"Category": [("Models", "Provider", False)], "Y": [("_Measures", "Scope Breakdown Spend", True)]},
              16, 306, 768, 270)
     p.visual("donutChart", "Visible spend by tier",
-             {"Category": [("Models", "Tier", False)], "Y": [("Measures", "Scope Breakdown Spend", True)]},
+             {"Category": [("Models", "Tier", False)], "Y": [("_Measures", "Scope Breakdown Spend", True)]},
              800, 306, 784, 270)
     p.table("Visible model breakdown", [("Models", "Name", False), ("Models", "Provider", False),
-            ("Models", "Tier", False), ("Measures", "Scope Breakdown Tokens", True),
-            ("Measures", "Scope Breakdown Spend", True)], 592, 270)
+            ("Models", "Tier", False), ("_Measures", "Scope Breakdown Tokens", True),
+            ("_Measures", "Scope Breakdown Spend", True)], 592, 270)
     p.card("Coverage", "Source Note", 16, 878, 1568, 100)
 
     p = page("guide", "Data Quality and Guide", 1320)
@@ -678,6 +697,7 @@ def generate_report(folder: Path) -> list[dict]:
     order = [item.name for item in pages]
     for item in pages:
         item.accent_line()
+        item.remove_obsolete_visuals()
     resources = folder / "StaticResources" / "RegisteredResources"
     resources.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(THEME_FILE, resources / THEME_FILE.name)

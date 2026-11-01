@@ -48,13 +48,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Runs"
                 }
               },
-              "queryRef": "Measures.Agent Runs",
+              "queryRef": "_Measures.Agent Runs",
               "nativeQueryRef": "Agent Runs"
             },
             {
@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Estimated Hours Saved"
                 }
               },
-              "queryRef": "Measures.Estimated Hours Saved",
+              "queryRef": "_Measures.Estimated Hours Saved",
               "nativeQueryRef": "Estimated Hours Saved"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Estimated Value"
                 }
               },
-              "queryRef": "Measures.Estimated Value",
+              "queryRef": "_Measures.Estimated Value",
               "nativeQueryRef": "Estimated Value"
             },
             {
@@ -90,13 +90,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Spend"
                 }
               },
-              "queryRef": "Measures.Agent Spend",
+              "queryRef": "_Measures.Agent Spend",
               "nativeQueryRef": "Agent Spend"
             }
           ]

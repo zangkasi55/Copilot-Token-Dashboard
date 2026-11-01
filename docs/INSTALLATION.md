@@ -3,13 +3,17 @@
 **SCBX branch:** use the [SCBX-specific notes and release](SCBX.md), not the
 neutral main-branch template. Local default installations go into
 `CopilotTokenDashboard\SCBX\1.0.1`; tenant item names use the SCBX prefix.
-Existing screenshot figures illustrate the neutral browser sample.
+The figures in section 11 are actual SCBX Power BI Desktop captures, using only
+fictional sample data.
 
 **Version 1.0.1 · rechecked 2026-11-01.**
 
 See the [Thai illustrated installation guide](INSTALLATION_TH.md) and
-[validation report](VALIDATION.md). This remains a public preview: mock tests and
-schema/compiler checks are not a successful live tenant or Desktop smoke test.
+[validation report](VALIDATION.md). The repaired branch PBIP passed a local
+synthetic Desktop refresh/save/reopen check on version 2.160.407.0. Live source,
+cloud publishing and real recipient-user RLS checks remain required.
+The earlier release's compiled PBIT failed native loading; prefer this repaired
+branch source, not that old binary.
 
 ## 1. What this package does
 
@@ -47,14 +51,20 @@ Power BI Desktop and optional build utilities are not redistributed.
 
 ## 3. Download and validate
 
-Download the versioned installation ZIP from the GitHub Releases page. Verify its
-SHA-256 checksum against the release checksum file, then extract it into a new
-folder, for example `C:\CopilotTokenDashboard`.
+For the repaired native sample, download the
+[SCBX branch source ZIP](https://github.com/zangkasi55/Copilot-Token-Dashboard/archive/refs/heads/scbx.zip)
+and extract it into a new folder, or clone the branch:
 
 ```powershell
-Set-Location C:\CopilotTokenDashboard
+git clone --branch scbx --single-branch https://github.com/zangkasi55/Copilot-Token-Dashboard.git
+Set-Location Copilot-Token-Dashboard
 .\Install.ps1 -Action Validate -InstallDependencies
 ```
+
+The historical release ZIP/PBIT remains available but does not contain these
+native PBIP repairs. If inspecting an archived release, verify its ZIP against
+the checksum file from that exact release; do not apply an old release checksum
+to a different branch snapshot.
 
 This restores only the declared runtime dependencies and validates the complete
 synthetic table set. No tenant resources are created in Validate mode.
@@ -77,14 +87,20 @@ Use `-InstallFolder C:\CTD\Demo-1.0.1` to choose a new folder.
 In Power BI Desktop:
 
 1. Wait for the project to open.
-2. Select Refresh if the data is not yet loaded.
+2. Select the main **Home > Refresh** data action if the data is not yet loaded,
+   not a relationship-notification refresh.
 3. Confirm the synthetic-demo banner and data-through date.
 4. Visit all ten report pages.
 5. Use the selector on Agent Detail to review a single agent.
 6. Open Modeling > View as and test the Viewer role with an example UPN.
+7. Save the project and reopen it to confirm the demo data persists. Keep the
+   current model format with **Don't upgrade** if a TMDL-preview prompt appears.
 
 The example people use the reserved `example.com` domain. The sample prices are
 fictional; they are not vendor prices or a recommended rate card.
+The verified local Overview shows USD 468.48, 12 active people and one active
+agent; the personal example shows USD 34.00 for seven days and USD 39.04 for
+28 days. This is fictional `user01@example.com`, not your signed-in usage.
 
 ## 5. Publish manually into your own tenant
 
@@ -241,21 +257,28 @@ operating boundaries.
 
 ## 11. Illustrated sample dashboard walkthrough
 
-The following screenshots were captured from the standalone browser sample using
-the shipped synthetic CSV data. **They are illustrations, not verified Power BI
-Desktop screenshots.** The companion uses a simplified layout and different
-styling; it does not run DAX, call APIs, test authentication or enforce RLS.
-Production acceptance still requires the actual Power BI project in your tenant.
+The following screenshots were captured from **actual Power BI Desktop
+2.160.407.0**, using the installed, refreshed and reopened SCBX PBIP with the
+shipped synthetic CSV data. All ten native pages rendered without visual errors.
+Only the report canvas is shown; account names, ribbon, desktop and recovery
+notices were excluded. The images are not browser illustrations or private
+dashboard exports.
+
+This proves local synthetic PBIP rendering, not live source access, cloud
+publication or actual recipient-user RLS. The earlier compiled PBIT remains
+unverified. Production acceptance still requires your own tenant checks.
 
 For figures 1–6 and 8–10, select **Last 28 days** and **Example engineering team**.
 Figure 7 uses **Example operations team**. The personal page uses the fixed
 fictional viewer **user01@example.com**. All examples end on **2026-05-28**.
-Click an image on GitHub to view its original 1600-pixel-wide PNG; the PDF
-embeds the image so it is available offline and can be zoomed.
+Click an image on GitHub to view its original native-resolution PNG; the PDF
+embeds the image for offline use. The [capture manifest](images/native/provenance.json)
+records dimensions, filters, SHA-256 and actual sample values. Some long native
+cards show ellipses at Fit to page; their full interpretation is explained below.
 
 ### Figure 1. Overview: check the scope and data date
 
-![Figure 1. Browser-rendered synthetic Overview illustration, not a verified Power BI screenshot.](images/01-overview.png)
+![Figure 1. Actual SCBX Overview in Power BI Desktop with fictional sample data.](images/native/01-overview.png)
 
 1. Check the SYNTHETIC DEMO banner and data-through date before reading a value.
 2. For the engineering example, known 28-day spend is **USD 468.48**, with
@@ -266,28 +289,29 @@ embeds the image so it is available offline and can be zoomed.
 
 ### Figure 2. My AI Usage: validate the fictional self-view
 
-![Figure 2. Browser-rendered synthetic personal usage illustration for user01@example.com, not a verified Power BI screenshot.](images/02-personal.png)
+![Figure 2. Actual SCBX My AI Usage in Power BI Desktop for fictional user01@example.com.](images/native/02-personal.png)
 
 The example user's spend is **USD 34.00 for seven days**, **USD 39.04 for
 28 days** and **USD 39.04 month to date**. The tables show masked accounts,
 reported model tokens and unavailable fields explicitly.
 
 In the real Power BI model, test the Viewer role with two actual UPNs. Never use
-this fixed browser persona as evidence that tenant RLS works.
+this fixed demo persona as evidence that tenant RLS works. The optional
+source-period-summary table is empty in this sample and is not fabricated.
 
 ### Figure 3. Organization Usage: understand privacy and completed weeks
 
-![Figure 3. Browser-rendered synthetic organization usage illustration, not a verified Power BI screenshot.](images/03-organization.png)
+![Figure 3. Actual SCBX Organization Usage in Power BI Desktop with synthetic engineering aggregates.](images/native/03-organization.png)
 
 The engineering scope contains **12 members**. A four-person example team is
 absent from the published scope list because the minimum is six. High engagement
 means four or more observed days in a completed week; it is not a productivity
-rating. The HTML has no authorization boundary; production protection comes from
-the reviewed aggregate pipeline and the Power BI Viewer role.
+rating. Production protection comes from the reviewed aggregate pipeline and
+the Power BI Viewer role, not from a screenshot or the separate HTML companion.
 
 ### Figure 4. Adoption and Momentum: interpret the two growth axes
 
-![Figure 4. Browser-rendered synthetic adoption and momentum illustration, not a verified Power BI screenshot.](images/04-momentum.png)
+![Figure 4. Actual SCBX Adoption and Momentum in Power BI Desktop with fictional completed-week trends.](images/native/04-momentum.png)
 
 Compare the latest six completed weeks with the preceding six. User growth and
 requests per active user-week are different measures. The example build helper
@@ -296,7 +320,7 @@ spike falls outside the last completed comparison window.
 
 ### Figure 5. Agents: investigate a spend flag
 
-![Figure 5. Browser-rendered synthetic agent portfolio and spend-spike illustration, not a verified Power BI screenshot.](images/05-agents.png)
+![Figure 5. Actual SCBX Agents in Power BI Desktop with a fictional agent portfolio and spend flag.](images/native/05-agents.png)
 
 The example build helper has **384 reported runs** in the selected period.
 Its last-seven-day spend is **USD 408.00**, compared with a prior four-week
@@ -306,7 +330,7 @@ require separate approved automation.
 
 ### Figure 6. Agent Detail: select one registered example
 
-![Figure 6. Browser-rendered synthetic agent detail illustration, not a verified Power BI screenshot.](images/06-agent-detail.png)
+![Figure 6. Actual SCBX Agent Detail in Power BI Desktop with Example build helper selected.](images/native/06-agent-detail.png)
 
 Open Agent Detail and use the agent selector. The build helper's known cost per
 run is approximately **USD 1.22**. Its seven-and-a-half-minute saved-per-run
@@ -317,7 +341,7 @@ Do not replace absent metrics with invented values.
 
 ### Figure 7. Agent Outcomes: use the operations example
 
-![Figure 7. Browser-rendered synthetic work-outcome illustration for the operations team, not a verified Power BI screenshot.](images/07-outcomes.png)
+![Figure 7. Actual SCBX Agent Outcomes in Power BI Desktop with the fictional operations team selected.](images/native/07-outcomes.png)
 
 Select **Example operations team**. The sample has **56 resolved items**:
 20 human-only, 18 agent-assisted and 18 agent-resolved. Elapsed hours and tracked
@@ -326,16 +350,17 @@ causation or replace review of your own ITSM data.
 
 ### Figure 8. Value and Budget: test assumptions, not guarantees
 
-![Figure 8. Browser-rendered synthetic value and budget scenario illustration, not a verified Power BI screenshot.](images/08-value.png)
+![Figure 8. Actual SCBX Value and Budget in Power BI Desktop with fictional hourly-rate assumptions.](images/native/08-value.png)
 
-At **USD 20 per hour**, the build-helper example shows **48 estimated hours**
-and **USD 960.00 scenario value**. Changing the sample slider to USD 40 doubles
+At the **USD 20 per hour built-in default**, the build-helper example shows
+**48 estimated hours** and **USD 960.00 scenario value**. Choosing USD 40 with
+the hourly-rate selector doubles
 the value to USD 1,920.00; it does not change measured spend or prove productivity.
 Budget is prorated through the displayed anchor date.
 
 ### Figure 9. Models and Efficiency: reconcile known subtotals
 
-![Figure 9. Browser-rendered synthetic model and token-efficiency illustration, not a verified Power BI screenshot.](images/09-models.png)
+![Figure 9. Actual SCBX Models and Efficiency in Power BI Desktop with fictional model and token data.](images/native/09-models.png)
 
 Input includes the cached-input subset: **do not add cached tokens a second time**.
 Compare known model/surface subtotals with the scope total and inspect any
@@ -344,10 +369,12 @@ that Microsoft 365 or GitHub APIs expose the same fields in production.
 
 ### Figure 10. Data Quality and Guide: finish the installation checklist
 
-![Figure 10. Browser-rendered synthetic source-coverage and installation-workflow illustration, not a verified Power BI screenshot.](images/10-guide.png)
+![Figure 10. Actual SCBX Data Quality and Guide in Power BI Desktop with synthetic source coverage.](images/native/10-guide.png)
 
-The example coverage table has **8 reported**, **0 partial** and **4 unavailable**
-source-field entries. These are sample capabilities, not a live connection test.
+The example coverage table has **8 reported** and **4 unavailable** source-field
+entries, with no partial rows. The native Partial card displays **(Blank)**;
+the image has not been edited to substitute zero. Reconciliation is **0.0000**.
+These are sample capabilities, not a live connection test.
 Complete Validate, local Desktop checks, tenant/source configuration, Viewer
 security tests and refresh verification before sharing.
 

@@ -34,13 +34,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent User Growth"
                 }
               },
-              "queryRef": "Measures.Agent User Growth",
+              "queryRef": "_Measures.Agent User Growth",
               "nativeQueryRef": "Agent User Growth"
             },
             {
@@ -48,13 +48,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Intensity Growth"
                 }
               },
-              "queryRef": "Measures.Agent Intensity Growth",
+              "queryRef": "_Measures.Agent Intensity Growth",
               "nativeQueryRef": "Agent Intensity Growth"
             },
             {
@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Trend"
                 }
               },
-              "queryRef": "Measures.Agent Trend",
+              "queryRef": "_Measures.Agent Trend",
               "nativeQueryRef": "Agent Trend"
             }
           ]

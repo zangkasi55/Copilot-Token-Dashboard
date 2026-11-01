@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Resolved Work Items"
                 }
               },
-              "queryRef": "Measures.Resolved Work Items",
+              "queryRef": "_Measures.Resolved Work Items",
               "nativeQueryRef": "Resolved Work Items"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Resolution Hours"
                 }
               },
-              "queryRef": "Measures.Resolution Hours",
+              "queryRef": "_Measures.Resolution Hours",
               "nativeQueryRef": "Resolution Hours"
             }
           ]

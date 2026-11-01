@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Coverage Fields Partial"
                 }
               },
-              "queryRef": "Measures.Coverage Fields Partial",
+              "queryRef": "_Measures.Coverage Fields Partial",
               "nativeQueryRef": "Coverage Fields Partial"
             }
           ]

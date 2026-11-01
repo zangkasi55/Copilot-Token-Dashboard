@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Output Tokens"
                 }
               },
-              "queryRef": "Measures.Scope Output Tokens",
+              "queryRef": "_Measures.Scope Output Tokens",
               "nativeQueryRef": "Scope Output Tokens"
             }
           ]

@@ -38,13 +38,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Weekly Spend"
                 }
               },
-              "queryRef": "Measures.Scope Weekly Spend",
+              "queryRef": "_Measures.Scope Weekly Spend",
               "nativeQueryRef": "Scope Weekly Spend"
             }
           ]

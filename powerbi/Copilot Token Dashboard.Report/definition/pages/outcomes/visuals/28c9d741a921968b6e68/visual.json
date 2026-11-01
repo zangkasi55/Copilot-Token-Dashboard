@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "AI Involved Share"
                 }
               },
-              "queryRef": "Measures.AI Involved Share",
+              "queryRef": "_Measures.AI Involved Share",
               "nativeQueryRef": "AI Involved Share"
             }
           ]

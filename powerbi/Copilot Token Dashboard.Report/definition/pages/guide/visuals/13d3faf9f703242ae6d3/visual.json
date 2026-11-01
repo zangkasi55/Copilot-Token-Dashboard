@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Personal Privacy Note"
                 }
               },
-              "queryRef": "Measures.Personal Privacy Note",
+              "queryRef": "_Measures.Personal Privacy Note",
               "nativeQueryRef": "Personal Privacy Note"
             }
           ]

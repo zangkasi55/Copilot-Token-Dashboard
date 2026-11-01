@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Data Date Label"
                 }
               },
-              "queryRef": "Measures.Data Date Label",
+              "queryRef": "_Measures.Data Date Label",
               "nativeQueryRef": "Data Date Label"
             }
           ]

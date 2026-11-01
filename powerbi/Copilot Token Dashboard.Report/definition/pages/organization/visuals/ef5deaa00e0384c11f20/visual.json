@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Usage Note"
                 }
               },
-              "queryRef": "Measures.Usage Note",
+              "queryRef": "_Measures.Usage Note",
               "nativeQueryRef": "Usage Note"
             }
           ]

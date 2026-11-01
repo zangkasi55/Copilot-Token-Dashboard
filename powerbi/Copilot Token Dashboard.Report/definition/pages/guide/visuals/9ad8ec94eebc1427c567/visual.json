@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Unpriced Records"
                 }
               },
-              "queryRef": "Measures.Scope Unpriced Records",
+              "queryRef": "_Measures.Scope Unpriced Records",
               "nativeQueryRef": "Scope Unpriced Records"
             }
           ]

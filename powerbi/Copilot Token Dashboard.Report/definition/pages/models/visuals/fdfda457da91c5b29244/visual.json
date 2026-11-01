@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Input Tokens"
                 }
               },
-              "queryRef": "Measures.Scope Input Tokens",
+              "queryRef": "_Measures.Scope Input Tokens",
               "nativeQueryRef": "Scope Input Tokens"
             }
           ]

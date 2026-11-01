@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope User Days"
                 }
               },
-              "queryRef": "Measures.Scope User Days",
+              "queryRef": "_Measures.Scope User Days",
               "nativeQueryRef": "Scope User Days"
             }
           ]

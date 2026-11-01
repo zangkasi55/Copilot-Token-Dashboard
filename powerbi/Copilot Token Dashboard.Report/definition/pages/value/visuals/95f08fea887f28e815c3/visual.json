@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Net Scenario Value"
                 }
               },
-              "queryRef": "Measures.Net Scenario Value",
+              "queryRef": "_Measures.Net Scenario Value",
               "nativeQueryRef": "Net Scenario Value"
             }
           ]

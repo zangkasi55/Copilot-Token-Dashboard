@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Hidden Breakdown Difference"
                 }
               },
-              "queryRef": "Measures.Hidden Breakdown Difference",
+              "queryRef": "_Measures.Hidden Breakdown Difference",
               "nativeQueryRef": "Hidden Breakdown Difference"
             }
           ]

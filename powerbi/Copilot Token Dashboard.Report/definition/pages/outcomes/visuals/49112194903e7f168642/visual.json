@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Resolution Hours"
                 }
               },
-              "queryRef": "Measures.Agent Resolution Hours",
+              "queryRef": "_Measures.Agent Resolution Hours",
               "nativeQueryRef": "Agent Resolution Hours"
             }
           ]

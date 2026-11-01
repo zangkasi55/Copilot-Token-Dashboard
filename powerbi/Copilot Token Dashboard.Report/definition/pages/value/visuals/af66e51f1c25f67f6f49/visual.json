@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Estimated Hours Saved"
                 }
               },
-              "queryRef": "Measures.Estimated Hours Saved",
+              "queryRef": "_Measures.Estimated Hours Saved",
               "nativeQueryRef": "Estimated Hours Saved"
             }
           ]

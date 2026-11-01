@@ -1821,7 +1821,7 @@
         "isHidden": false
       },
       {
-        "name": "Measures",
+        "name": "_Measures",
         "columns": [
           {
             "name": "Value",
@@ -1832,7 +1832,7 @@
         ],
         "partitions": [
           {
-            "name": "Measures",
+            "name": "_Measures",
             "mode": "import",
             "source": {
               "type": "m",
@@ -1948,67 +1948,67 @@
           },
           {
             "name": "My Known Spend",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Amount]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))*[Currency Multiplier]",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Amount]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))*[Currency Multiplier]",
             "displayFolder": "Personal",
             "formatString": "#,0.00"
           },
           {
             "name": "My Input Tokens",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[InputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[InputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Cached Input Tokens",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CachedInputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CachedInputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Cache Write Tokens",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CacheWriteTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CacheWriteTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Output Tokens",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[OutputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[OutputTokens]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Requests",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Requests]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Requests]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Sessions",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Sessions]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[Sessions]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Agent Runs",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[AgentRuns]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[AgentRuns]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0"
           },
           {
             "name": "My Premium Requests",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[PremiumRequests]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[PremiumRequests]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0.00"
           },
           {
             "name": "My Copilot Credits",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CopilotCredits]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[CopilotCredits]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0.00"
           },
           {
             "name": "My GitHub AI Credits",
-            "expression": "VAR u=[Viewer UPN] VAR start=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[GitHubAiCredits]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],start,finish)))",
+            "expression": "VAR u=[Viewer UPN] VAR startDate=[Period Start] VAR finish=[Anchor Date] RETURN CALCULATE(SUM(UsageDaily[GitHubAiCredits]),KEEPFILTERS(People[UPN]=u),KEEPFILTERS(DATESBETWEEN(Calendar[Date],startDate,finish)))",
             "displayFolder": "Personal",
             "formatString": "#,0.00"
           },
@@ -2097,61 +2097,61 @@
           },
           {
             "name": "Scope Known Spend",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
             "displayFolder": "Organization",
             "formatString": "#,0.00"
           },
           {
             "name": "Scope Input Tokens",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[InputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[InputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Cached Input Tokens",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[CachedInputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[CachedInputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Output Tokens",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Requests",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[Requests]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[Requests]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Agent Runs",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[AgentRuns]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[AgentRuns]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Active Users",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope User Days",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[UserDays]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[UserDays]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Member Count",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[MemberCount]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[MemberCount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Unpriced Records",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[UnpricedRows]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(ScopePeriod[UnpricedRows]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(ScopePeriod[PeriodLabel]=period),ScopePeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
@@ -2169,31 +2169,31 @@
           },
           {
             "name": "Scope MTD Spend",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopePeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopePeriod[PeriodLabel]=\"Month to date\",ScopePeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopePeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopePeriod[PeriodLabel]=\"Month to date\",ScopePeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
             "displayFolder": "Organization",
             "formatString": "#,0.00"
           },
           {
             "name": "Scope Breakdown Spend",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeDaily[PrivacySuppressed]=FALSE(),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeDaily[PrivacySuppressed]=FALSE(),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))*[Currency Multiplier]",
             "displayFolder": "Organization",
             "formatString": "#,0.00"
           },
           {
             "name": "Scope Breakdown Tokens",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[InputTokens])+SUM(ScopeDaily[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeDaily[PrivacySuppressed]=FALSE(),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeDaily[InputTokens])+SUM(ScopeDaily[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeDaily[PrivacySuppressed]=FALSE(),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Scope Weekly Spend",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
             "displayFolder": "Organization",
             "formatString": "#,0.00"
           },
           {
             "name": "Scope Weekly Active Users",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
@@ -2205,73 +2205,73 @@
           },
           {
             "name": "Weekly High",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[High]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[High]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Weekly Moderate",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Moderate]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Moderate]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Weekly Low",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Low]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[Low]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Weekly None",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[None]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[None]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Weekly NoRecorded",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[NoRecorded]),KEEPFILTERS(Scopes[ScopeKey]=scope),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(SUM(ScopeWeekly[NoRecorded]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),ScopeWeekly[SurfaceKey]=\"all\",ScopeWeekly[PrivacySuppressed]=FALSE())",
             "displayFolder": "Organization",
             "formatString": "#,0"
           },
           {
             "name": "Agent Spend",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[Amount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())*[Currency Multiplier]",
             "displayFolder": "Agents",
             "formatString": "#,0.00"
           },
           {
             "name": "Agent Runs",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[AgentRuns]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[AgentRuns]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Agent Users",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[ActiveUsers]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Agent Input Tokens",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[InputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[InputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Agent Output Tokens",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[OutputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Agent Cached Input",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[CachedInputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scope),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SUM(AgentPeriod[CachedInputTokens]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),KEEPFILTERS(AgentPeriod[PeriodLabel]=period),AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Active Agents",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period,AgentPeriod[AgentRuns]>0,AgentPeriod[PrivacySuppressed]=FALSE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period,AgentPeriod[AgentRuns]>0,AgentPeriod[PrivacySuppressed]=FALSE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
@@ -2300,48 +2300,48 @@
           },
           {
             "name": "Agent User Growth",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[UserGrowth]),KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[UserGrowth]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)",
             "displayFolder": "Agents",
             "formatString": "0.0%"
           },
           {
             "name": "Agent Intensity Growth",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[IntensityGrowth]),KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(AVERAGE(AgentPeriod[IntensityGrowth]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)",
             "displayFolder": "Agents",
             "formatString": "0.0%"
           },
           {
             "name": "Agent Trend",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SELECTEDVALUE(AgentPeriod[TrendClass]),KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period)",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(SELECTEDVALUE(AgentPeriod[TrendClass]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period)",
             "displayFolder": "Agents"
           },
           {
             "name": "Spend Spike Agents",
-            "expression": "VAR scope=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),KEEPFILTERS(Scopes[ScopeKey]=scope),AgentPeriod[PeriodLabel]=period,AgentPeriod[SpikeFlag]=TRUE())",
+            "expression": "VAR scopeKey=[Selected Scope] VAR period=[Selected Period] RETURN CALCULATE(DISTINCTCOUNT(AgentPeriod[AgentKey]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),AgentPeriod[PeriodLabel]=period,AgentPeriod[SpikeFlag]=TRUE())",
             "displayFolder": "Agents",
             "formatString": "#,0"
           },
           {
             "name": "Resolved Work Items",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scope),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
             "displayFolder": "Outcomes",
             "formatString": "#,0"
           },
           {
             "name": "AI Involved Share",
-            "expression": "VAR scope=[Selected Scope] VAR involved=CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]<>\"Human only\",DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN DIVIDE(involved,[Resolved Work Items])",
+            "expression": "VAR scopeKey=[Selected Scope] VAR involved=CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]<>\"Human only\",DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN DIVIDE(involved,[Resolved Work Items])",
             "displayFolder": "Outcomes",
             "formatString": "0.0%"
           },
           {
             "name": "Agent Resolved Share",
-            "expression": "VAR scope=[Selected Scope] VAR resolved=CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]=\"Agent-resolved\",DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN DIVIDE(resolved,[Resolved Work Items])",
+            "expression": "VAR scopeKey=[Selected Scope] VAR resolved=CALCULATE(COUNTROWS(Outcomes),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]=\"Agent-resolved\",DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN DIVIDE(resolved,[Resolved Work Items])",
             "displayFolder": "Outcomes",
             "formatString": "0.0%"
           },
           {
             "name": "Resolution Hours",
-            "expression": "VAR scope=[Selected Scope] RETURN CALCULATE(AVERAGE(Outcomes[ResolutionHours]),KEEPFILTERS(Scopes[ScopeKey]=scope),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
+            "expression": "VAR scopeKey=[Selected Scope] RETURN CALCULATE(AVERAGE(Outcomes[ResolutionHours]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date]))",
             "displayFolder": "Outcomes",
             "formatString": "0.00"
           },
@@ -2359,7 +2359,7 @@
           },
           {
             "name": "Measured Effort Saved Hours",
-            "expression": "VAR scope=[Selected Scope] VAR baseline=CALCULATE(AVERAGE(Outcomes[HumanEffortMinutes]),KEEPFILTERS(Scopes[ScopeKey]=scope),Outcomes[HandlingMode]=\"Human only\",REMOVEFILTERS(Agents),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN IF(NOT ISBLANK(baseline),CALCULATE(SUMX(Outcomes,IF(Outcomes[HandlingMode]<>\"Human only\" && NOT ISBLANK(Outcomes[HumanEffortMinutes]),MAX(0,baseline-Outcomes[HumanEffortMinutes])/60)),KEEPFILTERS(Scopes[ScopeKey]=scope),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])))",
+            "expression": "VAR scopeKey=[Selected Scope] VAR baseline=CALCULATE(AVERAGE(Outcomes[HumanEffortMinutes]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Outcomes[HandlingMode]=\"Human only\",REMOVEFILTERS(Agents),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])) RETURN IF(NOT ISBLANK(baseline),CALCULATE(SUMX(Outcomes,IF(Outcomes[HandlingMode]<>\"Human only\" && NOT ISBLANK(Outcomes[HumanEffortMinutes]),MAX(0,baseline-Outcomes[HumanEffortMinutes])/60)),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),DATESBETWEEN(Calendar[Date],[Period Start],[Anchor Date])))",
             "displayFolder": "Outcomes",
             "formatString": "0.0"
           },
@@ -2389,7 +2389,7 @@
           },
           {
             "name": "Month Budget",
-            "expression": "VAR scope=[Selected Scope] VAR month=DATE(YEAR([Anchor Date]),MONTH([Anchor Date]),1) RETURN CALCULATE(SUM(Budgets[BudgetAmount]),KEEPFILTERS(Scopes[ScopeKey]=scope),Budgets[MonthStart]=month)*[Currency Multiplier]",
+            "expression": "VAR scopeKey=[Selected Scope] VAR month=DATE(YEAR([Anchor Date]),MONTH([Anchor Date]),1) RETURN CALCULATE(SUM(Budgets[BudgetAmount]),KEEPFILTERS(Scopes[ScopeKey]=scopeKey),Budgets[MonthStart]=month)*[Currency Multiplier]",
             "displayFolder": "Budget",
             "formatString": "#,0.00"
           },

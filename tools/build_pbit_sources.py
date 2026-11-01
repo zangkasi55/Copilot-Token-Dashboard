@@ -25,9 +25,15 @@ def build(project: Path, model_source: Path, output: Path) -> dict:
     if output.exists():
         raise ValueError("Use a new compiler source directory; existing files will not be deleted")
     output.mkdir(parents=True)
-    (output / "Version.txt").write_text("1.28", encoding="utf-8")
-    write(output / "ReportMetadata.json", {"version": 4})
-    write(output / "ReportSettings.json", {"isPersistentUserStateDisabled": False})
+    (output / "Version.txt").write_text("1.25", encoding="utf-8")
+    write(output / "ReportMetadata.json", {
+        "Version": 5, "AutoCreatedRelationships": [], "FileDescription": "",
+        "CreatedFrom": "Desktop",
+    })
+    write(output / "ReportSettings.json", {
+        "Version": 1, "ReportSettings": {},
+        "QueriesSettings": {"TypeDetectionEnabled": True, "RelationshipImportEnabled": True},
+    })
     shutil.copytree(model_source, output / "Model")
     manifest = json.loads((project / "build-manifest.json").read_text(encoding="utf-8"))
     report = project / (PRODUCT + ".Report")

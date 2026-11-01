@@ -2,18 +2,25 @@
 
 ## Illustrated tour
 
-![Browser-rendered synthetic personal-dashboard illustration, not a verified Power BI screenshot.](images/02-personal.png)
+![Actual SCBX personal-dashboard capture in Power BI Desktop with fictional sample data.](images/native/02-personal.png)
 
 The [ten-page sample gallery](SAMPLE_DASHBOARD.md) explains every page with a
-full-resolution screenshot and reproducible example values. Download the
+full-resolution native Power BI screenshot, Thai captions and reproducible
+example values. Download the
 [offline dashboard companion](assets/sample-dashboard.html) to try its sample
 period, scope, agent and scenario controls without sign-in.
 The same synthetic companion is [available online](https://zangkasi55.github.io/Copilot-Token-Dashboard/).
 
-These are browser illustrations using the public synthetic data, not verified
-Power BI Desktop captures. They do not implement the real model's DAX or RLS.
+The gallery and manuals show actual Power BI Desktop 2.160.407.0 renders of the
+repaired synthetic PBIP. The browser companion remains a separate illustration
+and does not implement the real model's DAX or RLS. Native local sample success
+does not validate live sources, cloud publishing or real recipient-user RLS.
 Use the [English](INSTALLATION.md) or [Thai](INSTALLATION_TH.md) illustrated
 installation manual for the actual tenant setup and acceptance checks.
+
+ภาพในแกลเลอรีและคู่มือจับจาก Power BI Desktop รุ่น SCBX จริง แต่ใช้ข้อมูลสมมติ
+ไม่ใช่ยอดของบัญชีที่ลงชื่อเข้าใช้ ต้องตรวจ source และสิทธิ์ Viewer ใน tenant
+ของคุณก่อนแชร์ให้ผู้ใช้จริง
 
 ## Report pages
 

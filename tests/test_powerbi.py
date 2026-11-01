@@ -9,6 +9,8 @@ def test_generated_model_is_tenant_neutral_and_privacy_separated(tmp_path):
     data = tmp_path / "data"
     generate_demo(data, tmp_path / "inputs")
     model = model_definition(data)["model"]
+    assert "_Measures" in {table["name"] for table in model["tables"]}
+    assert "Measures" not in {table["name"] for table in model["tables"]}
     roles = model["roles"]
     assert [role["name"] for role in roles] == ["Viewer"]
     filters = {item["name"]: item["filterExpression"] for item in roles[0]["tablePermissions"]}
@@ -34,3 +36,15 @@ def test_measures_use_explicit_unknowns_and_no_boolean_max():
     assert "IF" in definitions["My Cache Hit Ratio"]
     assert "user01@example.com" in definitions["Viewer UPN"]
     assert "USERPRINCIPALNAME()" in definitions["Viewer UPN"]
+
+
+def test_native_dax_reserved_start_keyword_is_not_used_as_a_variable():
+    import re
+
+    definitions = {item["name"]: item["expression"] for item in measures()}
+    assert not any(re.search(r"\bVAR\s+(start|scope)\b", expression, re.IGNORECASE)
+                   for expression in definitions.values())
+    assert "VAR startDate=[Period Start]" in definitions["My Input Tokens"]
+    assert "Calendar[Date],startDate,finish" in definitions["My Known Spend"]
+    assert "VAR scopeKey=[Selected Scope]" in definitions["Scope Known Spend"]
+    assert "VALUES('Models'[ModelKey])" in definitions["My Model Reconciliation"]

@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Coverage Fields Reported"
                 }
               },
-              "queryRef": "Measures.Coverage Fields Reported",
+              "queryRef": "_Measures.Coverage Fields Reported",
               "nativeQueryRef": "Coverage Fields Reported"
             }
           ]

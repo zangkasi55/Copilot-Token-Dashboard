@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scenario Value Cost Ratio"
                 }
               },
-              "queryRef": "Measures.Scenario Value Cost Ratio",
+              "queryRef": "_Measures.Scenario Value Cost Ratio",
               "nativeQueryRef": "Scenario Value Cost Ratio"
             }
           ]

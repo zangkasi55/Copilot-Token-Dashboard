@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Reported Tokens"
                 }
               },
-              "queryRef": "Measures.My Reported Tokens",
+              "queryRef": "_Measures.My Reported Tokens",
               "nativeQueryRef": "My Reported Tokens"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Cached Input Tokens"
                 }
               },
-              "queryRef": "Measures.My Cached Input Tokens",
+              "queryRef": "_Measures.My Cached Input Tokens",
               "nativeQueryRef": "My Cached Input Tokens"
             },
             {
@@ -90,13 +90,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Known Spend"
                 }
               },
-              "queryRef": "Measures.My Known Spend",
+              "queryRef": "_Measures.My Known Spend",
               "nativeQueryRef": "My Known Spend"
             }
           ]

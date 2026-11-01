@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Model Reconciliation"
                 }
               },
-              "queryRef": "Measures.My Model Reconciliation",
+              "queryRef": "_Measures.My Model Reconciliation",
               "nativeQueryRef": "My Model Reconciliation"
             }
           ]

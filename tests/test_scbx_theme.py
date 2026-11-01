@@ -31,6 +31,9 @@ def test_full_supplied_theme_settings_are_preserved():
 
 def test_theme_is_registered_and_embedded_in_pbir(project):
     report = project / "Copilot Token Dashboard.Report"
+    version = json.loads((report / "definition" / "version.json").read_text())
+    assert version["version"] == "2.0.0"
+    assert "/versionMetadata/" in version["$schema"]
     definition = json.loads((report / "definition" / "report.json").read_text())
     assert definition["themeCollection"]["customTheme"]["name"] == "SCBX_Theme"
     assert definition["themeCollection"]["customTheme"]["type"] == "RegisteredResources"
@@ -68,12 +71,32 @@ def test_regeneration_does_not_duplicate_old_visuals(project):
     assert manifest["visualCount"] == len(files) == 156
 
 
+def test_stacked_columns_use_the_native_power_bi_visual_type(project):
+    manifest = json.loads((project / "build-manifest.json").read_text())
+    charts = {visual["title"]: visual["type"] for page in manifest["pages"] for visual in page["visuals"]}
+    assert charts["Recorded weekly engagement bands"] == "columnChart"
+    assert charts["Resolved work by category"] == "columnChart"
+    assert "stackedColumnChart" not in charts.values()
+
+
+def test_regeneration_removes_an_obsolete_generated_visual(project):
+    obsolete = project / "Copilot Token Dashboard.Report" / "definition" / "pages" / "agents" / "visuals" / "obsolete" / "visual.json"
+    obsolete.parent.mkdir()
+    obsolete.write_text("{}", encoding="utf-8")
+    build(ROOT / "sample_data", project)
+    assert not obsolete.parent.exists()
+    assert len(list(project.glob("*.Report/definition/pages/*/visuals/*/visual.json"))) == 156
+
+
 def test_compiler_preserves_theme_resource_types_and_page_formatting(project, tmp_path):
     model = tmp_path / "model"
     model.mkdir()
     output = tmp_path / "compiler"
     compiler_sources(project, model, output)
     layout = json.loads((output / "Report" / "report.json").read_text())
+    assert (output / "Version.txt").read_text() == "1.25"
+    assert json.loads((output / "ReportMetadata.json").read_text())["Version"] == 5
+    assert json.loads((output / "ReportSettings.json").read_text())["Version"] == 1
     config = json.loads(layout["config"])
     assert config["themeCollection"]["customTheme"]["type"] == 1
     assert config["themeCollection"]["customTheme"]["name"] == "SCBX_Theme"

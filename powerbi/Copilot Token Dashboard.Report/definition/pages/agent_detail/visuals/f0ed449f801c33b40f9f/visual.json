@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Spend"
                 }
               },
-              "queryRef": "Measures.Agent Spend",
+              "queryRef": "_Measures.Agent Spend",
               "nativeQueryRef": "Agent Spend"
             }
           ]

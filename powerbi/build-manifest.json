@@ -22,7 +22,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -44,7 +44,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -132,7 +132,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Known Spend",
                 true
               ]
@@ -154,7 +154,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope MTD Spend",
                 true
               ]
@@ -176,7 +176,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Budget Used Ratio",
                 true
               ]
@@ -198,7 +198,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Active Users",
                 true
               ]
@@ -220,7 +220,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Active Agents",
                 true
               ]
@@ -242,7 +242,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Reported Tokens",
                 true
               ]
@@ -271,7 +271,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Weekly Spend",
                 true
               ]
@@ -300,7 +300,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Breakdown Spend",
                 true
               ]
@@ -327,17 +327,17 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Cost per Run",
                 true
               ]
@@ -359,7 +359,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Usage Note",
                 true
               ]
@@ -402,7 +402,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -424,7 +424,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -490,7 +490,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Spend 7 Days",
                 true
               ]
@@ -512,7 +512,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Spend 28 Days",
                 true
               ]
@@ -534,7 +534,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Spend MTD",
                 true
               ]
@@ -556,7 +556,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Reported Tokens",
                 true
               ]
@@ -578,7 +578,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Active Days",
                 true
               ]
@@ -600,7 +600,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Unpriced Records",
                 true
               ]
@@ -666,7 +666,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "My Known Spend",
                 true
               ]
@@ -693,22 +693,22 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Cost Label",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Requests",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Agent Runs",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Reported Tokens",
                 true
               ]
@@ -745,17 +745,17 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Reported Tokens",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Cached Input Tokens",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "My Known Spend",
                 true
               ]
@@ -819,7 +819,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Personal Privacy Note",
                 true
               ]
@@ -862,7 +862,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -884,7 +884,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -972,7 +972,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Member Count",
                 true
               ]
@@ -994,7 +994,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Active Users",
                 true
               ]
@@ -1016,7 +1016,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Adoption",
                 true
               ]
@@ -1038,7 +1038,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope User Days",
                 true
               ]
@@ -1060,7 +1060,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Known Spend",
                 true
               ]
@@ -1082,7 +1082,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Privacy Minimum",
                 true
               ]
@@ -1111,7 +1111,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Weekly Active Users",
                 true
               ]
@@ -1128,7 +1128,7 @@
         },
         {
           "id": "58c01fd1506ae43ba302",
-          "type": "stackedColumnChart",
+          "type": "columnChart",
           "title": "Recorded weekly engagement bands",
           "roles": {
             "Category": [
@@ -1140,27 +1140,27 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Weekly High",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Weekly Moderate",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Weekly Low",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Weekly None",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Weekly NoRecorded",
                 true
               ]
@@ -1182,7 +1182,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Usage Note",
                 true
               ]
@@ -1225,7 +1225,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -1247,7 +1247,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -1335,7 +1335,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Momentum Note",
                 true
               ]
@@ -1364,21 +1364,21 @@
             ],
             "X": [
               [
-                "Measures",
+                "_Measures",
                 "Agent User Growth",
                 true
               ]
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Intensity Growth",
                 true
               ]
             ],
             "Size": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ]
@@ -1405,17 +1405,17 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent User Growth",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Intensity Growth",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Trend",
                 true
               ]
@@ -1437,7 +1437,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Quality Note",
                 true
               ]
@@ -1480,7 +1480,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -1502,7 +1502,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -1590,7 +1590,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Active Agents",
                 true
               ]
@@ -1612,7 +1612,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ]
@@ -1634,7 +1634,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ]
@@ -1656,7 +1656,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Cost per Run",
                 true
               ]
@@ -1678,7 +1678,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Users",
                 true
               ]
@@ -1700,7 +1700,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Spend Spike Agents",
                 true
               ]
@@ -1737,22 +1737,22 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Cost per Run",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Users",
                 true
               ]
@@ -1837,7 +1837,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -1859,7 +1859,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -1969,7 +1969,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Name",
                 true
               ]
@@ -1991,7 +1991,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ]
@@ -2013,7 +2013,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ]
@@ -2035,7 +2035,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Cost per Run",
                 true
               ]
@@ -2057,7 +2057,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Tokens per Run",
                 true
               ]
@@ -2079,7 +2079,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Estimated Hours Saved",
                 true
               ]
@@ -2153,27 +2153,27 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Users",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Input Tokens",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Output Tokens",
                 true
               ]
@@ -2195,7 +2195,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Value Note",
                 true
               ]
@@ -2238,7 +2238,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -2260,7 +2260,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -2348,7 +2348,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Resolved Work Items",
                 true
               ]
@@ -2370,7 +2370,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "AI Involved Share",
                 true
               ]
@@ -2392,7 +2392,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Resolved Share",
                 true
               ]
@@ -2414,7 +2414,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Human Resolution Hours",
                 true
               ]
@@ -2436,7 +2436,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Resolution Hours",
                 true
               ]
@@ -2458,7 +2458,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Measured Effort Saved Hours",
                 true
               ]
@@ -2487,7 +2487,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Resolution Hours",
                 true
               ]
@@ -2504,7 +2504,7 @@
         },
         {
           "id": "1bf7a8736d08c4fbb5d0",
-          "type": "stackedColumnChart",
+          "type": "columnChart",
           "title": "Resolved work by category",
           "roles": {
             "Category": [
@@ -2523,7 +2523,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Resolved Work Items",
                 true
               ]
@@ -2560,12 +2560,12 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Resolved Work Items",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Resolution Hours",
                 true
               ]
@@ -2587,7 +2587,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Value Note",
                 true
               ]
@@ -2630,7 +2630,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -2652,7 +2652,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -2762,7 +2762,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Estimated Hours Saved",
                 true
               ]
@@ -2784,7 +2784,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Estimated Value",
                 true
               ]
@@ -2806,7 +2806,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ]
@@ -2828,7 +2828,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Net Scenario Value",
                 true
               ]
@@ -2850,7 +2850,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scenario Value Cost Ratio",
                 true
               ]
@@ -2872,7 +2872,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Budget Variance",
                 true
               ]
@@ -2904,22 +2904,22 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Runs",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Estimated Hours Saved",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Estimated Value",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Agent Spend",
                 true
               ]
@@ -2941,7 +2941,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Month Budget",
                 true
               ]
@@ -2963,7 +2963,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Prorated Budget",
                 true
               ]
@@ -2985,7 +2985,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope MTD Spend",
                 true
               ]
@@ -3007,7 +3007,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Budget Used Ratio",
                 true
               ]
@@ -3029,7 +3029,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Value Note",
                 true
               ]
@@ -3072,7 +3072,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -3094,7 +3094,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -3182,7 +3182,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Known Spend",
                 true
               ]
@@ -3204,7 +3204,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Input Tokens",
                 true
               ]
@@ -3226,7 +3226,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Output Tokens",
                 true
               ]
@@ -3248,7 +3248,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Reported Tokens",
                 true
               ]
@@ -3270,7 +3270,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Unpriced Records",
                 true
               ]
@@ -3292,7 +3292,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Hidden Breakdown Difference",
                 true
               ]
@@ -3321,7 +3321,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Breakdown Spend",
                 true
               ]
@@ -3350,7 +3350,7 @@
             ],
             "Y": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Breakdown Spend",
                 true
               ]
@@ -3387,12 +3387,12 @@
                 false
               ],
               [
-                "Measures",
+                "_Measures",
                 "Scope Breakdown Tokens",
                 true
               ],
               [
-                "Measures",
+                "_Measures",
                 "Scope Breakdown Spend",
                 true
               ]
@@ -3414,7 +3414,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Source Note",
                 true
               ]
@@ -3457,7 +3457,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Banner",
                 true
               ]
@@ -3479,7 +3479,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Date Label",
                 true
               ]
@@ -3567,7 +3567,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Coverage Fields Reported",
                 true
               ]
@@ -3589,7 +3589,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Coverage Fields Partial",
                 true
               ]
@@ -3611,7 +3611,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Coverage Fields Missing",
                 true
               ]
@@ -3633,7 +3633,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Privacy Minimum",
                 true
               ]
@@ -3655,7 +3655,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "My Model Reconciliation",
                 true
               ]
@@ -3677,7 +3677,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Scope Unpriced Records",
                 true
               ]
@@ -3746,7 +3746,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Usage Note",
                 true
               ]
@@ -3768,7 +3768,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Data Quality Note",
                 true
               ]
@@ -3790,7 +3790,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Personal Privacy Note",
                 true
               ]
@@ -3812,7 +3812,7 @@
           "roles": {
             "Values": [
               [
-                "Measures",
+                "_Measures",
                 "Production Note",
                 true
               ]

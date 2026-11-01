@@ -10,7 +10,7 @@
     "tabOrder": 12
   },
   "visual": {
-    "visualType": "stackedColumnChart",
+    "visualType": "columnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -38,13 +38,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Weekly High"
                 }
               },
-              "queryRef": "Measures.Weekly High",
+              "queryRef": "_Measures.Weekly High",
               "nativeQueryRef": "Weekly High"
             },
             {
@@ -52,13 +52,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Weekly Moderate"
                 }
               },
-              "queryRef": "Measures.Weekly Moderate",
+              "queryRef": "_Measures.Weekly Moderate",
               "nativeQueryRef": "Weekly Moderate"
             },
             {
@@ -66,13 +66,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Weekly Low"
                 }
               },
-              "queryRef": "Measures.Weekly Low",
+              "queryRef": "_Measures.Weekly Low",
               "nativeQueryRef": "Weekly Low"
             },
             {
@@ -80,13 +80,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Weekly None"
                 }
               },
-              "queryRef": "Measures.Weekly None",
+              "queryRef": "_Measures.Weekly None",
               "nativeQueryRef": "Weekly None"
             },
             {
@@ -94,13 +94,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Weekly NoRecorded"
                 }
               },
-              "queryRef": "Measures.Weekly NoRecorded",
+              "queryRef": "_Measures.Weekly NoRecorded",
               "nativeQueryRef": "Weekly NoRecorded"
             }
           ]

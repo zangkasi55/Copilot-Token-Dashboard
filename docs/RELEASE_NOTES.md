@@ -2,6 +2,26 @@
 
 Branch/release: `scbx` / `scbx-v1.0.1`.
 
+## SCBX branch update - native sample captures, 2026-11-01
+
+- Published genuine report-canvas screenshots of all ten pages from Power BI
+  Desktop 2.160.407.0, with synthetic data and no account chrome.
+- Added Thai captions and replaced browser illustrations in both installation
+  manuals with the native captures, including the portable PDFs.
+- Included the PBIP repairs verified by native refresh, save and reopen:
+  required PBIR version metadata, `_Measures`, safe DAX variable names,
+  quoted `'Models'` references and the supported `columnChart` visual type.
+- Recorded image hashes, actual sample values, dimensions and filters in
+  [native provenance](images/native/provenance.json).
+- Kept the neutral browser companion and `main` unchanged.
+
+This is a repaired **branch source/documentation snapshot**, not a replacement
+binary release. The earlier `scbx-v1.0.1` PBIT failed native loading; the
+screenshots do not certify that old artifact or any live tenant integration.
+Use the repaired branch PBIP as described in [SCBX setup](SCBX.md).
+
+## Original SCBX theme release
+
 - Applied the supplied SCBX Bright palette, typography and table/page styles.
 - Added SCBX purple headers, white header text and ten gold header dividers.
 - Registered the theme in PBIR and embedded it in the compiled PBIT.
@@ -9,8 +29,9 @@ Branch/release: `scbx` / `scbx-v1.0.1`.
 - Used separate local-installation folders and SCBX tenant item display names.
 - The original PDF/private source documents and real tenant data are not included.
 
-See [SCBX.md](SCBX.md) for branch-specific setup and validation. Existing browser
-screenshots remain neutral illustrations, not SCBX Power BI rendering evidence.
+See [SCBX.md](SCBX.md) for current setup and validation. The original release
+used neutral browser illustrations; the updated branch gallery above now shows
+actual SCBX Power BI rendering.
 
 ## Core Release 1.0.1 - Thai installation guide and code recheck
 

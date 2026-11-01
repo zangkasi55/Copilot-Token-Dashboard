@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Data Quality Note"
                 }
               },
-              "queryRef": "Measures.Data Quality Note",
+              "queryRef": "_Measures.Data Quality Note",
               "nativeQueryRef": "Data Quality Note"
             }
           ]

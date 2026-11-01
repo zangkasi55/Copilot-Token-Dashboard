@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Breakdown Tokens"
                 }
               },
-              "queryRef": "Measures.Scope Breakdown Tokens",
+              "queryRef": "_Measures.Scope Breakdown Tokens",
               "nativeQueryRef": "Scope Breakdown Tokens"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Breakdown Spend"
                 }
               },
-              "queryRef": "Measures.Scope Breakdown Spend",
+              "queryRef": "_Measures.Scope Breakdown Spend",
               "nativeQueryRef": "Scope Breakdown Spend"
             }
           ]

@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Member Count"
                 }
               },
-              "queryRef": "Measures.Scope Member Count",
+              "queryRef": "_Measures.Scope Member Count",
               "nativeQueryRef": "Scope Member Count"
             }
           ]

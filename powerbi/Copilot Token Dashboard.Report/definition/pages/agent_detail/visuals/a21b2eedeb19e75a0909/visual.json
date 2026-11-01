@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Tokens per Run"
                 }
               },
-              "queryRef": "Measures.Agent Tokens per Run",
+              "queryRef": "_Measures.Agent Tokens per Run",
               "nativeQueryRef": "Agent Tokens per Run"
             }
           ]

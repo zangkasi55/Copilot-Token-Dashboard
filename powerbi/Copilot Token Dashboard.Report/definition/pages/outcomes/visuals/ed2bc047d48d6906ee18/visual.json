@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Data Banner"
                 }
               },
-              "queryRef": "Measures.Data Banner",
+              "queryRef": "_Measures.Data Banner",
               "nativeQueryRef": "Data Banner"
             }
           ]

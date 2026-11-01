@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Momentum Note"
                 }
               },
-              "queryRef": "Measures.Momentum Note",
+              "queryRef": "_Measures.Momentum Note",
               "nativeQueryRef": "Momentum Note"
             }
           ]

@@ -16,24 +16,30 @@ results and required interactive Desktop/recipient-tenant smoke tests.
 **Current package: 1.0.1.** The [Thai installation guide](docs/INSTALLATION_TH.md)
 includes checksum commands, PBIT/PBIP setup, source preparation and a go-live
 checklist. See [recheck results](docs/VALIDATION.md) for the tested code paths.
+The **SCBX branch snapshot updated 2026-11-01** includes native Desktop PBIP
+repairs and genuine report screenshots. The earlier `scbx-v1.0.1` compiled PBIT
+has not passed native loading; use the repaired branch PBIP for the local demo.
 
 This is an independent open-source project. It is not an official Microsoft or
 GitHub product and does not include access to Microsoft-internal telemetry.
 
 ## Sample dashboard
 
-The browser image below is the retained **neutral** synthetic companion, not an
-SCBX Power BI capture. The SCBX palette is applied to the actual report/template.
+The image below is an **actual SCBX Power BI Desktop report-canvas capture**,
+not an HTML mockup. It uses only the shipped fictional data.
 
-![Browser-rendered synthetic dashboard illustration, not a verified Power BI screenshot.](docs/images/01-overview.png)
+![Actual SCBX Overview captured in Power BI Desktop with synthetic data, not live tenant usage.](docs/images/native/01-overview.png)
 
-See the [complete ten-page screenshot gallery](docs/SAMPLE_DASHBOARD.md) and the
-[live synthetic sample](https://zangkasi55.github.io/Copilot-Token-Dashboard/).
-An [offline interactive copy](docs/assets/sample-dashboard.html) is also
-available: download the HTML and open it in Edge or Chrome; GitHub's source-file
-view does not execute it.
-The screenshots use only shipped synthetic data and a simplified browser layout.
-They are **not verified Power BI screenshots** or evidence of live tenant access.
+See the [complete ten-page native screenshot gallery, with Thai captions](docs/SAMPLE_DASHBOARD.md),
+the [original PNGs](docs/images/native/) and the
+[capture settings and SHA-256 provenance](docs/images/native/provenance.json).
+Power BI Desktop **2.160.407.0** rendered all ten pages without visual errors.
+The captures exclude the signed-in account, ribbon and desktop. They verify a
+local synthetic sample, not live source access or recipient-tenant RLS.
+
+The [live browser companion](https://zangkasi55.github.io/Copilot-Token-Dashboard/)
+and [offline HTML copy](docs/assets/sample-dashboard.html) remain separate,
+neutral illustrations. They do not run Power BI, DAX or RLS.
 
 ## What you install
 
@@ -62,14 +68,25 @@ See the installation and operations documentation in `docs/`.
 
 ## Quick start
 
-1. Download the installation ZIP from
-   [the SCBX preview release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1).
-2. Verify the SHA-256 checksum and extract into a new folder.
+1. Download the [repaired SCBX branch source ZIP](https://github.com/zangkasi55/Copilot-Token-Dashboard/archive/refs/heads/scbx.zip)
+   or clone the branch with the commands below.
+2. Extract into a new folder; do not overwrite your existing installation.
 3. Run `.\Install.ps1 -Action Validate -InstallDependencies`.
-4. Run `.\Install.ps1 -Action Local -SourceMode Demo`, or open the included PBIT
-   in Power BI Desktop and choose Demo.
+4. Run `.\Install.ps1 -Action Local -SourceMode Demo` to open the repaired PBIP.
 5. To provision into your own tenant, follow the explicit tenant/workspace,
    credential, RLS and refresh steps in the installation guide.
+
+```powershell
+git clone --branch scbx --single-branch https://github.com/zangkasi55/Copilot-Token-Dashboard.git
+Set-Location Copilot-Token-Dashboard
+.\Install.ps1 -Action Validate -InstallDependencies
+.\Install.ps1 -Action Local -SourceMode Demo
+```
+
+The [earlier SCBX preview release](https://github.com/zangkasi55/Copilot-Token-Dashboard/releases/tag/scbx-v1.0.1)
+remains available for historical reference. Its old ZIP/PBIT does not include
+the native repairs in this branch snapshot. No replacement PBIT is claimed
+verified by these screenshots.
 
 The tenant command provisions definitions; it does not silently grant source
 consent, issue licenses, assign RLS groups or declare production readiness.
@@ -78,7 +95,7 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 
 - [Installation guide](docs/INSTALLATION.md)
 - [คู่มือการติดตั้งภาษาไทย](docs/INSTALLATION_TH.md)
-- [Illustrated sample dashboard and all ten screenshots](docs/SAMPLE_DASHBOARD.md)
+- [Actual SCBX Power BI sample and all ten screenshots](docs/SAMPLE_DASHBOARD.md)
 - [Administrator and operations manual](docs/ADMINISTRATION.md)
 - [Data sources and API limits](docs/DATA_SOURCES.md)
 - [Data contract](docs/DATA_CONTRACT.md)
@@ -88,8 +105,9 @@ consent, issue licenses, assign RLS groups or declare production readiness.
 - [Code and installation validation results](docs/VALIDATION.md)
 - [SCBX theme variant and installation notes](docs/SCBX.md)
 
-Portable PDF installation guides are in `docs/manuals/`; both include all ten
-sample screenshots and captions. Rights-protected Word
+The [English PDF](docs/manuals/Copilot%20Token%20Dashboard%20-%20Installation%20EN.pdf)
+and [Thai PDF](docs/manuals/Copilot%20Token%20Dashboard%20-%20Installation%20TH.pdf)
+both include all ten actual Power BI sample screenshots and captions. Rights-protected Word
 outputs are not uploaded. No protected or customer-branded source documents,
 actual employee records or private internal dashboard exports are distributed.
 

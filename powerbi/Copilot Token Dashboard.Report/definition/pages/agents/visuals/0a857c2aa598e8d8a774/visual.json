@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Spend"
                 }
               },
-              "queryRef": "Measures.Agent Spend",
+              "queryRef": "_Measures.Agent Spend",
               "nativeQueryRef": "Agent Spend"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Runs"
                 }
               },
-              "queryRef": "Measures.Agent Runs",
+              "queryRef": "_Measures.Agent Runs",
               "nativeQueryRef": "Agent Runs"
             },
             {
@@ -90,13 +90,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Cost per Run"
                 }
               },
-              "queryRef": "Measures.Agent Cost per Run",
+              "queryRef": "_Measures.Agent Cost per Run",
               "nativeQueryRef": "Agent Cost per Run"
             },
             {
@@ -104,13 +104,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Agent Users"
                 }
               },
-              "queryRef": "Measures.Agent Users",
+              "queryRef": "_Measures.Agent Users",
               "nativeQueryRef": "Agent Users"
             }
           ]

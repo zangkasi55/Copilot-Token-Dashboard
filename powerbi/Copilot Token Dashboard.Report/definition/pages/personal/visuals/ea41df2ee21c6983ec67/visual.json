@@ -34,13 +34,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Cost Label"
                 }
               },
-              "queryRef": "Measures.My Cost Label",
+              "queryRef": "_Measures.My Cost Label",
               "nativeQueryRef": "My Cost Label"
             },
             {
@@ -48,13 +48,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Requests"
                 }
               },
-              "queryRef": "Measures.My Requests",
+              "queryRef": "_Measures.My Requests",
               "nativeQueryRef": "My Requests"
             },
             {
@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Agent Runs"
                 }
               },
-              "queryRef": "Measures.My Agent Runs",
+              "queryRef": "_Measures.My Agent Runs",
               "nativeQueryRef": "My Agent Runs"
             },
             {
@@ -76,13 +76,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "My Reported Tokens"
                 }
               },
-              "queryRef": "Measures.My Reported Tokens",
+              "queryRef": "_Measures.My Reported Tokens",
               "nativeQueryRef": "My Reported Tokens"
             }
           ]

@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Scope Adoption"
                 }
               },
-              "queryRef": "Measures.Scope Adoption",
+              "queryRef": "_Measures.Scope Adoption",
               "nativeQueryRef": "Scope Adoption"
             }
           ]
